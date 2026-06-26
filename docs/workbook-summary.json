@@ -1,0 +1,3914 @@
+{
+  "workbook": "Daily Intake.xlsx",
+  "sheets": [
+    {
+      "name": "Dashboard",
+      "dimensions": {
+        "maxRow": 12,
+        "maxColumn": 8,
+        "columnWidths": {
+          "A": 24.0,
+          "B": 14.0,
+          "C": 3.0,
+          "D": 13.0,
+          "E": 12.0,
+          "F": 13.0,
+          "G": 13.0,
+          "H": 10.0
+        },
+        "freezePanes": null
+      },
+      "mergedRanges": [
+        "A12:H12",
+        "A1:H1"
+      ],
+      "tables": [],
+      "sampleRows": [
+        [
+          "Weight Management Food Tracker",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Daily Calorie Target",
+          2000.0,
+          null,
+          "Today",
+          "Calories",
+          "Protein",
+          "Nutrition",
+          "Meals"
+        ],
+        [
+          "Protein Target (g)",
+          100.0,
+          null,
+          "=TODAY()",
+          "=SUMIFS('Meal Log'!E:E,'Meal Log'!A:A,D4)",
+          "=SUMIFS('Meal Log'!F:F,'Meal Log'!A:A,D4)",
+          "=IF(H4=0,\"\",ROUND(SUMIFS('Meal Log'!G:G,'Meal Log'!A:A,D4)/H4,1))",
+          "=COUNTIF('Meal Log'!A:A,D4)"
+        ],
+        [
+          "Nutrition Score Target",
+          7.0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Goal Weight",
+          170.0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Current Weight",
+          "=IFERROR(LOOKUP(2,1/('Weight Log'!B:B<>\"\"),'Weight Log'!B:B),\"\")",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Weight to Goal",
+          "=IF(B7=\"\",\"\",B7-B6)",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Last 7-Day Avg Calories",
+          "=IFERROR(LOOKUP(2,1/('Daily Summary'!G:G<>\"\"),'Daily Summary'!G:G),\"\")",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "How to use: add reusable foods/nicknames on the Foods tab, then log each meal on Meal Log. Daily Summary and Dashboard update automatically.",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "formulas": [
+        {
+          "cell": "D4",
+          "formula": "=TODAY()"
+        },
+        {
+          "cell": "E4",
+          "formula": "=SUMIFS('Meal Log'!E:E,'Meal Log'!A:A,D4)"
+        },
+        {
+          "cell": "F4",
+          "formula": "=SUMIFS('Meal Log'!F:F,'Meal Log'!A:A,D4)"
+        },
+        {
+          "cell": "G4",
+          "formula": "=IF(H4=0,\"\",ROUND(SUMIFS('Meal Log'!G:G,'Meal Log'!A:A,D4)/H4,1))"
+        },
+        {
+          "cell": "H4",
+          "formula": "=COUNTIF('Meal Log'!A:A,D4)"
+        },
+        {
+          "cell": "B7",
+          "formula": "=IFERROR(LOOKUP(2,1/('Weight Log'!B:B<>\"\"),'Weight Log'!B:B),\"\")"
+        },
+        {
+          "cell": "B8",
+          "formula": "=IF(B7=\"\",\"\",B7-B6)"
+        },
+        {
+          "cell": "B9",
+          "formula": "=IFERROR(LOOKUP(2,1/('Daily Summary'!G:G<>\"\"),'Daily Summary'!G:G),\"\")"
+        }
+      ]
+    },
+    {
+      "name": "Meal Log",
+      "dimensions": {
+        "maxRow": 502,
+        "maxColumn": 9,
+        "columnWidths": {
+          "A": 13.0,
+          "B": 14.0,
+          "C": 32.0,
+          "D": 11.0,
+          "E": 12.0,
+          "F": 13.0,
+          "G": 16.0,
+          "H": 30.0,
+          "I": 18.0
+        },
+        "freezePanes": null
+      },
+      "mergedRanges": [],
+      "tables": [
+        "Table_1"
+      ],
+      "sampleRows": [
+        [
+          "Date",
+          "Meal",
+          "Food",
+          "Quantity",
+          "Calories",
+          "Protein (g)",
+          "Nutrition Points",
+          "Notes",
+          "Known Food?"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Breakfast",
+          "Cereal with Whole Milk",
+          1.0,
+          "=IF($C2=\"\",\"\",IFERROR($D2*VLOOKUP($C2,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C2=\"\",\"\",IFERROR($D2*VLOOKUP($C2,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C2=\"\",\"\",IFERROR($D2*VLOOKUP($C2,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C2=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C2)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Breakfast",
+          "Blueberry Protein Shake",
+          1.0,
+          "=IF($C3=\"\",\"\",IFERROR($D3*VLOOKUP($C3,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C3=\"\",\"\",IFERROR($D3*VLOOKUP($C3,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C3=\"\",\"\",IFERROR($D3*VLOOKUP($C3,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C3=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C3)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Lunch",
+          "PB Banana Sandwich",
+          1.0,
+          "=IF($C4=\"\",\"\",IFERROR($D4*VLOOKUP($C4,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C4=\"\",\"\",IFERROR($D4*VLOOKUP($C4,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C4=\"\",\"\",IFERROR($D4*VLOOKUP($C4,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C4=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C4)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Lunch",
+          "Leafy greens salad w/cheese",
+          1.0,
+          "=IF($C5=\"\",\"\",IFERROR($D5*VLOOKUP($C5,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C5=\"\",\"\",IFERROR($D5*VLOOKUP($C5,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C5=\"\",\"\",IFERROR($D5*VLOOKUP($C5,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C5=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C5)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Lunch",
+          "Corn chips and salsa",
+          1.0,
+          "=IF($C6=\"\",\"\",IFERROR($D6*VLOOKUP($C6,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C6=\"\",\"\",IFERROR($D6*VLOOKUP($C6,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C6=\"\",\"\",IFERROR($D6*VLOOKUP($C6,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "Yes"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Snack",
+          "Mixed Nuts & Raisins (1 cup)",
+          1.0,
+          "=IF($C7=\"\",\"\",IFERROR($D7*VLOOKUP($C7,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C7=\"\",\"\",IFERROR($D7*VLOOKUP($C7,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C7=\"\",\"\",IFERROR($D7*VLOOKUP($C7,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C7=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C7)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Dinner",
+          "Udon Bowl",
+          1.0,
+          "=IF($C8=\"\",\"\",IFERROR($D8*VLOOKUP($C8,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C8=\"\",\"\",IFERROR($D8*VLOOKUP($C8,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C8=\"\",\"\",IFERROR($D8*VLOOKUP($C8,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C8=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C8)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          "Dessert",
+          "Apple Pie Slice",
+          1.0,
+          "=IF($C9=\"\",\"\",IFERROR($D9*VLOOKUP($C9,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C9=\"\",\"\",IFERROR($D9*VLOOKUP($C9,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C9=\"\",\"\",IFERROR($D9*VLOOKUP($C9,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C9=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C9)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Breakfast",
+          "Peach",
+          1.0,
+          "=IF($C10=\"\",\"\",IFERROR($D10*VLOOKUP($C10,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C10=\"\",\"\",IFERROR($D10*VLOOKUP($C10,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C10=\"\",\"\",IFERROR($D10*VLOOKUP($C10,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C10=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C10)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Breakfast",
+          "Blueberry Protein Shake",
+          1.0,
+          "=IF($C11=\"\",\"\",IFERROR($D11*VLOOKUP($C11,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C11=\"\",\"\",IFERROR($D11*VLOOKUP($C11,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C11=\"\",\"\",IFERROR($D11*VLOOKUP($C11,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C11=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C11)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Lunch",
+          "Turkey sandwich ",
+          1.0,
+          "=IF($C12=\"\",\"\",IFERROR($D12*VLOOKUP($C12,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C12=\"\",\"\",IFERROR($D12*VLOOKUP($C12,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C12=\"\",\"\",IFERROR($D12*VLOOKUP($C12,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C12=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C12)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Lunch",
+          "Watermelon ",
+          1.0,
+          "=IF($C13=\"\",\"\",IFERROR($D13*VLOOKUP($C13,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C13=\"\",\"\",IFERROR($D13*VLOOKUP($C13,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C13=\"\",\"\",IFERROR($D13*VLOOKUP($C13,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C13=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C13)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Snack",
+          "Olipop ",
+          1.0,
+          "=IF($C14=\"\",\"\",IFERROR($D14*VLOOKUP($C14,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C14=\"\",\"\",IFERROR($D14*VLOOKUP($C14,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C14=\"\",\"\",IFERROR($D14*VLOOKUP($C14,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C14=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C14)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Dinner",
+          "Roasted chicken",
+          1.5,
+          "=IF($C15=\"\",\"\",IFERROR($D15*VLOOKUP($C15,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C15=\"\",\"\",IFERROR($D15*VLOOKUP($C15,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C15=\"\",\"\",IFERROR($D15*VLOOKUP($C15,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C15=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C15)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Dinner",
+          "Fingerling potatoes",
+          2.0,
+          "=IF($C16=\"\",\"\",IFERROR($D16*VLOOKUP($C16,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C16=\"\",\"\",IFERROR($D16*VLOOKUP($C16,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C16=\"\",\"\",IFERROR($D16*VLOOKUP($C16,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C16=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C16)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Dinner",
+          "Broccoli",
+          1.0,
+          "=IF($C17=\"\",\"\",IFERROR($D17*VLOOKUP($C17,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C17=\"\",\"\",IFERROR($D17*VLOOKUP($C17,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C17=\"\",\"\",IFERROR($D17*VLOOKUP($C17,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C17=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C17)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Dinner",
+          "Plain Whole-Milk Greek Yogurt",
+          1.0,
+          "=IF($C18=\"\",\"\",IFERROR($D18*VLOOKUP($C18,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C18=\"\",\"\",IFERROR($D18*VLOOKUP($C18,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C18=\"\",\"\",IFERROR($D18*VLOOKUP($C18,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C18=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C18)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          "Dinner",
+          "Banana",
+          1.0,
+          "=IF($C19=\"\",\"\",IFERROR($D19*VLOOKUP($C19,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C19=\"\",\"\",IFERROR($D19*VLOOKUP($C19,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C19=\"\",\"\",IFERROR($D19*VLOOKUP($C19,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C19=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C19)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-25T00:00:00",
+          "Breakfast",
+          "Cereal with Whole Milk",
+          1.0,
+          "=IF($C20=\"\",\"\",IFERROR($D20*VLOOKUP($C20,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C20=\"\",\"\",IFERROR($D20*VLOOKUP($C20,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C20=\"\",\"\",IFERROR($D20*VLOOKUP($C20,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C20=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C20)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-25T00:00:00",
+          "Breakfast",
+          "Black Coffee / Tea / Sparkling Water",
+          1.0,
+          "=IF($C21=\"\",\"\",IFERROR($D21*VLOOKUP($C21,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C21=\"\",\"\",IFERROR($D21*VLOOKUP($C21,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C21=\"\",\"\",IFERROR($D21*VLOOKUP($C21,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C21=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C21)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-25T00:00:00",
+          "Lunch",
+          "Tamale, black bean and yam",
+          1.0,
+          "=IF($C22=\"\",\"\",IFERROR($D22*VLOOKUP($C22,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C22=\"\",\"\",IFERROR($D22*VLOOKUP($C22,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C22=\"\",\"\",IFERROR($D22*VLOOKUP($C22,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C22=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C22)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-25T00:00:00",
+          "Lunch",
+          "Leafy greens salad w/tomatoes",
+          1.5,
+          "=IF($C23=\"\",\"\",IFERROR($D23*VLOOKUP($C23,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C23=\"\",\"\",IFERROR($D23*VLOOKUP($C23,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C23=\"\",\"\",IFERROR($D23*VLOOKUP($C23,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C23=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C23)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          "2026-06-25T00:00:00",
+          "Lunch",
+          "Watermelon ",
+          1.0,
+          "=IF($C24=\"\",\"\",IFERROR($D24*VLOOKUP($C24,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C24=\"\",\"\",IFERROR($D24*VLOOKUP($C24,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C24=\"\",\"\",IFERROR($D24*VLOOKUP($C24,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C24=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C24)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C25=\"\",\"\",IFERROR($D25*VLOOKUP($C25,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C25=\"\",\"\",IFERROR($D25*VLOOKUP($C25,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C25=\"\",\"\",IFERROR($D25*VLOOKUP($C25,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C25=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C25)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C26=\"\",\"\",IFERROR($D26*VLOOKUP($C26,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C26=\"\",\"\",IFERROR($D26*VLOOKUP($C26,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C26=\"\",\"\",IFERROR($D26*VLOOKUP($C26,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C26=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C26)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C27=\"\",\"\",IFERROR($D27*VLOOKUP($C27,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C27=\"\",\"\",IFERROR($D27*VLOOKUP($C27,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C27=\"\",\"\",IFERROR($D27*VLOOKUP($C27,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C27=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C27)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C28=\"\",\"\",IFERROR($D28*VLOOKUP($C28,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C28=\"\",\"\",IFERROR($D28*VLOOKUP($C28,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C28=\"\",\"\",IFERROR($D28*VLOOKUP($C28,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C28=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C28)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C29=\"\",\"\",IFERROR($D29*VLOOKUP($C29,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C29=\"\",\"\",IFERROR($D29*VLOOKUP($C29,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C29=\"\",\"\",IFERROR($D29*VLOOKUP($C29,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C29=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C29)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C30=\"\",\"\",IFERROR($D30*VLOOKUP($C30,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C30=\"\",\"\",IFERROR($D30*VLOOKUP($C30,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C30=\"\",\"\",IFERROR($D30*VLOOKUP($C30,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C30=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C30)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C31=\"\",\"\",IFERROR($D31*VLOOKUP($C31,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C31=\"\",\"\",IFERROR($D31*VLOOKUP($C31,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C31=\"\",\"\",IFERROR($D31*VLOOKUP($C31,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C31=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C31)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C32=\"\",\"\",IFERROR($D32*VLOOKUP($C32,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C32=\"\",\"\",IFERROR($D32*VLOOKUP($C32,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C32=\"\",\"\",IFERROR($D32*VLOOKUP($C32,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C32=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C32)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C33=\"\",\"\",IFERROR($D33*VLOOKUP($C33,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C33=\"\",\"\",IFERROR($D33*VLOOKUP($C33,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C33=\"\",\"\",IFERROR($D33*VLOOKUP($C33,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C33=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C33)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C34=\"\",\"\",IFERROR($D34*VLOOKUP($C34,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C34=\"\",\"\",IFERROR($D34*VLOOKUP($C34,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C34=\"\",\"\",IFERROR($D34*VLOOKUP($C34,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C34=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C34)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C35=\"\",\"\",IFERROR($D35*VLOOKUP($C35,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C35=\"\",\"\",IFERROR($D35*VLOOKUP($C35,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C35=\"\",\"\",IFERROR($D35*VLOOKUP($C35,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C35=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C35)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C36=\"\",\"\",IFERROR($D36*VLOOKUP($C36,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C36=\"\",\"\",IFERROR($D36*VLOOKUP($C36,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C36=\"\",\"\",IFERROR($D36*VLOOKUP($C36,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C36=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C36)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C37=\"\",\"\",IFERROR($D37*VLOOKUP($C37,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C37=\"\",\"\",IFERROR($D37*VLOOKUP($C37,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C37=\"\",\"\",IFERROR($D37*VLOOKUP($C37,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C37=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C37)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C38=\"\",\"\",IFERROR($D38*VLOOKUP($C38,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C38=\"\",\"\",IFERROR($D38*VLOOKUP($C38,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C38=\"\",\"\",IFERROR($D38*VLOOKUP($C38,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C38=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C38)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C39=\"\",\"\",IFERROR($D39*VLOOKUP($C39,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C39=\"\",\"\",IFERROR($D39*VLOOKUP($C39,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C39=\"\",\"\",IFERROR($D39*VLOOKUP($C39,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C39=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C39)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C40=\"\",\"\",IFERROR($D40*VLOOKUP($C40,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C40=\"\",\"\",IFERROR($D40*VLOOKUP($C40,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C40=\"\",\"\",IFERROR($D40*VLOOKUP($C40,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C40=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C40)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C41=\"\",\"\",IFERROR($D41*VLOOKUP($C41,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C41=\"\",\"\",IFERROR($D41*VLOOKUP($C41,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C41=\"\",\"\",IFERROR($D41*VLOOKUP($C41,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C41=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C41)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C42=\"\",\"\",IFERROR($D42*VLOOKUP($C42,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C42=\"\",\"\",IFERROR($D42*VLOOKUP($C42,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C42=\"\",\"\",IFERROR($D42*VLOOKUP($C42,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C42=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C42)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C43=\"\",\"\",IFERROR($D43*VLOOKUP($C43,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C43=\"\",\"\",IFERROR($D43*VLOOKUP($C43,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C43=\"\",\"\",IFERROR($D43*VLOOKUP($C43,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C43=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C43)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C44=\"\",\"\",IFERROR($D44*VLOOKUP($C44,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C44=\"\",\"\",IFERROR($D44*VLOOKUP($C44,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C44=\"\",\"\",IFERROR($D44*VLOOKUP($C44,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C44=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C44)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C45=\"\",\"\",IFERROR($D45*VLOOKUP($C45,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C45=\"\",\"\",IFERROR($D45*VLOOKUP($C45,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C45=\"\",\"\",IFERROR($D45*VLOOKUP($C45,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C45=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C45)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C46=\"\",\"\",IFERROR($D46*VLOOKUP($C46,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C46=\"\",\"\",IFERROR($D46*VLOOKUP($C46,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C46=\"\",\"\",IFERROR($D46*VLOOKUP($C46,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C46=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C46)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C47=\"\",\"\",IFERROR($D47*VLOOKUP($C47,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C47=\"\",\"\",IFERROR($D47*VLOOKUP($C47,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C47=\"\",\"\",IFERROR($D47*VLOOKUP($C47,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C47=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C47)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C48=\"\",\"\",IFERROR($D48*VLOOKUP($C48,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C48=\"\",\"\",IFERROR($D48*VLOOKUP($C48,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C48=\"\",\"\",IFERROR($D48*VLOOKUP($C48,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C48=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C48)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C49=\"\",\"\",IFERROR($D49*VLOOKUP($C49,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C49=\"\",\"\",IFERROR($D49*VLOOKUP($C49,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C49=\"\",\"\",IFERROR($D49*VLOOKUP($C49,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C49=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C49)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C50=\"\",\"\",IFERROR($D50*VLOOKUP($C50,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C50=\"\",\"\",IFERROR($D50*VLOOKUP($C50,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C50=\"\",\"\",IFERROR($D50*VLOOKUP($C50,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C50=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C50)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C51=\"\",\"\",IFERROR($D51*VLOOKUP($C51,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C51=\"\",\"\",IFERROR($D51*VLOOKUP($C51,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C51=\"\",\"\",IFERROR($D51*VLOOKUP($C51,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C51=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C51)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C52=\"\",\"\",IFERROR($D52*VLOOKUP($C52,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C52=\"\",\"\",IFERROR($D52*VLOOKUP($C52,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C52=\"\",\"\",IFERROR($D52*VLOOKUP($C52,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C52=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C52)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C53=\"\",\"\",IFERROR($D53*VLOOKUP($C53,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C53=\"\",\"\",IFERROR($D53*VLOOKUP($C53,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C53=\"\",\"\",IFERROR($D53*VLOOKUP($C53,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C53=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C53)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C54=\"\",\"\",IFERROR($D54*VLOOKUP($C54,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C54=\"\",\"\",IFERROR($D54*VLOOKUP($C54,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C54=\"\",\"\",IFERROR($D54*VLOOKUP($C54,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C54=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C54)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C55=\"\",\"\",IFERROR($D55*VLOOKUP($C55,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C55=\"\",\"\",IFERROR($D55*VLOOKUP($C55,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C55=\"\",\"\",IFERROR($D55*VLOOKUP($C55,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C55=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C55)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C56=\"\",\"\",IFERROR($D56*VLOOKUP($C56,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C56=\"\",\"\",IFERROR($D56*VLOOKUP($C56,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C56=\"\",\"\",IFERROR($D56*VLOOKUP($C56,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C56=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C56)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C57=\"\",\"\",IFERROR($D57*VLOOKUP($C57,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C57=\"\",\"\",IFERROR($D57*VLOOKUP($C57,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C57=\"\",\"\",IFERROR($D57*VLOOKUP($C57,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C57=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C57)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C58=\"\",\"\",IFERROR($D58*VLOOKUP($C58,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C58=\"\",\"\",IFERROR($D58*VLOOKUP($C58,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C58=\"\",\"\",IFERROR($D58*VLOOKUP($C58,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C58=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C58)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C59=\"\",\"\",IFERROR($D59*VLOOKUP($C59,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C59=\"\",\"\",IFERROR($D59*VLOOKUP($C59,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C59=\"\",\"\",IFERROR($D59*VLOOKUP($C59,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C59=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C59)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C60=\"\",\"\",IFERROR($D60*VLOOKUP($C60,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C60=\"\",\"\",IFERROR($D60*VLOOKUP($C60,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C60=\"\",\"\",IFERROR($D60*VLOOKUP($C60,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C60=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C60)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C61=\"\",\"\",IFERROR($D61*VLOOKUP($C61,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C61=\"\",\"\",IFERROR($D61*VLOOKUP($C61,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C61=\"\",\"\",IFERROR($D61*VLOOKUP($C61,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C61=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C61)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C62=\"\",\"\",IFERROR($D62*VLOOKUP($C62,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C62=\"\",\"\",IFERROR($D62*VLOOKUP($C62,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C62=\"\",\"\",IFERROR($D62*VLOOKUP($C62,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C62=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C62)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C63=\"\",\"\",IFERROR($D63*VLOOKUP($C63,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C63=\"\",\"\",IFERROR($D63*VLOOKUP($C63,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C63=\"\",\"\",IFERROR($D63*VLOOKUP($C63,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C63=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C63)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C64=\"\",\"\",IFERROR($D64*VLOOKUP($C64,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C64=\"\",\"\",IFERROR($D64*VLOOKUP($C64,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C64=\"\",\"\",IFERROR($D64*VLOOKUP($C64,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C64=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C64)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C65=\"\",\"\",IFERROR($D65*VLOOKUP($C65,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C65=\"\",\"\",IFERROR($D65*VLOOKUP($C65,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C65=\"\",\"\",IFERROR($D65*VLOOKUP($C65,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C65=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C65)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C66=\"\",\"\",IFERROR($D66*VLOOKUP($C66,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C66=\"\",\"\",IFERROR($D66*VLOOKUP($C66,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C66=\"\",\"\",IFERROR($D66*VLOOKUP($C66,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C66=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C66)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C67=\"\",\"\",IFERROR($D67*VLOOKUP($C67,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C67=\"\",\"\",IFERROR($D67*VLOOKUP($C67,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C67=\"\",\"\",IFERROR($D67*VLOOKUP($C67,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C67=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C67)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C68=\"\",\"\",IFERROR($D68*VLOOKUP($C68,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C68=\"\",\"\",IFERROR($D68*VLOOKUP($C68,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C68=\"\",\"\",IFERROR($D68*VLOOKUP($C68,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C68=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C68)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C69=\"\",\"\",IFERROR($D69*VLOOKUP($C69,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C69=\"\",\"\",IFERROR($D69*VLOOKUP($C69,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C69=\"\",\"\",IFERROR($D69*VLOOKUP($C69,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C69=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C69)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C70=\"\",\"\",IFERROR($D70*VLOOKUP($C70,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C70=\"\",\"\",IFERROR($D70*VLOOKUP($C70,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C70=\"\",\"\",IFERROR($D70*VLOOKUP($C70,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C70=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C70)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C71=\"\",\"\",IFERROR($D71*VLOOKUP($C71,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C71=\"\",\"\",IFERROR($D71*VLOOKUP($C71,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C71=\"\",\"\",IFERROR($D71*VLOOKUP($C71,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C71=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C71)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C72=\"\",\"\",IFERROR($D72*VLOOKUP($C72,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C72=\"\",\"\",IFERROR($D72*VLOOKUP($C72,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C72=\"\",\"\",IFERROR($D72*VLOOKUP($C72,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C72=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C72)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C73=\"\",\"\",IFERROR($D73*VLOOKUP($C73,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C73=\"\",\"\",IFERROR($D73*VLOOKUP($C73,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C73=\"\",\"\",IFERROR($D73*VLOOKUP($C73,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C73=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C73)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C74=\"\",\"\",IFERROR($D74*VLOOKUP($C74,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C74=\"\",\"\",IFERROR($D74*VLOOKUP($C74,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C74=\"\",\"\",IFERROR($D74*VLOOKUP($C74,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C74=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C74)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C75=\"\",\"\",IFERROR($D75*VLOOKUP($C75,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C75=\"\",\"\",IFERROR($D75*VLOOKUP($C75,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C75=\"\",\"\",IFERROR($D75*VLOOKUP($C75,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C75=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C75)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C76=\"\",\"\",IFERROR($D76*VLOOKUP($C76,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C76=\"\",\"\",IFERROR($D76*VLOOKUP($C76,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C76=\"\",\"\",IFERROR($D76*VLOOKUP($C76,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C76=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C76)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C77=\"\",\"\",IFERROR($D77*VLOOKUP($C77,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C77=\"\",\"\",IFERROR($D77*VLOOKUP($C77,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C77=\"\",\"\",IFERROR($D77*VLOOKUP($C77,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C77=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C77)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C78=\"\",\"\",IFERROR($D78*VLOOKUP($C78,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C78=\"\",\"\",IFERROR($D78*VLOOKUP($C78,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C78=\"\",\"\",IFERROR($D78*VLOOKUP($C78,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C78=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C78)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C79=\"\",\"\",IFERROR($D79*VLOOKUP($C79,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C79=\"\",\"\",IFERROR($D79*VLOOKUP($C79,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C79=\"\",\"\",IFERROR($D79*VLOOKUP($C79,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C79=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C79)>0,\"Yes\",\"No - add nickname\"))"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "=IF($C80=\"\",\"\",IFERROR($D80*VLOOKUP($C80,Foods!$A:$E,3,FALSE),\"Add to Foods\"))",
+          "=IF($C80=\"\",\"\",IFERROR($D80*VLOOKUP($C80,Foods!$A:$E,4,FALSE),\"Add to Foods\"))",
+          "=IF($C80=\"\",\"\",IFERROR($D80*VLOOKUP($C80,Foods!$A:$E,5,FALSE),\"Add to Foods\"))",
+          null,
+          "=IF($C80=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C80)>0,\"Yes\",\"No - add nickname\"))"
+        ]
+      ],
+      "formulas": [
+        {
+          "cell": "E2",
+          "formula": "=IF($C2=\"\",\"\",IFERROR($D2*VLOOKUP($C2,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F2",
+          "formula": "=IF($C2=\"\",\"\",IFERROR($D2*VLOOKUP($C2,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G2",
+          "formula": "=IF($C2=\"\",\"\",IFERROR($D2*VLOOKUP($C2,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I2",
+          "formula": "=IF($C2=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C2)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E3",
+          "formula": "=IF($C3=\"\",\"\",IFERROR($D3*VLOOKUP($C3,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F3",
+          "formula": "=IF($C3=\"\",\"\",IFERROR($D3*VLOOKUP($C3,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G3",
+          "formula": "=IF($C3=\"\",\"\",IFERROR($D3*VLOOKUP($C3,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I3",
+          "formula": "=IF($C3=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C3)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E4",
+          "formula": "=IF($C4=\"\",\"\",IFERROR($D4*VLOOKUP($C4,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F4",
+          "formula": "=IF($C4=\"\",\"\",IFERROR($D4*VLOOKUP($C4,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G4",
+          "formula": "=IF($C4=\"\",\"\",IFERROR($D4*VLOOKUP($C4,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I4",
+          "formula": "=IF($C4=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C4)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E5",
+          "formula": "=IF($C5=\"\",\"\",IFERROR($D5*VLOOKUP($C5,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F5",
+          "formula": "=IF($C5=\"\",\"\",IFERROR($D5*VLOOKUP($C5,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G5",
+          "formula": "=IF($C5=\"\",\"\",IFERROR($D5*VLOOKUP($C5,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I5",
+          "formula": "=IF($C5=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C5)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E6",
+          "formula": "=IF($C6=\"\",\"\",IFERROR($D6*VLOOKUP($C6,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F6",
+          "formula": "=IF($C6=\"\",\"\",IFERROR($D6*VLOOKUP($C6,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G6",
+          "formula": "=IF($C6=\"\",\"\",IFERROR($D6*VLOOKUP($C6,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "E7",
+          "formula": "=IF($C7=\"\",\"\",IFERROR($D7*VLOOKUP($C7,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F7",
+          "formula": "=IF($C7=\"\",\"\",IFERROR($D7*VLOOKUP($C7,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G7",
+          "formula": "=IF($C7=\"\",\"\",IFERROR($D7*VLOOKUP($C7,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I7",
+          "formula": "=IF($C7=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C7)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E8",
+          "formula": "=IF($C8=\"\",\"\",IFERROR($D8*VLOOKUP($C8,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F8",
+          "formula": "=IF($C8=\"\",\"\",IFERROR($D8*VLOOKUP($C8,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G8",
+          "formula": "=IF($C8=\"\",\"\",IFERROR($D8*VLOOKUP($C8,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I8",
+          "formula": "=IF($C8=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C8)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E9",
+          "formula": "=IF($C9=\"\",\"\",IFERROR($D9*VLOOKUP($C9,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F9",
+          "formula": "=IF($C9=\"\",\"\",IFERROR($D9*VLOOKUP($C9,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G9",
+          "formula": "=IF($C9=\"\",\"\",IFERROR($D9*VLOOKUP($C9,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I9",
+          "formula": "=IF($C9=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C9)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E10",
+          "formula": "=IF($C10=\"\",\"\",IFERROR($D10*VLOOKUP($C10,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F10",
+          "formula": "=IF($C10=\"\",\"\",IFERROR($D10*VLOOKUP($C10,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G10",
+          "formula": "=IF($C10=\"\",\"\",IFERROR($D10*VLOOKUP($C10,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I10",
+          "formula": "=IF($C10=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C10)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E11",
+          "formula": "=IF($C11=\"\",\"\",IFERROR($D11*VLOOKUP($C11,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F11",
+          "formula": "=IF($C11=\"\",\"\",IFERROR($D11*VLOOKUP($C11,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G11",
+          "formula": "=IF($C11=\"\",\"\",IFERROR($D11*VLOOKUP($C11,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I11",
+          "formula": "=IF($C11=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C11)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E12",
+          "formula": "=IF($C12=\"\",\"\",IFERROR($D12*VLOOKUP($C12,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F12",
+          "formula": "=IF($C12=\"\",\"\",IFERROR($D12*VLOOKUP($C12,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G12",
+          "formula": "=IF($C12=\"\",\"\",IFERROR($D12*VLOOKUP($C12,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I12",
+          "formula": "=IF($C12=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C12)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E13",
+          "formula": "=IF($C13=\"\",\"\",IFERROR($D13*VLOOKUP($C13,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F13",
+          "formula": "=IF($C13=\"\",\"\",IFERROR($D13*VLOOKUP($C13,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G13",
+          "formula": "=IF($C13=\"\",\"\",IFERROR($D13*VLOOKUP($C13,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I13",
+          "formula": "=IF($C13=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C13)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E14",
+          "formula": "=IF($C14=\"\",\"\",IFERROR($D14*VLOOKUP($C14,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F14",
+          "formula": "=IF($C14=\"\",\"\",IFERROR($D14*VLOOKUP($C14,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G14",
+          "formula": "=IF($C14=\"\",\"\",IFERROR($D14*VLOOKUP($C14,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I14",
+          "formula": "=IF($C14=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C14)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E15",
+          "formula": "=IF($C15=\"\",\"\",IFERROR($D15*VLOOKUP($C15,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F15",
+          "formula": "=IF($C15=\"\",\"\",IFERROR($D15*VLOOKUP($C15,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G15",
+          "formula": "=IF($C15=\"\",\"\",IFERROR($D15*VLOOKUP($C15,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I15",
+          "formula": "=IF($C15=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C15)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E16",
+          "formula": "=IF($C16=\"\",\"\",IFERROR($D16*VLOOKUP($C16,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F16",
+          "formula": "=IF($C16=\"\",\"\",IFERROR($D16*VLOOKUP($C16,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G16",
+          "formula": "=IF($C16=\"\",\"\",IFERROR($D16*VLOOKUP($C16,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I16",
+          "formula": "=IF($C16=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C16)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E17",
+          "formula": "=IF($C17=\"\",\"\",IFERROR($D17*VLOOKUP($C17,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F17",
+          "formula": "=IF($C17=\"\",\"\",IFERROR($D17*VLOOKUP($C17,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G17",
+          "formula": "=IF($C17=\"\",\"\",IFERROR($D17*VLOOKUP($C17,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I17",
+          "formula": "=IF($C17=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C17)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E18",
+          "formula": "=IF($C18=\"\",\"\",IFERROR($D18*VLOOKUP($C18,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F18",
+          "formula": "=IF($C18=\"\",\"\",IFERROR($D18*VLOOKUP($C18,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G18",
+          "formula": "=IF($C18=\"\",\"\",IFERROR($D18*VLOOKUP($C18,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I18",
+          "formula": "=IF($C18=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C18)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E19",
+          "formula": "=IF($C19=\"\",\"\",IFERROR($D19*VLOOKUP($C19,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F19",
+          "formula": "=IF($C19=\"\",\"\",IFERROR($D19*VLOOKUP($C19,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G19",
+          "formula": "=IF($C19=\"\",\"\",IFERROR($D19*VLOOKUP($C19,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I19",
+          "formula": "=IF($C19=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C19)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E20",
+          "formula": "=IF($C20=\"\",\"\",IFERROR($D20*VLOOKUP($C20,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F20",
+          "formula": "=IF($C20=\"\",\"\",IFERROR($D20*VLOOKUP($C20,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G20",
+          "formula": "=IF($C20=\"\",\"\",IFERROR($D20*VLOOKUP($C20,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I20",
+          "formula": "=IF($C20=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C20)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E21",
+          "formula": "=IF($C21=\"\",\"\",IFERROR($D21*VLOOKUP($C21,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F21",
+          "formula": "=IF($C21=\"\",\"\",IFERROR($D21*VLOOKUP($C21,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G21",
+          "formula": "=IF($C21=\"\",\"\",IFERROR($D21*VLOOKUP($C21,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I21",
+          "formula": "=IF($C21=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C21)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E22",
+          "formula": "=IF($C22=\"\",\"\",IFERROR($D22*VLOOKUP($C22,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F22",
+          "formula": "=IF($C22=\"\",\"\",IFERROR($D22*VLOOKUP($C22,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G22",
+          "formula": "=IF($C22=\"\",\"\",IFERROR($D22*VLOOKUP($C22,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I22",
+          "formula": "=IF($C22=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C22)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E23",
+          "formula": "=IF($C23=\"\",\"\",IFERROR($D23*VLOOKUP($C23,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F23",
+          "formula": "=IF($C23=\"\",\"\",IFERROR($D23*VLOOKUP($C23,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G23",
+          "formula": "=IF($C23=\"\",\"\",IFERROR($D23*VLOOKUP($C23,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I23",
+          "formula": "=IF($C23=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C23)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E24",
+          "formula": "=IF($C24=\"\",\"\",IFERROR($D24*VLOOKUP($C24,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F24",
+          "formula": "=IF($C24=\"\",\"\",IFERROR($D24*VLOOKUP($C24,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G24",
+          "formula": "=IF($C24=\"\",\"\",IFERROR($D24*VLOOKUP($C24,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I24",
+          "formula": "=IF($C24=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C24)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E25",
+          "formula": "=IF($C25=\"\",\"\",IFERROR($D25*VLOOKUP($C25,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F25",
+          "formula": "=IF($C25=\"\",\"\",IFERROR($D25*VLOOKUP($C25,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G25",
+          "formula": "=IF($C25=\"\",\"\",IFERROR($D25*VLOOKUP($C25,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I25",
+          "formula": "=IF($C25=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C25)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E26",
+          "formula": "=IF($C26=\"\",\"\",IFERROR($D26*VLOOKUP($C26,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F26",
+          "formula": "=IF($C26=\"\",\"\",IFERROR($D26*VLOOKUP($C26,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G26",
+          "formula": "=IF($C26=\"\",\"\",IFERROR($D26*VLOOKUP($C26,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I26",
+          "formula": "=IF($C26=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C26)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E27",
+          "formula": "=IF($C27=\"\",\"\",IFERROR($D27*VLOOKUP($C27,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F27",
+          "formula": "=IF($C27=\"\",\"\",IFERROR($D27*VLOOKUP($C27,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G27",
+          "formula": "=IF($C27=\"\",\"\",IFERROR($D27*VLOOKUP($C27,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I27",
+          "formula": "=IF($C27=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C27)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E28",
+          "formula": "=IF($C28=\"\",\"\",IFERROR($D28*VLOOKUP($C28,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F28",
+          "formula": "=IF($C28=\"\",\"\",IFERROR($D28*VLOOKUP($C28,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G28",
+          "formula": "=IF($C28=\"\",\"\",IFERROR($D28*VLOOKUP($C28,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I28",
+          "formula": "=IF($C28=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C28)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E29",
+          "formula": "=IF($C29=\"\",\"\",IFERROR($D29*VLOOKUP($C29,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F29",
+          "formula": "=IF($C29=\"\",\"\",IFERROR($D29*VLOOKUP($C29,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G29",
+          "formula": "=IF($C29=\"\",\"\",IFERROR($D29*VLOOKUP($C29,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I29",
+          "formula": "=IF($C29=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C29)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E30",
+          "formula": "=IF($C30=\"\",\"\",IFERROR($D30*VLOOKUP($C30,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F30",
+          "formula": "=IF($C30=\"\",\"\",IFERROR($D30*VLOOKUP($C30,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G30",
+          "formula": "=IF($C30=\"\",\"\",IFERROR($D30*VLOOKUP($C30,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I30",
+          "formula": "=IF($C30=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C30)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E31",
+          "formula": "=IF($C31=\"\",\"\",IFERROR($D31*VLOOKUP($C31,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F31",
+          "formula": "=IF($C31=\"\",\"\",IFERROR($D31*VLOOKUP($C31,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G31",
+          "formula": "=IF($C31=\"\",\"\",IFERROR($D31*VLOOKUP($C31,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I31",
+          "formula": "=IF($C31=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C31)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E32",
+          "formula": "=IF($C32=\"\",\"\",IFERROR($D32*VLOOKUP($C32,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F32",
+          "formula": "=IF($C32=\"\",\"\",IFERROR($D32*VLOOKUP($C32,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G32",
+          "formula": "=IF($C32=\"\",\"\",IFERROR($D32*VLOOKUP($C32,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I32",
+          "formula": "=IF($C32=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C32)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E33",
+          "formula": "=IF($C33=\"\",\"\",IFERROR($D33*VLOOKUP($C33,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F33",
+          "formula": "=IF($C33=\"\",\"\",IFERROR($D33*VLOOKUP($C33,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G33",
+          "formula": "=IF($C33=\"\",\"\",IFERROR($D33*VLOOKUP($C33,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I33",
+          "formula": "=IF($C33=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C33)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E34",
+          "formula": "=IF($C34=\"\",\"\",IFERROR($D34*VLOOKUP($C34,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F34",
+          "formula": "=IF($C34=\"\",\"\",IFERROR($D34*VLOOKUP($C34,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G34",
+          "formula": "=IF($C34=\"\",\"\",IFERROR($D34*VLOOKUP($C34,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I34",
+          "formula": "=IF($C34=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C34)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E35",
+          "formula": "=IF($C35=\"\",\"\",IFERROR($D35*VLOOKUP($C35,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F35",
+          "formula": "=IF($C35=\"\",\"\",IFERROR($D35*VLOOKUP($C35,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G35",
+          "formula": "=IF($C35=\"\",\"\",IFERROR($D35*VLOOKUP($C35,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I35",
+          "formula": "=IF($C35=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C35)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E36",
+          "formula": "=IF($C36=\"\",\"\",IFERROR($D36*VLOOKUP($C36,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F36",
+          "formula": "=IF($C36=\"\",\"\",IFERROR($D36*VLOOKUP($C36,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G36",
+          "formula": "=IF($C36=\"\",\"\",IFERROR($D36*VLOOKUP($C36,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I36",
+          "formula": "=IF($C36=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C36)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E37",
+          "formula": "=IF($C37=\"\",\"\",IFERROR($D37*VLOOKUP($C37,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F37",
+          "formula": "=IF($C37=\"\",\"\",IFERROR($D37*VLOOKUP($C37,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G37",
+          "formula": "=IF($C37=\"\",\"\",IFERROR($D37*VLOOKUP($C37,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I37",
+          "formula": "=IF($C37=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C37)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E38",
+          "formula": "=IF($C38=\"\",\"\",IFERROR($D38*VLOOKUP($C38,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F38",
+          "formula": "=IF($C38=\"\",\"\",IFERROR($D38*VLOOKUP($C38,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G38",
+          "formula": "=IF($C38=\"\",\"\",IFERROR($D38*VLOOKUP($C38,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I38",
+          "formula": "=IF($C38=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C38)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E39",
+          "formula": "=IF($C39=\"\",\"\",IFERROR($D39*VLOOKUP($C39,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F39",
+          "formula": "=IF($C39=\"\",\"\",IFERROR($D39*VLOOKUP($C39,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G39",
+          "formula": "=IF($C39=\"\",\"\",IFERROR($D39*VLOOKUP($C39,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I39",
+          "formula": "=IF($C39=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C39)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E40",
+          "formula": "=IF($C40=\"\",\"\",IFERROR($D40*VLOOKUP($C40,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F40",
+          "formula": "=IF($C40=\"\",\"\",IFERROR($D40*VLOOKUP($C40,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G40",
+          "formula": "=IF($C40=\"\",\"\",IFERROR($D40*VLOOKUP($C40,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I40",
+          "formula": "=IF($C40=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C40)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E41",
+          "formula": "=IF($C41=\"\",\"\",IFERROR($D41*VLOOKUP($C41,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F41",
+          "formula": "=IF($C41=\"\",\"\",IFERROR($D41*VLOOKUP($C41,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G41",
+          "formula": "=IF($C41=\"\",\"\",IFERROR($D41*VLOOKUP($C41,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I41",
+          "formula": "=IF($C41=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C41)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E42",
+          "formula": "=IF($C42=\"\",\"\",IFERROR($D42*VLOOKUP($C42,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F42",
+          "formula": "=IF($C42=\"\",\"\",IFERROR($D42*VLOOKUP($C42,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G42",
+          "formula": "=IF($C42=\"\",\"\",IFERROR($D42*VLOOKUP($C42,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I42",
+          "formula": "=IF($C42=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C42)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E43",
+          "formula": "=IF($C43=\"\",\"\",IFERROR($D43*VLOOKUP($C43,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F43",
+          "formula": "=IF($C43=\"\",\"\",IFERROR($D43*VLOOKUP($C43,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G43",
+          "formula": "=IF($C43=\"\",\"\",IFERROR($D43*VLOOKUP($C43,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I43",
+          "formula": "=IF($C43=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C43)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E44",
+          "formula": "=IF($C44=\"\",\"\",IFERROR($D44*VLOOKUP($C44,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F44",
+          "formula": "=IF($C44=\"\",\"\",IFERROR($D44*VLOOKUP($C44,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G44",
+          "formula": "=IF($C44=\"\",\"\",IFERROR($D44*VLOOKUP($C44,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I44",
+          "formula": "=IF($C44=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C44)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E45",
+          "formula": "=IF($C45=\"\",\"\",IFERROR($D45*VLOOKUP($C45,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F45",
+          "formula": "=IF($C45=\"\",\"\",IFERROR($D45*VLOOKUP($C45,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G45",
+          "formula": "=IF($C45=\"\",\"\",IFERROR($D45*VLOOKUP($C45,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I45",
+          "formula": "=IF($C45=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C45)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E46",
+          "formula": "=IF($C46=\"\",\"\",IFERROR($D46*VLOOKUP($C46,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F46",
+          "formula": "=IF($C46=\"\",\"\",IFERROR($D46*VLOOKUP($C46,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G46",
+          "formula": "=IF($C46=\"\",\"\",IFERROR($D46*VLOOKUP($C46,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I46",
+          "formula": "=IF($C46=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C46)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E47",
+          "formula": "=IF($C47=\"\",\"\",IFERROR($D47*VLOOKUP($C47,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F47",
+          "formula": "=IF($C47=\"\",\"\",IFERROR($D47*VLOOKUP($C47,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G47",
+          "formula": "=IF($C47=\"\",\"\",IFERROR($D47*VLOOKUP($C47,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I47",
+          "formula": "=IF($C47=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C47)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E48",
+          "formula": "=IF($C48=\"\",\"\",IFERROR($D48*VLOOKUP($C48,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F48",
+          "formula": "=IF($C48=\"\",\"\",IFERROR($D48*VLOOKUP($C48,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G48",
+          "formula": "=IF($C48=\"\",\"\",IFERROR($D48*VLOOKUP($C48,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I48",
+          "formula": "=IF($C48=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C48)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E49",
+          "formula": "=IF($C49=\"\",\"\",IFERROR($D49*VLOOKUP($C49,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F49",
+          "formula": "=IF($C49=\"\",\"\",IFERROR($D49*VLOOKUP($C49,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G49",
+          "formula": "=IF($C49=\"\",\"\",IFERROR($D49*VLOOKUP($C49,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I49",
+          "formula": "=IF($C49=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C49)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E50",
+          "formula": "=IF($C50=\"\",\"\",IFERROR($D50*VLOOKUP($C50,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F50",
+          "formula": "=IF($C50=\"\",\"\",IFERROR($D50*VLOOKUP($C50,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G50",
+          "formula": "=IF($C50=\"\",\"\",IFERROR($D50*VLOOKUP($C50,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I50",
+          "formula": "=IF($C50=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C50)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E51",
+          "formula": "=IF($C51=\"\",\"\",IFERROR($D51*VLOOKUP($C51,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "F51",
+          "formula": "=IF($C51=\"\",\"\",IFERROR($D51*VLOOKUP($C51,Foods!$A:$E,4,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "G51",
+          "formula": "=IF($C51=\"\",\"\",IFERROR($D51*VLOOKUP($C51,Foods!$A:$E,5,FALSE),\"Add to Foods\"))"
+        },
+        {
+          "cell": "I51",
+          "formula": "=IF($C51=\"\",\"\",IF(COUNTIF(Foods!$A:$A,$C51)>0,\"Yes\",\"No - add nickname\"))"
+        },
+        {
+          "cell": "E52",
+          "formula": "=IF($C52=\"\",\"\",IFERROR($D52*VLOOKUP($C52,Foods!$A:$E,3,FALSE),\"Add to Foods\"))"
+        }
+      ]
+    },
+    {
+      "name": "Foods",
+      "dimensions": {
+        "maxRow": 998,
+        "maxColumn": 7,
+        "columnWidths": {
+          "A": 30.0,
+          "B": 42.0,
+          "C": 12.0,
+          "D": 13.0,
+          "E": 18.0,
+          "F": 10.88,
+          "G": 63.63
+        },
+        "freezePanes": null
+      },
+      "mergedRanges": [],
+      "tables": [
+        "Table_2"
+      ],
+      "sampleRows": [
+        [
+          "Food Name / Nickname",
+          "Serving Description",
+          "Calories",
+          "Protein (g)",
+          "Nutrition Score (1-10)",
+          "Satiety Score",
+          "Notes"
+        ],
+        [
+          "Blueberry Protein Shake",
+          "1 shake: whole milk + protein powder + 1 cup blueberries",
+          450.0,
+          35.0,
+          9.0,
+          null,
+          "Adjust if you change milk amount/type."
+        ],
+        [
+          "PB Banana Sandwich",
+          "1 sandwich on sourdough",
+          500.0,
+          18.0,
+          7.0,
+          null,
+          "Peanut butter amount drives calories."
+        ],
+        [
+          "Mixed Nuts & Raisins (1 cup)",
+          "1 cup",
+          650.0,
+          18.0,
+          6.0,
+          null,
+          "Calorie dense; try 1/2 cup when cutting."
+        ],
+        [
+          "Udon Bowl",
+          "1 bowl",
+          700.0,
+          20.0,
+          5.0,
+          null,
+          "Estimate; refine for restaurant/home version."
+        ],
+        [
+          "Apple Pie Slice",
+          "1 large slice",
+          450.0,
+          3.0,
+          2.0,
+          null,
+          "Treat food."
+        ],
+        [
+          "Cereal with Whole Milk",
+          "1 small bowl",
+          400.0,
+          12.0,
+          6.0,
+          null,
+          "Estimate depends on cereal and milk volume."
+        ],
+        [
+          "Black Coffee / Tea / Sparkling Water",
+          "1 drink",
+          0.0,
+          0.0,
+          10.0,
+          null,
+          "Calorie-free beverages."
+        ],
+        [
+          "Banana",
+          "1 medium",
+          105.0,
+          1.0,
+          8.0,
+          null,
+          null
+        ],
+        [
+          "Apple",
+          "1 medium",
+          95.0,
+          0.0,
+          8.0,
+          null,
+          null
+        ],
+        [
+          "Peach",
+          "1 medium",
+          60.0,
+          1.0,
+          9.0,
+          7.0,
+          null
+        ],
+        [
+          "Greek Yogurt + Berries",
+          "1 bowl",
+          250.0,
+          20.0,
+          9.0,
+          null,
+          "Good default snack."
+        ],
+        [
+          "Eggs + Toast",
+          "2 eggs + 1 toast",
+          320.0,
+          18.0,
+          8.0,
+          null,
+          null
+        ],
+        [
+          "Chicken Salad",
+          "1 large salad",
+          450.0,
+          35.0,
+          9.0,
+          null,
+          null
+        ],
+        [
+          "Rice Bowl with Protein",
+          "1 bowl",
+          650.0,
+          35.0,
+          7.0,
+          null,
+          null
+        ],
+        [
+          "Pizza Slice",
+          "1 slice",
+          300.0,
+          12.0,
+          4.0,
+          null,
+          null
+        ],
+        [
+          "Protein Bar",
+          "1 bar",
+          220.0,
+          20.0,
+          6.0,
+          null,
+          "Check label."
+        ],
+        [
+          "Leafy greens salad w/cheese",
+          "1 bowl",
+          60.0,
+          1.0,
+          9.0,
+          7.0,
+          null
+        ],
+        [
+          "Leafy greens salad w/tomatoes",
+          "1 bowl",
+          40.0,
+          2.0,
+          10.0,
+          5.0,
+          null
+        ],
+        [
+          "Corn chips and salsa",
+          "1 small bowl",
+          180.0,
+          3.0,
+          4.0,
+          3.0,
+          null
+        ],
+        [
+          "Plain Nonfat Greek Yogurt",
+          "1 cup",
+          130.0,
+          23.0,
+          9.0,
+          8.0,
+          null
+        ],
+        [
+          "Plain Low-Fat Greek Yogurt",
+          "1 cup",
+          150.0,
+          20.0,
+          9.0,
+          8.0,
+          null
+        ],
+        [
+          "Plain Whole-Milk Greek Yogurt",
+          "1 cup",
+          190.0,
+          18.0,
+          9.0,
+          8.0,
+          null
+        ],
+        [
+          "Plain Regular Yogurt (whole milk)",
+          "1 cup",
+          150.0,
+          8.0,
+          9.0,
+          8.0,
+          null
+        ],
+        [
+          "Turkey sandwich ",
+          "1 sandwich",
+          460.0,
+          29.0,
+          7.0,
+          null,
+          "Assumes whole wheat bread, about 2 oz turkey, and 2 slices cheddar or Swiss."
+        ],
+        [
+          "Watermelon ",
+          "1 cup diced",
+          50.0,
+          1.0,
+          9.0,
+          null,
+          "Very hydrating, low calorie, good source of vitamins A and C."
+        ],
+        [
+          "Olipop ",
+          "1 can",
+          40.0,
+          0.0,
+          7.0,
+          null,
+          "Prebiotics "
+        ],
+        [
+          "Roasted chicken",
+          "4 oz cooked, skinless",
+          190.0,
+          35.0,
+          10.0,
+          null,
+          "Excellent lean protein, rich in B vitamins."
+        ],
+        [
+          "Broccoli",
+          "1 cup cooked",
+          55.0,
+          4.0,
+          10.0,
+          null,
+          "High in fiber, vitamin C, vitamin K, and folate."
+        ],
+        [
+          "Fingerling potatoes",
+          "1 cup roasted (about 6 oz)",
+          180.0,
+          4.0,
+          8.0,
+          null,
+          "Good source of potassium and vitamin C; score assumes moderate oil when roasted."
+        ],
+        [
+          "Tamale, black bean and yam",
+          "1 tamale",
+          400.0,
+          12.0,
+          9.0,
+          null,
+          null
+        ],
+        [
+          "Tamale, chicken",
+          "1 tamale",
+          400.0,
+          20.0,
+          8.8,
+          null,
+          null
+        ],
+        [
+          "Tamale, beef and cheese",
+          "1 tamale",
+          460.0,
+          21.0,
+          7.8,
+          null,
+          null
+        ]
+      ],
+      "formulas": []
+    },
+    {
+      "name": "Daily Summary",
+      "dimensions": {
+        "maxRow": 181,
+        "maxColumn": 8,
+        "columnWidths": {
+          "A": 13.0,
+          "B": 12.0,
+          "C": 13.0,
+          "D": 18.0,
+          "E": 13.0,
+          "F": 11.0,
+          "G": 18.0,
+          "H": 17.0
+        },
+        "freezePanes": null
+      },
+      "mergedRanges": [],
+      "tables": [
+        "Table_3"
+      ],
+      "sampleRows": [
+        [
+          "Date",
+          "Calories",
+          "Protein (g)",
+          "Avg Nutrition Score",
+          "Items Logged",
+          "Weight",
+          "7-Day Avg Calories",
+          "7-Day Avg Weight"
+        ],
+        [
+          "='Meal Log'!$A$2+0",
+          "=IF($A2=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A2))",
+          "=IF($A2=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A2))",
+          "=IF($E2=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A2)/$E2,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A2)",
+          186.4,
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B2,$A$2:$A2>=$A2-6,$B$2:$B2>0)),0),\"\"\"\")\"),3390.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F2,$A$2:$A2>=$A2-6,$F$2:$F2>0)),1),\"\"\"\")\"),186.4)"
+        ],
+        [
+          "='Meal Log'!$A$2+1",
+          "=IF($A3=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A3))",
+          "=IF($A3=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A3))",
+          "=IF($E3=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A3)/$E3,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A3)",
+          185.2,
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B3,$A$2:$A3>=$A3-6,$B$2:$B3>0)),0),\"\"\"\")\"),2723.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F3,$A$2:$A3>=$A3-6,$F$2:$F3>0)),1),\"\"\"\")\"),185.8)"
+        ],
+        [
+          "='Meal Log'!$A$2+2",
+          "=IF($A4=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A4))",
+          "=IF($A4=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A4))",
+          "=IF($E4=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A4)/$E4,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A4)",
+          "=IFERROR(VLOOKUP($A4,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B4,$A$2:$A4>=$A4-6,$B$2:$B4>0)),0),\"\"\"\")\"),2118.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F4,$A$2:$A4>=$A4-6,$F$2:$F4>0)),1),\"\"\"\")\"),185.2)"
+        ],
+        [
+          "='Meal Log'!$A$2+3",
+          "=IF($A5=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A5))",
+          "=IF($A5=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A5))",
+          "=IF($E5=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A5)/$E5,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A5)",
+          "=IFERROR(VLOOKUP($A5,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B5,$A$2:$A5>=$A5-6,$B$2:$B5>0)),0),\"\"\"\")\"),2118.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F5,$A$2:$A5>=$A5-6,$F$2:$F5>0)),1),\"\"\"\")\"),185.2)"
+        ],
+        [
+          "='Meal Log'!$A$2+4",
+          "=IF($A6=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A6))",
+          "=IF($A6=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A6))",
+          "=IF($E6=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A6)/$E6,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A6)",
+          "=IFERROR(VLOOKUP($A6,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B6,$A$2:$A6>=$A6-6,$B$2:$B6>0)),0),\"\"\"\")\"),2118.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F6,$A$2:$A6>=$A6-6,$F$2:$F6>0)),1),\"\"\"\")\"),185.2)"
+        ],
+        [
+          "='Meal Log'!$A$2+5",
+          "=IF($A7=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A7))",
+          "=IF($A7=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A7))",
+          "=IF($E7=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A7)/$E7,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A7)",
+          "=IFERROR(VLOOKUP($A7,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B7,$A$2:$A7>=$A7-6,$B$2:$B7>0)),0),\"\"\"\")\"),2118.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F7,$A$2:$A7>=$A7-6,$F$2:$F7>0)),1),\"\"\"\")\"),185.2)"
+        ],
+        [
+          "='Meal Log'!$A$2+6",
+          "=IF($A8=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A8))",
+          "=IF($A8=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A8))",
+          "=IF($E8=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A8)/$E8,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A8)",
+          "=IFERROR(VLOOKUP($A8,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B8,$A$2:$A8>=$A8-6,$B$2:$B8>0)),0),\"\"\"\")\"),2118.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F8,$A$2:$A8>=$A8-6,$F$2:$F8>0)),1),\"\"\"\")\"),185.2)"
+        ],
+        [
+          "='Meal Log'!$A$2+7",
+          "=IF($A9=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A9))",
+          "=IF($A9=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A9))",
+          "=IF($E9=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A9)/$E9,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A9)",
+          "=IFERROR(VLOOKUP($A9,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B9,$A$2:$A9>=$A9-6,$B$2:$B9>0)),0),\"\"\"\")\"),1483.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F9,$A$2:$A9>=$A9-6,$F$2:$F9>0)),1),\"\"\"\")\"),184.6)"
+        ],
+        [
+          "='Meal Log'!$A$2+8",
+          "=IF($A10=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A10))",
+          "=IF($A10=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A10))",
+          "=IF($E10=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A10)/$E10,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A10)",
+          "=IFERROR(VLOOKUP($A10,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B10,$A$2:$A10>=$A10-6,$B$2:$B10>0)),0),\"\"\"\")\"),910.0)",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F10,$A$2:$A10>=$A10-6,$F$2:$F10>0)),1),\"\"\"\")\"),184.0)"
+        ],
+        [
+          "='Meal Log'!$A$2+9",
+          "=IF($A11=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A11))",
+          "=IF($A11=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A11))",
+          "=IF($E11=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A11)/$E11,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A11)",
+          "=IFERROR(VLOOKUP($A11,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B11,$A$2:$A11>=$A11-6,$B$2:$B11>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F11,$A$2:$A11>=$A11-6,$F$2:$F11>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+10",
+          "=IF($A12=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A12))",
+          "=IF($A12=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A12))",
+          "=IF($E12=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A12)/$E12,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A12)",
+          "=IFERROR(VLOOKUP($A12,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B12,$A$2:$A12>=$A12-6,$B$2:$B12>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F12,$A$2:$A12>=$A12-6,$F$2:$F12>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+11",
+          "=IF($A13=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A13))",
+          "=IF($A13=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A13))",
+          "=IF($E13=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A13)/$E13,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A13)",
+          "=IFERROR(VLOOKUP($A13,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B13,$A$2:$A13>=$A13-6,$B$2:$B13>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F13,$A$2:$A13>=$A13-6,$F$2:$F13>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+12",
+          "=IF($A14=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A14))",
+          "=IF($A14=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A14))",
+          "=IF($E14=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A14)/$E14,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A14)",
+          "=IFERROR(VLOOKUP($A14,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B14,$A$2:$A14>=$A14-6,$B$2:$B14>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F14,$A$2:$A14>=$A14-6,$F$2:$F14>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+13",
+          "=IF($A15=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A15))",
+          "=IF($A15=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A15))",
+          "=IF($E15=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A15)/$E15,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A15)",
+          "=IFERROR(VLOOKUP($A15,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B15,$A$2:$A15>=$A15-6,$B$2:$B15>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F15,$A$2:$A15>=$A15-6,$F$2:$F15>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+14",
+          "=IF($A16=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A16))",
+          "=IF($A16=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A16))",
+          "=IF($E16=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A16)/$E16,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A16)",
+          "=IFERROR(VLOOKUP($A16,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B16,$A$2:$A16>=$A16-6,$B$2:$B16>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F16,$A$2:$A16>=$A16-6,$F$2:$F16>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+15",
+          "=IF($A17=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A17))",
+          "=IF($A17=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A17))",
+          "=IF($E17=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A17)/$E17,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A17)",
+          "=IFERROR(VLOOKUP($A17,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B17,$A$2:$A17>=$A17-6,$B$2:$B17>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F17,$A$2:$A17>=$A17-6,$F$2:$F17>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+16",
+          "=IF($A18=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A18))",
+          "=IF($A18=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A18))",
+          "=IF($E18=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A18)/$E18,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A18)",
+          "=IFERROR(VLOOKUP($A18,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B18,$A$2:$A18>=$A18-6,$B$2:$B18>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F18,$A$2:$A18>=$A18-6,$F$2:$F18>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+17",
+          "=IF($A19=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A19))",
+          "=IF($A19=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A19))",
+          "=IF($E19=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A19)/$E19,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A19)",
+          "=IFERROR(VLOOKUP($A19,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B19,$A$2:$A19>=$A19-6,$B$2:$B19>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F19,$A$2:$A19>=$A19-6,$F$2:$F19>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+18",
+          "=IF($A20=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A20))",
+          "=IF($A20=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A20))",
+          "=IF($E20=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A20)/$E20,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A20)",
+          "=IFERROR(VLOOKUP($A20,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B20,$A$2:$A20>=$A20-6,$B$2:$B20>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F20,$A$2:$A20>=$A20-6,$F$2:$F20>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+19",
+          "=IF($A21=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A21))",
+          "=IF($A21=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A21))",
+          "=IF($E21=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A21)/$E21,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A21)",
+          "=IFERROR(VLOOKUP($A21,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B21,$A$2:$A21>=$A21-6,$B$2:$B21>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F21,$A$2:$A21>=$A21-6,$F$2:$F21>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+20",
+          "=IF($A22=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A22))",
+          "=IF($A22=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A22))",
+          "=IF($E22=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A22)/$E22,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A22)",
+          "=IFERROR(VLOOKUP($A22,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B22,$A$2:$A22>=$A22-6,$B$2:$B22>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F22,$A$2:$A22>=$A22-6,$F$2:$F22>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+21",
+          "=IF($A23=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A23))",
+          "=IF($A23=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A23))",
+          "=IF($E23=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A23)/$E23,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A23)",
+          "=IFERROR(VLOOKUP($A23,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B23,$A$2:$A23>=$A23-6,$B$2:$B23>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F23,$A$2:$A23>=$A23-6,$F$2:$F23>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+22",
+          "=IF($A24=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A24))",
+          "=IF($A24=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A24))",
+          "=IF($E24=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A24)/$E24,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A24)",
+          "=IFERROR(VLOOKUP($A24,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B24,$A$2:$A24>=$A24-6,$B$2:$B24>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F24,$A$2:$A24>=$A24-6,$F$2:$F24>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+23",
+          "=IF($A25=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A25))",
+          "=IF($A25=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A25))",
+          "=IF($E25=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A25)/$E25,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A25)",
+          "=IFERROR(VLOOKUP($A25,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B25,$A$2:$A25>=$A25-6,$B$2:$B25>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F25,$A$2:$A25>=$A25-6,$F$2:$F25>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+24",
+          "=IF($A26=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A26))",
+          "=IF($A26=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A26))",
+          "=IF($E26=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A26)/$E26,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A26)",
+          "=IFERROR(VLOOKUP($A26,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B26,$A$2:$A26>=$A26-6,$B$2:$B26>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F26,$A$2:$A26>=$A26-6,$F$2:$F26>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+25",
+          "=IF($A27=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A27))",
+          "=IF($A27=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A27))",
+          "=IF($E27=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A27)/$E27,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A27)",
+          "=IFERROR(VLOOKUP($A27,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B27,$A$2:$A27>=$A27-6,$B$2:$B27>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F27,$A$2:$A27>=$A27-6,$F$2:$F27>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+26",
+          "=IF($A28=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A28))",
+          "=IF($A28=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A28))",
+          "=IF($E28=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A28)/$E28,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A28)",
+          "=IFERROR(VLOOKUP($A28,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B28,$A$2:$A28>=$A28-6,$B$2:$B28>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F28,$A$2:$A28>=$A28-6,$F$2:$F28>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+27",
+          "=IF($A29=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A29))",
+          "=IF($A29=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A29))",
+          "=IF($E29=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A29)/$E29,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A29)",
+          "=IFERROR(VLOOKUP($A29,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B29,$A$2:$A29>=$A29-6,$B$2:$B29>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F29,$A$2:$A29>=$A29-6,$F$2:$F29>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+28",
+          "=IF($A30=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A30))",
+          "=IF($A30=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A30))",
+          "=IF($E30=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A30)/$E30,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A30)",
+          "=IFERROR(VLOOKUP($A30,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B30,$A$2:$A30>=$A30-6,$B$2:$B30>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F30,$A$2:$A30>=$A30-6,$F$2:$F30>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+29",
+          "=IF($A31=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A31))",
+          "=IF($A31=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A31))",
+          "=IF($E31=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A31)/$E31,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A31)",
+          "=IFERROR(VLOOKUP($A31,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B31,$A$2:$A31>=$A31-6,$B$2:$B31>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F31,$A$2:$A31>=$A31-6,$F$2:$F31>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+30",
+          "=IF($A32=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A32))",
+          "=IF($A32=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A32))",
+          "=IF($E32=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A32)/$E32,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A32)",
+          "=IFERROR(VLOOKUP($A32,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B32,$A$2:$A32>=$A32-6,$B$2:$B32>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F32,$A$2:$A32>=$A32-6,$F$2:$F32>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+31",
+          "=IF($A33=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A33))",
+          "=IF($A33=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A33))",
+          "=IF($E33=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A33)/$E33,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A33)",
+          "=IFERROR(VLOOKUP($A33,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B33,$A$2:$A33>=$A33-6,$B$2:$B33>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F33,$A$2:$A33>=$A33-6,$F$2:$F33>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+32",
+          "=IF($A34=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A34))",
+          "=IF($A34=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A34))",
+          "=IF($E34=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A34)/$E34,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A34)",
+          "=IFERROR(VLOOKUP($A34,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B34,$A$2:$A34>=$A34-6,$B$2:$B34>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F34,$A$2:$A34>=$A34-6,$F$2:$F34>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+33",
+          "=IF($A35=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A35))",
+          "=IF($A35=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A35))",
+          "=IF($E35=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A35)/$E35,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A35)",
+          "=IFERROR(VLOOKUP($A35,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B35,$A$2:$A35>=$A35-6,$B$2:$B35>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F35,$A$2:$A35>=$A35-6,$F$2:$F35>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+34",
+          "=IF($A36=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A36))",
+          "=IF($A36=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A36))",
+          "=IF($E36=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A36)/$E36,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A36)",
+          "=IFERROR(VLOOKUP($A36,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B36,$A$2:$A36>=$A36-6,$B$2:$B36>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F36,$A$2:$A36>=$A36-6,$F$2:$F36>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+35",
+          "=IF($A37=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A37))",
+          "=IF($A37=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A37))",
+          "=IF($E37=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A37)/$E37,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A37)",
+          "=IFERROR(VLOOKUP($A37,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B37,$A$2:$A37>=$A37-6,$B$2:$B37>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F37,$A$2:$A37>=$A37-6,$F$2:$F37>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+36",
+          "=IF($A38=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A38))",
+          "=IF($A38=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A38))",
+          "=IF($E38=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A38)/$E38,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A38)",
+          "=IFERROR(VLOOKUP($A38,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B38,$A$2:$A38>=$A38-6,$B$2:$B38>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F38,$A$2:$A38>=$A38-6,$F$2:$F38>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+37",
+          "=IF($A39=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A39))",
+          "=IF($A39=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A39))",
+          "=IF($E39=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A39)/$E39,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A39)",
+          "=IFERROR(VLOOKUP($A39,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B39,$A$2:$A39>=$A39-6,$B$2:$B39>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F39,$A$2:$A39>=$A39-6,$F$2:$F39>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+38",
+          "=IF($A40=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A40))",
+          "=IF($A40=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A40))",
+          "=IF($E40=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A40)/$E40,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A40)",
+          "=IFERROR(VLOOKUP($A40,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B40,$A$2:$A40>=$A40-6,$B$2:$B40>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F40,$A$2:$A40>=$A40-6,$F$2:$F40>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+39",
+          "=IF($A41=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A41))",
+          "=IF($A41=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A41))",
+          "=IF($E41=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A41)/$E41,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A41)",
+          "=IFERROR(VLOOKUP($A41,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B41,$A$2:$A41>=$A41-6,$B$2:$B41>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F41,$A$2:$A41>=$A41-6,$F$2:$F41>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+40",
+          "=IF($A42=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A42))",
+          "=IF($A42=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A42))",
+          "=IF($E42=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A42)/$E42,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A42)",
+          "=IFERROR(VLOOKUP($A42,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B42,$A$2:$A42>=$A42-6,$B$2:$B42>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F42,$A$2:$A42>=$A42-6,$F$2:$F42>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+41",
+          "=IF($A43=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A43))",
+          "=IF($A43=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A43))",
+          "=IF($E43=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A43)/$E43,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A43)",
+          "=IFERROR(VLOOKUP($A43,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B43,$A$2:$A43>=$A43-6,$B$2:$B43>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F43,$A$2:$A43>=$A43-6,$F$2:$F43>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+42",
+          "=IF($A44=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A44))",
+          "=IF($A44=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A44))",
+          "=IF($E44=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A44)/$E44,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A44)",
+          "=IFERROR(VLOOKUP($A44,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B44,$A$2:$A44>=$A44-6,$B$2:$B44>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F44,$A$2:$A44>=$A44-6,$F$2:$F44>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+43",
+          "=IF($A45=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A45))",
+          "=IF($A45=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A45))",
+          "=IF($E45=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A45)/$E45,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A45)",
+          "=IFERROR(VLOOKUP($A45,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B45,$A$2:$A45>=$A45-6,$B$2:$B45>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F45,$A$2:$A45>=$A45-6,$F$2:$F45>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+44",
+          "=IF($A46=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A46))",
+          "=IF($A46=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A46))",
+          "=IF($E46=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A46)/$E46,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A46)",
+          "=IFERROR(VLOOKUP($A46,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B46,$A$2:$A46>=$A46-6,$B$2:$B46>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F46,$A$2:$A46>=$A46-6,$F$2:$F46>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+45",
+          "=IF($A47=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A47))",
+          "=IF($A47=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A47))",
+          "=IF($E47=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A47)/$E47,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A47)",
+          "=IFERROR(VLOOKUP($A47,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B47,$A$2:$A47>=$A47-6,$B$2:$B47>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F47,$A$2:$A47>=$A47-6,$F$2:$F47>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+46",
+          "=IF($A48=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A48))",
+          "=IF($A48=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A48))",
+          "=IF($E48=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A48)/$E48,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A48)",
+          "=IFERROR(VLOOKUP($A48,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B48,$A$2:$A48>=$A48-6,$B$2:$B48>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F48,$A$2:$A48>=$A48-6,$F$2:$F48>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+47",
+          "=IF($A49=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A49))",
+          "=IF($A49=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A49))",
+          "=IF($E49=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A49)/$E49,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A49)",
+          "=IFERROR(VLOOKUP($A49,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B49,$A$2:$A49>=$A49-6,$B$2:$B49>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F49,$A$2:$A49>=$A49-6,$F$2:$F49>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+48",
+          "=IF($A50=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A50))",
+          "=IF($A50=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A50))",
+          "=IF($E50=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A50)/$E50,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A50)",
+          "=IFERROR(VLOOKUP($A50,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B50,$A$2:$A50>=$A50-6,$B$2:$B50>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F50,$A$2:$A50>=$A50-6,$F$2:$F50>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+49",
+          "=IF($A51=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A51))",
+          "=IF($A51=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A51))",
+          "=IF($E51=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A51)/$E51,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A51)",
+          "=IFERROR(VLOOKUP($A51,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B51,$A$2:$A51>=$A51-6,$B$2:$B51>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F51,$A$2:$A51>=$A51-6,$F$2:$F51>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+50",
+          "=IF($A52=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A52))",
+          "=IF($A52=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A52))",
+          "=IF($E52=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A52)/$E52,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A52)",
+          "=IFERROR(VLOOKUP($A52,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B52,$A$2:$A52>=$A52-6,$B$2:$B52>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F52,$A$2:$A52>=$A52-6,$F$2:$F52>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+51",
+          "=IF($A53=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A53))",
+          "=IF($A53=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A53))",
+          "=IF($E53=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A53)/$E53,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A53)",
+          "=IFERROR(VLOOKUP($A53,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B53,$A$2:$A53>=$A53-6,$B$2:$B53>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F53,$A$2:$A53>=$A53-6,$F$2:$F53>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+52",
+          "=IF($A54=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A54))",
+          "=IF($A54=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A54))",
+          "=IF($E54=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A54)/$E54,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A54)",
+          "=IFERROR(VLOOKUP($A54,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B54,$A$2:$A54>=$A54-6,$B$2:$B54>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F54,$A$2:$A54>=$A54-6,$F$2:$F54>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+53",
+          "=IF($A55=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A55))",
+          "=IF($A55=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A55))",
+          "=IF($E55=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A55)/$E55,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A55)",
+          "=IFERROR(VLOOKUP($A55,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B55,$A$2:$A55>=$A55-6,$B$2:$B55>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F55,$A$2:$A55>=$A55-6,$F$2:$F55>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+54",
+          "=IF($A56=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A56))",
+          "=IF($A56=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A56))",
+          "=IF($E56=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A56)/$E56,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A56)",
+          "=IFERROR(VLOOKUP($A56,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B56,$A$2:$A56>=$A56-6,$B$2:$B56>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F56,$A$2:$A56>=$A56-6,$F$2:$F56>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+55",
+          "=IF($A57=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A57))",
+          "=IF($A57=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A57))",
+          "=IF($E57=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A57)/$E57,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A57)",
+          "=IFERROR(VLOOKUP($A57,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B57,$A$2:$A57>=$A57-6,$B$2:$B57>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F57,$A$2:$A57>=$A57-6,$F$2:$F57>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+56",
+          "=IF($A58=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A58))",
+          "=IF($A58=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A58))",
+          "=IF($E58=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A58)/$E58,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A58)",
+          "=IFERROR(VLOOKUP($A58,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B58,$A$2:$A58>=$A58-6,$B$2:$B58>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F58,$A$2:$A58>=$A58-6,$F$2:$F58>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+57",
+          "=IF($A59=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A59))",
+          "=IF($A59=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A59))",
+          "=IF($E59=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A59)/$E59,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A59)",
+          "=IFERROR(VLOOKUP($A59,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B59,$A$2:$A59>=$A59-6,$B$2:$B59>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F59,$A$2:$A59>=$A59-6,$F$2:$F59>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+58",
+          "=IF($A60=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A60))",
+          "=IF($A60=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A60))",
+          "=IF($E60=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A60)/$E60,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A60)",
+          "=IFERROR(VLOOKUP($A60,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B60,$A$2:$A60>=$A60-6,$B$2:$B60>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F60,$A$2:$A60>=$A60-6,$F$2:$F60>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+59",
+          "=IF($A61=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A61))",
+          "=IF($A61=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A61))",
+          "=IF($E61=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A61)/$E61,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A61)",
+          "=IFERROR(VLOOKUP($A61,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B61,$A$2:$A61>=$A61-6,$B$2:$B61>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F61,$A$2:$A61>=$A61-6,$F$2:$F61>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+60",
+          "=IF($A62=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A62))",
+          "=IF($A62=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A62))",
+          "=IF($E62=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A62)/$E62,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A62)",
+          "=IFERROR(VLOOKUP($A62,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B62,$A$2:$A62>=$A62-6,$B$2:$B62>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F62,$A$2:$A62>=$A62-6,$F$2:$F62>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+61",
+          "=IF($A63=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A63))",
+          "=IF($A63=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A63))",
+          "=IF($E63=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A63)/$E63,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A63)",
+          "=IFERROR(VLOOKUP($A63,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B63,$A$2:$A63>=$A63-6,$B$2:$B63>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F63,$A$2:$A63>=$A63-6,$F$2:$F63>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+62",
+          "=IF($A64=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A64))",
+          "=IF($A64=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A64))",
+          "=IF($E64=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A64)/$E64,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A64)",
+          "=IFERROR(VLOOKUP($A64,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B64,$A$2:$A64>=$A64-6,$B$2:$B64>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F64,$A$2:$A64>=$A64-6,$F$2:$F64>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+63",
+          "=IF($A65=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A65))",
+          "=IF($A65=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A65))",
+          "=IF($E65=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A65)/$E65,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A65)",
+          "=IFERROR(VLOOKUP($A65,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B65,$A$2:$A65>=$A65-6,$B$2:$B65>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F65,$A$2:$A65>=$A65-6,$F$2:$F65>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+64",
+          "=IF($A66=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A66))",
+          "=IF($A66=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A66))",
+          "=IF($E66=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A66)/$E66,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A66)",
+          "=IFERROR(VLOOKUP($A66,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B66,$A$2:$A66>=$A66-6,$B$2:$B66>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F66,$A$2:$A66>=$A66-6,$F$2:$F66>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+65",
+          "=IF($A67=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A67))",
+          "=IF($A67=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A67))",
+          "=IF($E67=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A67)/$E67,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A67)",
+          "=IFERROR(VLOOKUP($A67,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B67,$A$2:$A67>=$A67-6,$B$2:$B67>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F67,$A$2:$A67>=$A67-6,$F$2:$F67>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+66",
+          "=IF($A68=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A68))",
+          "=IF($A68=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A68))",
+          "=IF($E68=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A68)/$E68,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A68)",
+          "=IFERROR(VLOOKUP($A68,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B68,$A$2:$A68>=$A68-6,$B$2:$B68>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F68,$A$2:$A68>=$A68-6,$F$2:$F68>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+67",
+          "=IF($A69=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A69))",
+          "=IF($A69=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A69))",
+          "=IF($E69=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A69)/$E69,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A69)",
+          "=IFERROR(VLOOKUP($A69,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B69,$A$2:$A69>=$A69-6,$B$2:$B69>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F69,$A$2:$A69>=$A69-6,$F$2:$F69>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+68",
+          "=IF($A70=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A70))",
+          "=IF($A70=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A70))",
+          "=IF($E70=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A70)/$E70,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A70)",
+          "=IFERROR(VLOOKUP($A70,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B70,$A$2:$A70>=$A70-6,$B$2:$B70>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F70,$A$2:$A70>=$A70-6,$F$2:$F70>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+69",
+          "=IF($A71=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A71))",
+          "=IF($A71=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A71))",
+          "=IF($E71=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A71)/$E71,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A71)",
+          "=IFERROR(VLOOKUP($A71,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B71,$A$2:$A71>=$A71-6,$B$2:$B71>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F71,$A$2:$A71>=$A71-6,$F$2:$F71>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+70",
+          "=IF($A72=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A72))",
+          "=IF($A72=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A72))",
+          "=IF($E72=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A72)/$E72,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A72)",
+          "=IFERROR(VLOOKUP($A72,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B72,$A$2:$A72>=$A72-6,$B$2:$B72>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F72,$A$2:$A72>=$A72-6,$F$2:$F72>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+71",
+          "=IF($A73=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A73))",
+          "=IF($A73=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A73))",
+          "=IF($E73=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A73)/$E73,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A73)",
+          "=IFERROR(VLOOKUP($A73,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B73,$A$2:$A73>=$A73-6,$B$2:$B73>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F73,$A$2:$A73>=$A73-6,$F$2:$F73>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+72",
+          "=IF($A74=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A74))",
+          "=IF($A74=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A74))",
+          "=IF($E74=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A74)/$E74,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A74)",
+          "=IFERROR(VLOOKUP($A74,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B74,$A$2:$A74>=$A74-6,$B$2:$B74>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F74,$A$2:$A74>=$A74-6,$F$2:$F74>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+73",
+          "=IF($A75=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A75))",
+          "=IF($A75=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A75))",
+          "=IF($E75=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A75)/$E75,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A75)",
+          "=IFERROR(VLOOKUP($A75,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B75,$A$2:$A75>=$A75-6,$B$2:$B75>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F75,$A$2:$A75>=$A75-6,$F$2:$F75>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+74",
+          "=IF($A76=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A76))",
+          "=IF($A76=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A76))",
+          "=IF($E76=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A76)/$E76,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A76)",
+          "=IFERROR(VLOOKUP($A76,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B76,$A$2:$A76>=$A76-6,$B$2:$B76>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F76,$A$2:$A76>=$A76-6,$F$2:$F76>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+75",
+          "=IF($A77=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A77))",
+          "=IF($A77=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A77))",
+          "=IF($E77=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A77)/$E77,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A77)",
+          "=IFERROR(VLOOKUP($A77,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B77,$A$2:$A77>=$A77-6,$B$2:$B77>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F77,$A$2:$A77>=$A77-6,$F$2:$F77>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+76",
+          "=IF($A78=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A78))",
+          "=IF($A78=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A78))",
+          "=IF($E78=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A78)/$E78,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A78)",
+          "=IFERROR(VLOOKUP($A78,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B78,$A$2:$A78>=$A78-6,$B$2:$B78>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F78,$A$2:$A78>=$A78-6,$F$2:$F78>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+77",
+          "=IF($A79=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A79))",
+          "=IF($A79=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A79))",
+          "=IF($E79=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A79)/$E79,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A79)",
+          "=IFERROR(VLOOKUP($A79,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B79,$A$2:$A79>=$A79-6,$B$2:$B79>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F79,$A$2:$A79>=$A79-6,$F$2:$F79>0)),1),\"\"\"\")\"),\"\")"
+        ],
+        [
+          "='Meal Log'!$A$2+78",
+          "=IF($A80=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A80))",
+          "=IF($A80=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A80))",
+          "=IF($E80=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A80)/$E80,1))",
+          "=COUNTIF('Meal Log'!$A:$A,$A80)",
+          "=IFERROR(VLOOKUP($A80,'Weight Log'!$A:$B,2,FALSE),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B80,$A$2:$A80>=$A80-6,$B$2:$B80>0)),0),\"\"\"\")\"),\"\")",
+          "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F80,$A$2:$A80>=$A80-6,$F$2:$F80>0)),1),\"\"\"\")\"),\"\")"
+        ]
+      ],
+      "formulas": [
+        {
+          "cell": "A2",
+          "formula": "='Meal Log'!$A$2+0"
+        },
+        {
+          "cell": "B2",
+          "formula": "=IF($A2=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A2))"
+        },
+        {
+          "cell": "C2",
+          "formula": "=IF($A2=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A2))"
+        },
+        {
+          "cell": "D2",
+          "formula": "=IF($E2=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A2)/$E2,1))"
+        },
+        {
+          "cell": "E2",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A2)"
+        },
+        {
+          "cell": "G2",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B2,$A$2:$A2>=$A2-6,$B$2:$B2>0)),0),\"\"\"\")\"),3390.0)"
+        },
+        {
+          "cell": "H2",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F2,$A$2:$A2>=$A2-6,$F$2:$F2>0)),1),\"\"\"\")\"),186.4)"
+        },
+        {
+          "cell": "A3",
+          "formula": "='Meal Log'!$A$2+1"
+        },
+        {
+          "cell": "B3",
+          "formula": "=IF($A3=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A3))"
+        },
+        {
+          "cell": "C3",
+          "formula": "=IF($A3=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A3))"
+        },
+        {
+          "cell": "D3",
+          "formula": "=IF($E3=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A3)/$E3,1))"
+        },
+        {
+          "cell": "E3",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A3)"
+        },
+        {
+          "cell": "G3",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B3,$A$2:$A3>=$A3-6,$B$2:$B3>0)),0),\"\"\"\")\"),2723.0)"
+        },
+        {
+          "cell": "H3",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F3,$A$2:$A3>=$A3-6,$F$2:$F3>0)),1),\"\"\"\")\"),185.8)"
+        },
+        {
+          "cell": "A4",
+          "formula": "='Meal Log'!$A$2+2"
+        },
+        {
+          "cell": "B4",
+          "formula": "=IF($A4=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A4))"
+        },
+        {
+          "cell": "C4",
+          "formula": "=IF($A4=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A4))"
+        },
+        {
+          "cell": "D4",
+          "formula": "=IF($E4=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A4)/$E4,1))"
+        },
+        {
+          "cell": "E4",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A4)"
+        },
+        {
+          "cell": "F4",
+          "formula": "=IFERROR(VLOOKUP($A4,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G4",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B4,$A$2:$A4>=$A4-6,$B$2:$B4>0)),0),\"\"\"\")\"),2118.0)"
+        },
+        {
+          "cell": "H4",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F4,$A$2:$A4>=$A4-6,$F$2:$F4>0)),1),\"\"\"\")\"),185.2)"
+        },
+        {
+          "cell": "A5",
+          "formula": "='Meal Log'!$A$2+3"
+        },
+        {
+          "cell": "B5",
+          "formula": "=IF($A5=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A5))"
+        },
+        {
+          "cell": "C5",
+          "formula": "=IF($A5=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A5))"
+        },
+        {
+          "cell": "D5",
+          "formula": "=IF($E5=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A5)/$E5,1))"
+        },
+        {
+          "cell": "E5",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A5)"
+        },
+        {
+          "cell": "F5",
+          "formula": "=IFERROR(VLOOKUP($A5,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G5",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B5,$A$2:$A5>=$A5-6,$B$2:$B5>0)),0),\"\"\"\")\"),2118.0)"
+        },
+        {
+          "cell": "H5",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F5,$A$2:$A5>=$A5-6,$F$2:$F5>0)),1),\"\"\"\")\"),185.2)"
+        },
+        {
+          "cell": "A6",
+          "formula": "='Meal Log'!$A$2+4"
+        },
+        {
+          "cell": "B6",
+          "formula": "=IF($A6=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A6))"
+        },
+        {
+          "cell": "C6",
+          "formula": "=IF($A6=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A6))"
+        },
+        {
+          "cell": "D6",
+          "formula": "=IF($E6=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A6)/$E6,1))"
+        },
+        {
+          "cell": "E6",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A6)"
+        },
+        {
+          "cell": "F6",
+          "formula": "=IFERROR(VLOOKUP($A6,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G6",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B6,$A$2:$A6>=$A6-6,$B$2:$B6>0)),0),\"\"\"\")\"),2118.0)"
+        },
+        {
+          "cell": "H6",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F6,$A$2:$A6>=$A6-6,$F$2:$F6>0)),1),\"\"\"\")\"),185.2)"
+        },
+        {
+          "cell": "A7",
+          "formula": "='Meal Log'!$A$2+5"
+        },
+        {
+          "cell": "B7",
+          "formula": "=IF($A7=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A7))"
+        },
+        {
+          "cell": "C7",
+          "formula": "=IF($A7=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A7))"
+        },
+        {
+          "cell": "D7",
+          "formula": "=IF($E7=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A7)/$E7,1))"
+        },
+        {
+          "cell": "E7",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A7)"
+        },
+        {
+          "cell": "F7",
+          "formula": "=IFERROR(VLOOKUP($A7,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G7",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B7,$A$2:$A7>=$A7-6,$B$2:$B7>0)),0),\"\"\"\")\"),2118.0)"
+        },
+        {
+          "cell": "H7",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F7,$A$2:$A7>=$A7-6,$F$2:$F7>0)),1),\"\"\"\")\"),185.2)"
+        },
+        {
+          "cell": "A8",
+          "formula": "='Meal Log'!$A$2+6"
+        },
+        {
+          "cell": "B8",
+          "formula": "=IF($A8=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A8))"
+        },
+        {
+          "cell": "C8",
+          "formula": "=IF($A8=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A8))"
+        },
+        {
+          "cell": "D8",
+          "formula": "=IF($E8=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A8)/$E8,1))"
+        },
+        {
+          "cell": "E8",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A8)"
+        },
+        {
+          "cell": "F8",
+          "formula": "=IFERROR(VLOOKUP($A8,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G8",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B8,$A$2:$A8>=$A8-6,$B$2:$B8>0)),0),\"\"\"\")\"),2118.0)"
+        },
+        {
+          "cell": "H8",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F8,$A$2:$A8>=$A8-6,$F$2:$F8>0)),1),\"\"\"\")\"),185.2)"
+        },
+        {
+          "cell": "A9",
+          "formula": "='Meal Log'!$A$2+7"
+        },
+        {
+          "cell": "B9",
+          "formula": "=IF($A9=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A9))"
+        },
+        {
+          "cell": "C9",
+          "formula": "=IF($A9=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A9))"
+        },
+        {
+          "cell": "D9",
+          "formula": "=IF($E9=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A9)/$E9,1))"
+        },
+        {
+          "cell": "E9",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A9)"
+        },
+        {
+          "cell": "F9",
+          "formula": "=IFERROR(VLOOKUP($A9,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G9",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B9,$A$2:$A9>=$A9-6,$B$2:$B9>0)),0),\"\"\"\")\"),1483.0)"
+        },
+        {
+          "cell": "H9",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F9,$A$2:$A9>=$A9-6,$F$2:$F9>0)),1),\"\"\"\")\"),184.6)"
+        },
+        {
+          "cell": "A10",
+          "formula": "='Meal Log'!$A$2+8"
+        },
+        {
+          "cell": "B10",
+          "formula": "=IF($A10=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A10))"
+        },
+        {
+          "cell": "C10",
+          "formula": "=IF($A10=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A10))"
+        },
+        {
+          "cell": "D10",
+          "formula": "=IF($E10=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A10)/$E10,1))"
+        },
+        {
+          "cell": "E10",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A10)"
+        },
+        {
+          "cell": "F10",
+          "formula": "=IFERROR(VLOOKUP($A10,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G10",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B10,$A$2:$A10>=$A10-6,$B$2:$B10>0)),0),\"\"\"\")\"),910.0)"
+        },
+        {
+          "cell": "H10",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F10,$A$2:$A10>=$A10-6,$F$2:$F10>0)),1),\"\"\"\")\"),184.0)"
+        },
+        {
+          "cell": "A11",
+          "formula": "='Meal Log'!$A$2+9"
+        },
+        {
+          "cell": "B11",
+          "formula": "=IF($A11=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A11))"
+        },
+        {
+          "cell": "C11",
+          "formula": "=IF($A11=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A11))"
+        },
+        {
+          "cell": "D11",
+          "formula": "=IF($E11=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A11)/$E11,1))"
+        },
+        {
+          "cell": "E11",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A11)"
+        },
+        {
+          "cell": "F11",
+          "formula": "=IFERROR(VLOOKUP($A11,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G11",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B11,$A$2:$A11>=$A11-6,$B$2:$B11>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H11",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F11,$A$2:$A11>=$A11-6,$F$2:$F11>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A12",
+          "formula": "='Meal Log'!$A$2+10"
+        },
+        {
+          "cell": "B12",
+          "formula": "=IF($A12=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A12))"
+        },
+        {
+          "cell": "C12",
+          "formula": "=IF($A12=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A12))"
+        },
+        {
+          "cell": "D12",
+          "formula": "=IF($E12=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A12)/$E12,1))"
+        },
+        {
+          "cell": "E12",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A12)"
+        },
+        {
+          "cell": "F12",
+          "formula": "=IFERROR(VLOOKUP($A12,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G12",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B12,$A$2:$A12>=$A12-6,$B$2:$B12>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H12",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F12,$A$2:$A12>=$A12-6,$F$2:$F12>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A13",
+          "formula": "='Meal Log'!$A$2+11"
+        },
+        {
+          "cell": "B13",
+          "formula": "=IF($A13=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A13))"
+        },
+        {
+          "cell": "C13",
+          "formula": "=IF($A13=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A13))"
+        },
+        {
+          "cell": "D13",
+          "formula": "=IF($E13=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A13)/$E13,1))"
+        },
+        {
+          "cell": "E13",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A13)"
+        },
+        {
+          "cell": "F13",
+          "formula": "=IFERROR(VLOOKUP($A13,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G13",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B13,$A$2:$A13>=$A13-6,$B$2:$B13>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H13",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F13,$A$2:$A13>=$A13-6,$F$2:$F13>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A14",
+          "formula": "='Meal Log'!$A$2+12"
+        },
+        {
+          "cell": "B14",
+          "formula": "=IF($A14=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A14))"
+        },
+        {
+          "cell": "C14",
+          "formula": "=IF($A14=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A14))"
+        },
+        {
+          "cell": "D14",
+          "formula": "=IF($E14=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A14)/$E14,1))"
+        },
+        {
+          "cell": "E14",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A14)"
+        },
+        {
+          "cell": "F14",
+          "formula": "=IFERROR(VLOOKUP($A14,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G14",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B14,$A$2:$A14>=$A14-6,$B$2:$B14>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H14",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F14,$A$2:$A14>=$A14-6,$F$2:$F14>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A15",
+          "formula": "='Meal Log'!$A$2+13"
+        },
+        {
+          "cell": "B15",
+          "formula": "=IF($A15=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A15))"
+        },
+        {
+          "cell": "C15",
+          "formula": "=IF($A15=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A15))"
+        },
+        {
+          "cell": "D15",
+          "formula": "=IF($E15=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A15)/$E15,1))"
+        },
+        {
+          "cell": "E15",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A15)"
+        },
+        {
+          "cell": "F15",
+          "formula": "=IFERROR(VLOOKUP($A15,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G15",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B15,$A$2:$A15>=$A15-6,$B$2:$B15>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H15",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F15,$A$2:$A15>=$A15-6,$F$2:$F15>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A16",
+          "formula": "='Meal Log'!$A$2+14"
+        },
+        {
+          "cell": "B16",
+          "formula": "=IF($A16=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A16))"
+        },
+        {
+          "cell": "C16",
+          "formula": "=IF($A16=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A16))"
+        },
+        {
+          "cell": "D16",
+          "formula": "=IF($E16=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A16)/$E16,1))"
+        },
+        {
+          "cell": "E16",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A16)"
+        },
+        {
+          "cell": "F16",
+          "formula": "=IFERROR(VLOOKUP($A16,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G16",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B16,$A$2:$A16>=$A16-6,$B$2:$B16>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H16",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F16,$A$2:$A16>=$A16-6,$F$2:$F16>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A17",
+          "formula": "='Meal Log'!$A$2+15"
+        },
+        {
+          "cell": "B17",
+          "formula": "=IF($A17=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A17))"
+        },
+        {
+          "cell": "C17",
+          "formula": "=IF($A17=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A17))"
+        },
+        {
+          "cell": "D17",
+          "formula": "=IF($E17=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A17)/$E17,1))"
+        },
+        {
+          "cell": "E17",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A17)"
+        },
+        {
+          "cell": "F17",
+          "formula": "=IFERROR(VLOOKUP($A17,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G17",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B17,$A$2:$A17>=$A17-6,$B$2:$B17>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H17",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F17,$A$2:$A17>=$A17-6,$F$2:$F17>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A18",
+          "formula": "='Meal Log'!$A$2+16"
+        },
+        {
+          "cell": "B18",
+          "formula": "=IF($A18=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A18))"
+        },
+        {
+          "cell": "C18",
+          "formula": "=IF($A18=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A18))"
+        },
+        {
+          "cell": "D18",
+          "formula": "=IF($E18=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A18)/$E18,1))"
+        },
+        {
+          "cell": "E18",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A18)"
+        },
+        {
+          "cell": "F18",
+          "formula": "=IFERROR(VLOOKUP($A18,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G18",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B18,$A$2:$A18>=$A18-6,$B$2:$B18>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H18",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F18,$A$2:$A18>=$A18-6,$F$2:$F18>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A19",
+          "formula": "='Meal Log'!$A$2+17"
+        },
+        {
+          "cell": "B19",
+          "formula": "=IF($A19=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A19))"
+        },
+        {
+          "cell": "C19",
+          "formula": "=IF($A19=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A19))"
+        },
+        {
+          "cell": "D19",
+          "formula": "=IF($E19=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A19)/$E19,1))"
+        },
+        {
+          "cell": "E19",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A19)"
+        },
+        {
+          "cell": "F19",
+          "formula": "=IFERROR(VLOOKUP($A19,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G19",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B19,$A$2:$A19>=$A19-6,$B$2:$B19>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H19",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F19,$A$2:$A19>=$A19-6,$F$2:$F19>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A20",
+          "formula": "='Meal Log'!$A$2+18"
+        },
+        {
+          "cell": "B20",
+          "formula": "=IF($A20=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A20))"
+        },
+        {
+          "cell": "C20",
+          "formula": "=IF($A20=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A20))"
+        },
+        {
+          "cell": "D20",
+          "formula": "=IF($E20=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A20)/$E20,1))"
+        },
+        {
+          "cell": "E20",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A20)"
+        },
+        {
+          "cell": "F20",
+          "formula": "=IFERROR(VLOOKUP($A20,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G20",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B20,$A$2:$A20>=$A20-6,$B$2:$B20>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H20",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F20,$A$2:$A20>=$A20-6,$F$2:$F20>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A21",
+          "formula": "='Meal Log'!$A$2+19"
+        },
+        {
+          "cell": "B21",
+          "formula": "=IF($A21=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A21))"
+        },
+        {
+          "cell": "C21",
+          "formula": "=IF($A21=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A21))"
+        },
+        {
+          "cell": "D21",
+          "formula": "=IF($E21=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A21)/$E21,1))"
+        },
+        {
+          "cell": "E21",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A21)"
+        },
+        {
+          "cell": "F21",
+          "formula": "=IFERROR(VLOOKUP($A21,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G21",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B21,$A$2:$A21>=$A21-6,$B$2:$B21>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H21",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F21,$A$2:$A21>=$A21-6,$F$2:$F21>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A22",
+          "formula": "='Meal Log'!$A$2+20"
+        },
+        {
+          "cell": "B22",
+          "formula": "=IF($A22=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A22))"
+        },
+        {
+          "cell": "C22",
+          "formula": "=IF($A22=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A22))"
+        },
+        {
+          "cell": "D22",
+          "formula": "=IF($E22=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A22)/$E22,1))"
+        },
+        {
+          "cell": "E22",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A22)"
+        },
+        {
+          "cell": "F22",
+          "formula": "=IFERROR(VLOOKUP($A22,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G22",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B22,$A$2:$A22>=$A22-6,$B$2:$B22>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H22",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F22,$A$2:$A22>=$A22-6,$F$2:$F22>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A23",
+          "formula": "='Meal Log'!$A$2+21"
+        },
+        {
+          "cell": "B23",
+          "formula": "=IF($A23=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A23))"
+        },
+        {
+          "cell": "C23",
+          "formula": "=IF($A23=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A23))"
+        },
+        {
+          "cell": "D23",
+          "formula": "=IF($E23=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A23)/$E23,1))"
+        },
+        {
+          "cell": "E23",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A23)"
+        },
+        {
+          "cell": "F23",
+          "formula": "=IFERROR(VLOOKUP($A23,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G23",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B23,$A$2:$A23>=$A23-6,$B$2:$B23>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H23",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F23,$A$2:$A23>=$A23-6,$F$2:$F23>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A24",
+          "formula": "='Meal Log'!$A$2+22"
+        },
+        {
+          "cell": "B24",
+          "formula": "=IF($A24=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A24))"
+        },
+        {
+          "cell": "C24",
+          "formula": "=IF($A24=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A24))"
+        },
+        {
+          "cell": "D24",
+          "formula": "=IF($E24=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A24)/$E24,1))"
+        },
+        {
+          "cell": "E24",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A24)"
+        },
+        {
+          "cell": "F24",
+          "formula": "=IFERROR(VLOOKUP($A24,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G24",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B24,$A$2:$A24>=$A24-6,$B$2:$B24>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H24",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F24,$A$2:$A24>=$A24-6,$F$2:$F24>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A25",
+          "formula": "='Meal Log'!$A$2+23"
+        },
+        {
+          "cell": "B25",
+          "formula": "=IF($A25=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A25))"
+        },
+        {
+          "cell": "C25",
+          "formula": "=IF($A25=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A25))"
+        },
+        {
+          "cell": "D25",
+          "formula": "=IF($E25=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A25)/$E25,1))"
+        },
+        {
+          "cell": "E25",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A25)"
+        },
+        {
+          "cell": "F25",
+          "formula": "=IFERROR(VLOOKUP($A25,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G25",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B25,$A$2:$A25>=$A25-6,$B$2:$B25>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H25",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F25,$A$2:$A25>=$A25-6,$F$2:$F25>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A26",
+          "formula": "='Meal Log'!$A$2+24"
+        },
+        {
+          "cell": "B26",
+          "formula": "=IF($A26=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A26))"
+        },
+        {
+          "cell": "C26",
+          "formula": "=IF($A26=\"\",\"\",SUMIFS('Meal Log'!$F:$F,'Meal Log'!$A:$A,$A26))"
+        },
+        {
+          "cell": "D26",
+          "formula": "=IF($E26=0,\"\",ROUND(SUMIFS('Meal Log'!$G:$G,'Meal Log'!$A:$A,$A26)/$E26,1))"
+        },
+        {
+          "cell": "E26",
+          "formula": "=COUNTIF('Meal Log'!$A:$A,$A26)"
+        },
+        {
+          "cell": "F26",
+          "formula": "=IFERROR(VLOOKUP($A26,'Weight Log'!$A:$B,2,FALSE),\"\")"
+        },
+        {
+          "cell": "G26",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($B$2:$B26,$A$2:$A26>=$A26-6,$B$2:$B26>0)),0),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "H26",
+          "formula": "=IFERROR(__xludf.DUMMYFUNCTION(\"IFERROR(ROUND(AVERAGE(FILTER($F$2:$F26,$A$2:$A26>=$A26-6,$F$2:$F26>0)),1),\"\"\"\")\"),\"\")"
+        },
+        {
+          "cell": "A27",
+          "formula": "='Meal Log'!$A$2+25"
+        },
+        {
+          "cell": "B27",
+          "formula": "=IF($A27=\"\",\"\",SUMIFS('Meal Log'!$E:$E,'Meal Log'!$A:$A,$A27))"
+        }
+      ]
+    },
+    {
+      "name": "Weight Log",
+      "dimensions": {
+        "maxRow": 220,
+        "maxColumn": 4,
+        "columnWidths": {
+          "A": 13.0,
+          "B": 12.0,
+          "C": 13.0,
+          "D": 32.0
+        },
+        "freezePanes": null
+      },
+      "mergedRanges": [],
+      "tables": [
+        "Table_4"
+      ],
+      "sampleRows": [
+        [
+          "Date",
+          "Weight",
+          "Goal Weight",
+          "Notes"
+        ],
+        [
+          "2026-06-23T00:00:00",
+          186.0,
+          170.0,
+          "starting point"
+        ],
+        [
+          "2026-06-24T00:00:00",
+          185.0,
+          null,
+          null
+        ],
+        [
+          "2026-06-25T00:00:00",
+          184.0,
+          null,
+          null
+        ]
+      ],
+      "formulas": []
+    },
+    {
+      "name": "Instructions",
+      "dimensions": {
+        "maxRow": 13,
+        "maxColumn": 2,
+        "columnWidths": {
+          "A": 8.0,
+          "B": 90.0
+        },
+        "freezePanes": null
+      },
+      "mergedRanges": [],
+      "tables": [],
+      "sampleRows": [
+        [
+          "Food Tracker Instructions",
+          null
+        ],
+        [
+          "1",
+          "Import this .xlsx into Google Sheets."
+        ],
+        [
+          "2",
+          "On Foods, define nicknames and calories once, e.g., Blueberry Protein Shake."
+        ],
+        [
+          "3",
+          "On Meal Log, enter Date, Meal, Food, and Quantity after each meal from your phone."
+        ],
+        [
+          "4",
+          "Use decimal quantities for partial servings, e.g., 0.5 for half a cup of mixed nuts/raisins."
+        ],
+        [
+          "5",
+          "If a food is missing, add it to Foods first; the Meal Log will then calculate automatically."
+        ],
+        [
+          "6",
+          "Update Weight Log whenever you weigh yourself."
+        ],
+        [
+          "7",
+          "Use Daily Summary and Dashboard to watch weekly calorie average, protein, nutrition score, and weight trend."
+        ],
+        [
+          "Note",
+          "Formulas use common Google Sheets/Excel functions such as VLOOKUP, SUMIFS, COUNTIFS, FILTER, LOOKUP, and IFERROR."
+        ],
+        [
+          "Tip",
+          "For faster phone entry, create a Google Form later with Date, Meal, Food, Quantity fields connected to Meal Log."
+        ],
+        [
+          "Target",
+          "Initial default targets: 2,000 calories/day, 100g protein/day, nutrition score 7+. Adjust based on your weight trend."
+        ]
+      ],
+      "formulas": []
+    }
+  ]
+}
