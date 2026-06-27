@@ -14,7 +14,10 @@ const pool = new pg.Pool({
   ssl: { rejectUnauthorized: true },
 });
 
-const schema = await fs.readFile(new URL("../docs/postgres-schema.sql", import.meta.url), "utf8");
+const schema = await fs.readFile(
+  new URL("../docs/legacy/postgres-schema-v1.sql", import.meta.url),
+  "utf8",
+);
 const seed = JSON.parse(
   await fs.readFile(new URL("../server/data/seed.json", import.meta.url), "utf8"),
 );
