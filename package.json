@@ -6,7 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev --host 127.0.0.1",
     "db:setup": "node scripts/setup-db.mjs",
-    "generate:seed": "python3 tools/extract_seed.py /Users/dave/Downloads/Daily\\ Intake.xlsx server/data/seed.json",
+    "generate:seed": "python3 tools/extract_seed.py \"docs/original/Daily Intake - 2026-06-28.xlsx\" server/data/seed.json",
     "postinstall": "nuxt prepare",
     "test": "vitest run",
     "typecheck": "nuxt typecheck"

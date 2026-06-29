@@ -1,27 +1,31 @@
 # Documentation Index
 
-## Active (vision app)
+## Active (v1)
 
 | Doc | Purpose |
 |-----|---------|
-| [vision-plan.md](./vision-plan.md) | Product goals, v1/v1.5 scope, stack, data model |
-| [vision-implementation-plan.md](./vision-implementation-plan.md) | **Implementation plan for review** — phases, schema, API, UI |
-| [prototype-review.md](./prototype-review.md) | Analysis of the spreadsheet-clone prototype vs vision |
+| [product-spec.md](./product-spec.md) | **Active product spec** — scope, UX, charts, catalog, AI, acceptance |
+| [spa-architecture.md](./spa-architecture.md) | Stack, modules, data flow |
+| [postgres-schema.sql](./postgres-schema.sql) | Database DDL (v2 — catalog, favorites, recents) |
+| [original/Daily Intake - 2026-06-28.xlsx](./original/Daily%20Intake%20-%202026-06-28.xlsx) | Personal workbook import |
 
-## Legacy (prototype reference)
-
-The [legacy/](./legacy/) folder holds specs and schema from the first workbook-faithful prototype. Do not implement against these unless comparing behavior.
+## Reference
 
 | Doc | Purpose |
 |-----|---------|
-| [legacy/product-spec.md](./legacy/product-spec.md) | Original prototype product spec |
-| [legacy/implementation-plan.md](./legacy/implementation-plan.md) | Original four-phase prototype plan |
-| [legacy/spa-architecture.md](./legacy/spa-architecture.md) | Tab-based SPA + localStorage design |
-| [legacy/questions.md](./legacy/questions.md) | Open questions from prototype phase |
-| [legacy/postgres-schema-v1.sql](./legacy/postgres-schema-v1.sql) | First Postgres schema |
+| [prototype-review.md](./prototype-review.md) | Analysis of the first prototype attempt |
+| [workbook-summary.json](./workbook-summary.json) | Machine-readable extract (may be stale) |
 
-## Other
+## Superseded / deferred indefinitely
 
-| File | Purpose |
-|------|---------|
-| [workbook-summary.json](./workbook-summary.json) | Machine-readable extract of `Daily Intake.xlsx` |
+| Doc | Purpose |
+|-----|---------|
+| [vision-plan.md](./vision-plan.md) | Earlier expansive plan — merged into product-spec where relevant |
+| [vision-implementation-plan.md](./vision-implementation-plan.md) | Old phased plan for separate vision app |
+
+## Legacy (first prototype code + docs)
+
+[legacy/](./legacy/) — first spreadsheet-clone attempt. Reference only.
+
+Reuse: `utils/nutrition.ts`, `types/nutrition.ts`, tests, extract tooling.  
+Replace: `app.vue`, `useTrackerStore.ts` (localStorage).
