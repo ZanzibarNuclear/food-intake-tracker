@@ -23,14 +23,14 @@ const form = reactive({
 });
 
 const zones = timeZoneOptions();
-const previewClock = ref(formatClockInTimeZone(form.timezone));
+const currentClock = ref(formatClockInTimeZone(timezone.value));
 
 let clockTimer: ReturnType<typeof setInterval> | null = null;
 
 watch(
-  () => form.timezone,
+  timezone,
   (zone) => {
-    previewClock.value = formatClockInTimeZone(zone);
+    currentClock.value = formatClockInTimeZone(zone);
   },
 );
 
@@ -61,7 +61,7 @@ async function saveSettingsChange() {
 
 onMounted(() => {
   clockTimer = setInterval(() => {
-    previewClock.value = formatClockInTimeZone(form.timezone);
+    currentClock.value = formatClockInTimeZone(timezone.value);
   }, 30_000);
 });
 
@@ -155,12 +155,8 @@ onBeforeUnmount(() => {
           </div>
         </section>
 
-        <p class="status">
-          Preview: <strong>{{ previewClock }}</strong>
-          <span v-if="!props.settings.timezone" class="muted"> (not saved yet — using browser default)</span>
-        </p>
         <p class="status muted">
-          Current app time: {{ formatClockInTimeZone(timezone) }}
+          Current app time: {{ currentClock }}
         </p>
         <p v-if="tracker.isSaving.value" class="status muted">Saving…</p>
       </div>
