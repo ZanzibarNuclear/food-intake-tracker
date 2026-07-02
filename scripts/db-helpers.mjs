@@ -1,5 +1,8 @@
 import pg from "pg";
+import dotenv from "dotenv";
 import { normalizeDatabaseUrl } from "./database-url.mjs";
+
+dotenv.config();
 
 export function requireDatabaseUrl() {
   const databaseUrl = process.env.DATABASE_URL;
