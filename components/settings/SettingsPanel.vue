@@ -16,6 +16,9 @@ const { timezone } = useUserTimezone();
 const form = reactive({
   alias: props.settings.alias ?? "",
   timezone: props.settings.timezone ?? browserTimeZone(),
+  dailyCalorieTarget: props.settings.dailyCalorieTarget,
+  proteinTargetGrams: props.settings.proteinTargetGrams,
+  nutritionScoreTarget: props.settings.nutritionScoreTarget,
   goalWeight: props.settings.goalWeight,
 });
 
@@ -36,6 +39,9 @@ watch(
   (settings) => {
     form.alias = settings.alias ?? "";
     form.timezone = settings.timezone ?? browserTimeZone();
+    form.dailyCalorieTarget = settings.dailyCalorieTarget;
+    form.proteinTargetGrams = settings.proteinTargetGrams;
+    form.nutritionScoreTarget = settings.nutritionScoreTarget;
     form.goalWeight = settings.goalWeight;
   },
   { deep: true },
@@ -46,6 +52,9 @@ async function saveSettingsChange() {
     ...props.settings,
     alias: form.alias,
     timezone: form.timezone,
+    dailyCalorieTarget: Number(form.dailyCalorieTarget),
+    proteinTargetGrams: Number(form.proteinTargetGrams),
+    nutritionScoreTarget: Number(form.nutritionScoreTarget),
     goalWeight: Number(form.goalWeight),
   });
 }
@@ -95,17 +104,56 @@ onBeforeUnmount(() => {
           </select>
         </label>
 
-        <label>
-          Goal weight
-          <input
-            v-model.number="form.goalWeight"
-            :disabled="tracker.isSaving.value"
-            min="1"
-            step="0.1"
-            type="number"
-            @change="saveSettingsChange"
-          />
-        </label>
+        <section class="target-card" aria-labelledby="targets-title">
+          <h3 id="targets-title">Targets</h3>
+          <div class="target-grid">
+            <label>
+              Calories
+              <input
+                v-model.number="form.dailyCalorieTarget"
+                :disabled="tracker.isSaving.value"
+                min="1"
+                step="1"
+                type="number"
+                @change="saveSettingsChange"
+              />
+            </label>
+            <label>
+              Protein (g)
+              <input
+                v-model.number="form.proteinTargetGrams"
+                :disabled="tracker.isSaving.value"
+                min="0"
+                step="1"
+                type="number"
+                @change="saveSettingsChange"
+              />
+            </label>
+            <label>
+              Nutrition
+              <input
+                v-model.number="form.nutritionScoreTarget"
+                :disabled="tracker.isSaving.value"
+                max="10"
+                min="1"
+                step="0.1"
+                type="number"
+                @change="saveSettingsChange"
+              />
+            </label>
+            <label>
+              Goal weight
+              <input
+                v-model.number="form.goalWeight"
+                :disabled="tracker.isSaving.value"
+                min="1"
+                step="0.1"
+                type="number"
+                @change="saveSettingsChange"
+              />
+            </label>
+          </div>
+        </section>
 
         <p class="status">
           Preview: <strong>{{ previewClock }}</strong>
@@ -139,5 +187,33 @@ onBeforeUnmount(() => {
 .field-hint {
   color: var(--muted);
   font-weight: 400;
+}
+
+.target-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.target-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.target-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.target-grid label {
+  flex: 0 0 8rem;
+}
+
+.target-grid input {
+  width: 100%;
 }
 </style>

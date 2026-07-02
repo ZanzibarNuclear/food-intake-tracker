@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     resendApiKey: process.env.RESEND_API_KEY,
     authEmailFrom: process.env.AUTH_EMAIL_FROM,
     public: {
-      appName: "Weight Management Food Tracker",
+      appName: "Daily Nutrition Tracker",
     },
   },
   typescript: {

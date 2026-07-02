@@ -116,10 +116,11 @@ watch(isSignedIn, async (signedIn) => {
     <header class="topbar">
       <div class="brand-row">
         <div>
-          <h1>Weight Management Food Tracker</h1>
+          <h1>Daily Nutrition Tracker</h1>
           <p>{{ hasMounted ? headerClock : "Loading..." }}</p>
         </div>
         <AppAccountMenu
+          :user-alias="tracker.data.value?.settings.alias"
           :user-email="session?.user.email"
           @settings="openSettings"
           @sign-out="signOut"

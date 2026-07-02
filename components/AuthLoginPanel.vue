@@ -28,7 +28,7 @@ async function sendLink() {
 <template>
   <section class="auth-shell">
     <form class="form-panel auth-panel" @submit.prevent="sendLink">
-      <h1>Food Tracker</h1>
+      <h1>Daily Nutrition Tracker</h1>
       <p class="status">Sign in with your email. No password needed.</p>
       <label>
         Email

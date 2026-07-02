@@ -8,7 +8,7 @@ import { normalizeDatabaseUrl } from "../server/utils/database-url";
 const databaseUrl = process.env.DATABASE_URL;
 const authSecret = process.env.BETTER_AUTH_SECRET;
 const resendApiKey = process.env.RESEND_API_KEY;
-const emailFrom = process.env.AUTH_EMAIL_FROM ?? "Food Tracker <onboarding@resend.dev>";
+const emailFrom = process.env.AUTH_EMAIL_FROM ?? "Daily Nutrition Tracker <onboarding@resend.dev>";
 const authBaseUrl =
   process.env.BETTER_AUTH_URL ??
   (process.env.NODE_ENV === "production" ? undefined : "http://localhost:3000");
@@ -52,9 +52,9 @@ async function sendMagicLink(email: string, url: string) {
   await resend.emails.send({
     from: emailFrom,
     to: email,
-    subject: "Sign in to Food Tracker",
-    text: `Sign in to Food Tracker:\n\n${url}\n\nThis link expires shortly.`,
-    html: `<p>Sign in to Food Tracker:</p><p><a href="${url}">Open Food Tracker</a></p><p>This link expires shortly.</p>`,
+    subject: "Sign in to Daily Nutrition Tracker",
+    text: `Sign in to Daily Nutrition Tracker:\n\n${url}\n\nThis link expires shortly.`,
+    html: `<p>Sign in to Daily Nutrition Tracker:</p><p><a href="${url}">Open Daily Nutrition Tracker</a></p><p>This link expires shortly.</p>`,
   });
 }
 

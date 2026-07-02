@@ -51,6 +51,7 @@ alter table foods add column if not exists source text;
 alter table foods add column if not exists archived_at timestamptz;
 
 create index if not exists foods_name_idx on foods (name);
+create index if not exists foods_active_alpha_idx on foods (lower(name), name, is_system_seed, id) where archived_at is null;
 create index if not exists foods_user_id_idx on foods (user_id) where user_id is not null;
 create index if not exists foods_system_seed_idx on foods (is_system_seed) where is_system_seed = true;
 drop index if exists foods_system_name_unique_idx;

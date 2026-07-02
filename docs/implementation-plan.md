@@ -495,7 +495,7 @@ BETTER_AUTH_SECRET=...          # openssl rand -base64 32
 BETTER_AUTH_URL=http://127.0.0.1:3000
 BETTER_AUTH_TRUSTED_ORIGINS=http://127.0.0.1:3000
 RESEND_API_KEY=...              # optional locally; required for email delivery
-AUTH_EMAIL_FROM=...             # e.g. Food Tracker <login@your-domain.com>
+AUTH_EMAIL_FROM=...             # e.g. Daily Nutrition Tracker <login@your-domain.com>
 OPENAI_API_KEY=...              # Phase 6 only
 ```
 

@@ -5,6 +5,7 @@ const emit = defineEmits<{
 }>();
 
 defineProps<{
+  userAlias?: string | null;
   userEmail?: string | null;
 }>();
 
@@ -56,6 +57,7 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
       </svg>
     </button>
     <div v-if="open" class="dropdown" role="menu">
+      <p v-if="userAlias" class="menu-alias">{{ userAlias }}</p>
       <p v-if="userEmail" class="menu-email">{{ userEmail }}</p>
       <button role="menuitem" type="button" @click="openSettings">Settings</button>
       <button role="menuitem" type="button" @click="signOut">Sign out</button>
@@ -108,11 +110,23 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
   color: var(--accent-strong);
 }
 
+.menu-alias,
 .menu-email {
   margin: 0;
-  padding: 0.55rem 0.75rem;
+  padding: 0.55rem 0.75rem 0;
+  overflow-wrap: anywhere;
+}
+
+.menu-alias {
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.menu-email {
+  padding-top: 0.15rem;
+  padding-bottom: 0.55rem;
   color: var(--muted);
   font-size: 0.78rem;
-  overflow-wrap: anywhere;
 }
 </style>

@@ -37,9 +37,9 @@ function createAuthInstance({ authBaseUrl, authSecret, databaseUrl, emailFrom, r
           await resend.emails.send({
             from: emailFrom,
             to: email,
-            subject: "Sign in to Food Tracker",
-            text: `Sign in to Food Tracker:\n\n${url}\n\nThis link expires shortly.`,
-            html: `<p>Sign in to Food Tracker:</p><p><a href="${url}">Open Food Tracker</a></p><p>This link expires shortly.</p>`,
+            subject: "Sign in to Daily Nutrition Tracker",
+            text: `Sign in to Daily Nutrition Tracker:\n\n${url}\n\nThis link expires shortly.`,
+            html: `<p>Sign in to Daily Nutrition Tracker:</p><p><a href="${url}">Open Daily Nutrition Tracker</a></p><p>This link expires shortly.</p>`,
           });
         },
       }),
@@ -86,7 +86,7 @@ export function getAuth(event: H3Event) {
   if (authInstance) return authInstance;
 
   const resend = config.resendApiKey ? new Resend(config.resendApiKey) : null;
-  const emailFrom = config.authEmailFrom || "Food Tracker <onboarding@resend.dev>";
+  const emailFrom = config.authEmailFrom || "Daily Nutrition Tracker <onboarding@resend.dev>";
   const trustedOrigins = [
     authBaseUrl,
     "http://127.0.0.1:3000",

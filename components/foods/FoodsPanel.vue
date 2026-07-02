@@ -181,22 +181,24 @@ onMounted(runSearch);
     <div class="foods-actions">
       <button type="button" @click="openFoodModal">+ Food</button>
     </div>
-    <div class="table-panel">
+    <div class="table-panel food-catalog-panel">
       <div class="panel-header">
         <h2>Food catalog</h2>
         <div class="filters">
           <input v-model="foodQuery" aria-label="Search foods" placeholder="Search foods" />
-          <select v-model="foodFilter">
-            <option value="all">All</option>
-            <option value="my">My foods</option>
-            <option value="catalog">Catalog</option>
-          </select>
-          <select v-model.number="pageSize" aria-label="Rows per page">
-            <option :value="10">10 / page</option>
-            <option :value="25">25 / page</option>
-            <option :value="50">50 / page</option>
-            <option :value="100">100 / page</option>
-          </select>
+          <div class="filter-selects">
+            <select v-model="foodFilter">
+              <option value="all">All</option>
+              <option value="my">My foods</option>
+              <option value="catalog">Catalog</option>
+            </select>
+            <select v-model.number="pageSize" aria-label="Rows per page">
+              <option :value="10">10 / page</option>
+              <option :value="25">25 / page</option>
+              <option :value="50">50 / page</option>
+              <option :value="100">100 / page</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="pagination-bar">
@@ -262,6 +264,18 @@ onMounted(runSearch);
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="pagination-bar bottom">
+        <span>{{ firstResult }}-{{ lastResult }} of {{ totalFoods }}</span>
+        <div class="pager-actions">
+          <button class="secondary small" type="button" :disabled="page <= 1" @click="goToPage(page - 1)">
+            Previous
+          </button>
+          <span>Page {{ page }} of {{ totalPages }}</span>
+          <button class="secondary small" type="button" :disabled="page >= totalPages" @click="goToPage(page + 1)">
+            Next
+          </button>
+        </div>
       </div>
     </div>
 
@@ -405,21 +419,59 @@ onMounted(runSearch);
 
 .panel-header {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .panel-header h2 {
   margin: 0;
+  font-size: 1rem;
 }
 
 .filters {
-  display: grid;
-  gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filters input {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.filters select {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 7.25rem;
+}
+
+.filter-selects {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.food-catalog-panel {
+  gap: 0.65rem;
+  font-size: 0.86rem;
+}
+
+.food-catalog-panel :deep(input),
+.food-catalog-panel :deep(select),
+.food-catalog-panel button {
+  font-size: 0.82rem;
 }
 
 .foods-table {
   min-width: 0;
   table-layout: fixed;
+  font-size: 0.82rem;
+}
+
+.foods-table :deep(th),
+.foods-table :deep(td) {
+  padding: 0.5rem 0.45rem;
 }
 
 .foods-table th:first-child,
@@ -452,7 +504,12 @@ onMounted(runSearch);
 .pagination-bar {
   justify-content: space-between;
   color: var(--muted);
-  font-size: 0.86rem;
+  font-size: 0.78rem;
+}
+
+.pagination-bar.bottom {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--line);
 }
 
 .pager-actions span {
@@ -460,9 +517,9 @@ onMounted(runSearch);
 }
 
 button.small {
-  min-height: 34px;
-  padding: 0 0.55rem;
-  font-size: 0.78rem;
+  min-height: 30px;
+  padding: 0 0.45rem;
+  font-size: 0.76rem;
 }
 
 button.danger {
@@ -473,7 +530,7 @@ button.danger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
+  width: 30px;
   padding: 0;
 }
 
@@ -603,9 +660,4 @@ button.danger {
   width: 100%;
 }
 
-@media (min-width: 720px) {
-  .filters {
-    grid-template-columns: 1fr 160px 130px;
-  }
-}
 </style>

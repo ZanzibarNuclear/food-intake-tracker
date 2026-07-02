@@ -151,7 +151,7 @@ export async function getTrackerData(userId: string): Promise<TrackerData> {
     db.query(
       `select * from foods
        where (is_system_seed = true and archived_at is null) or user_id = $1
-       order by is_system_seed asc, name asc`,
+       order by lower(name) asc, name asc, is_system_seed asc, id asc`,
       [userId],
     ),
     db.query(
@@ -232,7 +232,7 @@ export async function searchFoods(
          or ($2 = 'my' and is_system_seed = false and user_id = $3)
          or ($2 = 'catalog' and is_system_seed = true)
        )
-     order by is_system_seed asc, name asc
+     order by lower(name) asc, name asc, is_system_seed asc, id asc
      limit $4 offset $5`,
       [trimmed, filter, userId, safePageSize, offset],
     ),

@@ -1,4 +1,4 @@
-# food-intake-tracker
+# Daily Nutrition Tracker
 
 A mobile-first food and weight tracker — log meals by nickname, watch calories and protein against daily targets, and track a subjective nutrition quality score (1–10).
 
