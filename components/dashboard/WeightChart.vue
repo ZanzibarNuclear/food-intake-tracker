@@ -4,6 +4,7 @@ import {
   Chart as ChartJS,
   Filler,
   Legend,
+  LineController,
   LineElement,
   LinearScale,
   PointElement,
@@ -14,7 +15,7 @@ import { Line } from "vue-chartjs";
 import type { WeightEntry } from "~/types/nutrition";
 import { addDaysIso, todayIso } from "~/utils/dates";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineController, LineElement, Filler, Title, Tooltip, Legend);
 
 const props = defineProps<{
   weights: WeightEntry[];

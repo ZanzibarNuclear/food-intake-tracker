@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {
+  BarController,
   BarElement,
   CategoryScale,
   Chart as ChartJS,
   Filler,
   Legend,
+  LineController,
   LineElement,
   LinearScale,
   PointElement,
@@ -16,9 +18,11 @@ import type { DailySummary } from "~/types/nutrition";
 import { addDaysIso } from "~/utils/dates";
 
 ChartJS.register(
+  BarController,
   CategoryScale,
   LinearScale,
   PointElement,
+  LineController,
   LineElement,
   BarElement,
   Title,
