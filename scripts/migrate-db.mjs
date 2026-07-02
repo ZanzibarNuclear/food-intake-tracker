@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import { createPool } from "./db-helpers.mjs";
 
 const pool = createPool();
-const schema = await fs.readFile(new URL("../docs/postgres-schema.sql", import.meta.url), "utf8");
+const schema = await fs.readFile(new URL("../db/schema.sql", import.meta.url), "utf8");
 
 try {
   await pool.query(schema);

@@ -4,7 +4,7 @@
 
 **Source workbook:** [`original/Daily Intake - 2026-06-28.xlsx`](./original/Daily%20Intake%20-%202026-06-28.xlsx)
 
-**Schema:** [`postgres-schema.sql`](./postgres-schema.sql)
+**Schema:** [`../db/schema.sql`](../db/schema.sql)
 
 ---
 
@@ -31,7 +31,7 @@ A **v1 candidate** exists. The app is no longer just a prototype: workbook impor
 | `tools/extract_seed.py` | Done | **Keep** — regenerate personal seed from xlsx |
 | `server/data/seed.json` | Done (97 foods / 55 meals / 4 weights) | **Keep** |
 | `server/data/system-foods.json` | Starter catalog (228 foods) | **Expand soon** via FDA/USDA bulk import |
-| `docs/postgres-schema.sql` | Done | **Keep** — app-data migration via `npm run db:migrate` |
+| `db/schema.sql` | Done | **Keep** — app-data migration via `npm run db:migrate` |
 | `app.vue` + `components/*` | Tab shell with component screens | **Polish**; routes optional later |
 | `composables/useTracker.ts` | API-only state | **Keep** |
 | `server/services/repository.ts` | User-scoped CRUD + quick lists + catalog copy | **Keep**, add integration coverage later |
@@ -162,7 +162,7 @@ Unknown food: null macros; show `No - add nickname`; excluded from calorie/prote
 
 ## Data model
 
-See [`postgres-schema.sql`](./postgres-schema.sql). Summary:
+See [`../db/schema.sql`](../db/schema.sql). Summary:
 
 - **Better Auth tables** — users, sessions, accounts, verification tokens. Managed by `npm run auth:migrate`.
 - **settings** — one row per user (targets and timezone).
@@ -305,7 +305,7 @@ Next catalog import:
 - [x] Single implementation plan (this document).
 - [x] Regenerate `server/data/seed.json` from 2026-06-28 workbook.
 - [x] Remove obsolete docs.
-- [x] Fix `scripts/setup-db.mjs` to use `docs/postgres-schema.sql`.
+- [x] Move operational database schema to `db/schema.sql`.
 
 **Acceptance:** One plan doc; seed matches workbook counts (97 / 55 / 4).
 
