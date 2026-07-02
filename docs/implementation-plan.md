@@ -22,7 +22,7 @@ Success means you open **Log** after a meal, pick a food, save, and see today’
 
 ## Current state (codebase)
 
-A **v1 candidate** exists. The app is no longer just a prototype: workbook import, DB-first persistence, magic-link auth, multi-user data scoping, CRUD, charts, timezone handling, favorites/recents, and catalog use/copy flows are in place. Remaining work is mostly local auth smoke testing, catalog depth, logging polish, and confidence checks.
+A **v1 release candidate** exists. The app is no longer just a prototype: workbook import, DB-first persistence, magic-link auth, multi-user data scoping, CRUD, charts, timezone handling, favorites/recents, catalog use/copy flows, food merge/archive, and compact logging workflows are in place. Remaining work is mostly production setup, Resend delivery, first live smoke testing, and catalog depth.
 
 | Asset | Status | Action |
 |-------|--------|--------|
@@ -518,7 +518,7 @@ npm run dev
 | Catalog size for v1 | Starter 228 now; import a few thousand FDA/USDA foods soon |
 | Nutrition score on catalog | Heuristic seed value until user edits |
 | Satiety score on catalog | Heuristic seed value until user edits |
-| Delete food with meals | Block with message |
+| Delete food with meals | Archive referenced foods; hard-delete unreferenced personal foods |
 | Meal type default on Log | Last used |
 | Tab UI vs `pages/` routing | Components first; file routes when refactor is natural |
 | AI provider | OpenAI-compatible; abstract in `food-suggest.ts` |

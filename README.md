@@ -4,9 +4,9 @@ A mobile-first food and weight tracker — log meals by nickname, watch calories
 
 ## Status
 
-**v1 candidate in progress** — workbook data import, DB-first CRUD, dashboard charts, magic-link auth, multi-user data scoping, fast logging, and a starter catalog are wired. See [docs/implementation-plan.md](./docs/implementation-plan.md).
+**v1 release candidate** — workbook data import, DB-first CRUD, dashboard charts, magic-link auth, multi-user data scoping, fast logging, settings, food merge/archive flows, and a starter catalog are wired. See [docs/implementation-plan.md](./docs/implementation-plan.md).
 
-Current focus: finish catalog depth and polish the daily logging loop.
+Current focus: production setup for Vercel, Resend email delivery, and first live smoke test.
 
 ## Setup
 
@@ -22,6 +22,8 @@ npm run dev
 `.env.local` is the local source of truth for secrets and connection strings. Nuxt reads it for the app server and exposes server-only values through `runtimeConfig`; standalone database/auth scripts load the same file before falling back to `.env`.
 
 For local development without Resend, magic links are printed in the dev server console. To send email, set `RESEND_API_KEY` and `AUTH_EMAIL_FROM`.
+
+For production setup, see [docs/deployment-checklist.md](./docs/deployment-checklist.md).
 
 To seed the workbook data for a user, sign in once so Better Auth creates the user, then run:
 

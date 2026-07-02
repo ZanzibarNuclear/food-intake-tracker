@@ -4,6 +4,7 @@
 |-----|---------|
 | [**features.md**](./features.md) | **Feature specs** — what to build (one section per feature) |
 | [**implementation-plan.md**](./implementation-plan.md) | Architecture, phases, acceptance criteria |
+| [**deployment-checklist.md**](./deployment-checklist.md) | Production setup and smoke-test checklist |
 | [`../db/schema.sql`](../db/schema.sql) | Operational app database schema |
 | [original/Daily Intake - 2026-06-28.xlsx](./original/Daily%20Intake%20-%202026-06-28.xlsx) | Personal workbook import source |
 
