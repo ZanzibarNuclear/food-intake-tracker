@@ -18,18 +18,21 @@ const trackerApi = useTracker();
 const { timezone } = useUserTimezone();
 const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"] as const;
 
-const mealForm = reactive<MealEntry>({
+type DraftMealItem = Pick<MealEntry, "foodId" | "foodName" | "quantity"> & {
+  tempId: number;
+};
+
+const mealForm = reactive<Pick<MealEntry, "date" | "meal">>({
   date: todayIso(timezone.value),
   meal: "Breakfast",
-  foodName: "",
-  quantity: 1,
-  notes: null,
 });
 
 const editingMealId = ref<number | null>(null);
 const foodQuery = ref("");
 const foodInput = ref<HTMLInputElement | null>(null);
 const recentsDialog = ref<HTMLDialogElement | null>(null);
+const draftMeals = ref<DraftMealItem[]>([]);
+let nextDraftId = 1;
 
 const searchResults = ref<Food[]>([]);
 let searchTimer: ReturnType<typeof setTimeout> | null = null;
@@ -53,22 +56,33 @@ watch(foodQuery, (query) => {
   }, 200);
 });
 
-const selectedFood = computed(
-  () =>
-    props.tracker.foods.find((food) => food.id !== undefined && food.id === mealForm.foodId) ??
-    props.tracker.foods.find((food) => food.name === mealForm.foodName.trim()) ??
-    null,
-);
-
 const showSearchResults = computed(() => {
   const query = foodQuery.value.trim();
   if (!query || !searchResults.value.length) return false;
   // Hide suggestions when the field is an exact catalog match (e.g. Recent → "Banana").
   return !props.tracker.foods.some((food) => food.name === query);
 });
-const previewMeal = computed(() =>
-  mealForm.foodName ? calculateMeal(mealForm, props.tracker.foods) : null,
+
+const draftPreviews = computed(() =>
+  draftMeals.value.map((item) =>
+    calculateMeal(
+      {
+        date: mealForm.date,
+        meal: mealForm.meal,
+        foodId: item.foodId,
+        foodName: item.foodName,
+        quantity: item.quantity,
+        notes: null,
+      },
+      props.tracker.foods,
+    ),
+  ),
 );
+
+const draftTotals = computed(() => ({
+  calories: draftPreviews.value.reduce((sum, meal) => sum + (meal.calories ?? 0), 0),
+  proteinGrams: draftPreviews.value.reduce((sum, meal) => sum + (meal.proteinGrams ?? 0), 0),
+}));
 
 const dayMeals = computed(() =>
   calculateMeals(
@@ -81,10 +95,16 @@ function selectFood(food: Food) {
   if (searchTimer) clearTimeout(searchTimer);
   skipNextSearch = true;
   searchResults.value = [];
-  mealForm.foodId = food.id;
-  mealForm.foodName = food.name;
-  foodQuery.value = food.name;
+  draftMeals.value.push({
+    tempId: nextDraftId,
+    foodId: food.id,
+    foodName: food.name,
+    quantity: 1,
+  });
+  nextDraftId += 1;
+  foodQuery.value = "";
   closeRecentsPopup();
+  focusFoodInput();
 }
 
 function focusFoodInput() {
@@ -107,45 +127,66 @@ function closeRecentsPopup() {
   if (recentsDialog.value?.open) recentsDialog.value.close();
 }
 
-function resetMealForm(keepFood = false) {
-  const foodName = keepFood ? mealForm.foodName : "";
-  const foodId = keepFood ? mealForm.foodId : undefined;
+function resetMealForm() {
   editingMealId.value = null;
   mealForm.date = todayIso(timezone.value);
   mealForm.meal = mealForm.meal || "Breakfast";
-  mealForm.foodId = foodId;
-  mealForm.foodName = foodName;
-  mealForm.quantity = 1;
-  mealForm.notes = null;
-  if (!keepFood) {
-    skipNextSearch = true;
-    searchResults.value = [];
-    foodQuery.value = "";
-  }
+  draftMeals.value = [];
+  skipNextSearch = true;
+  searchResults.value = [];
+  foodQuery.value = "";
 }
 
 function editMeal(meal: MealEntry) {
   editingMealId.value = meal.id ?? null;
   mealForm.date = meal.date;
   mealForm.meal = meal.meal;
-  mealForm.foodId = meal.foodId;
-  mealForm.foodName = meal.foodName;
-  mealForm.quantity = meal.quantity;
-  mealForm.notes = meal.notes;
+  draftMeals.value = [
+    {
+      tempId: nextDraftId,
+      foodId: meal.foodId,
+      foodName: meal.foodName,
+      quantity: meal.quantity,
+    },
+  ];
+  nextDraftId += 1;
   skipNextSearch = true;
   searchResults.value = [];
-  foodQuery.value = meal.foodName;
+  foodQuery.value = "";
 }
 
 async function submitMeal() {
-  const payload = {
-    ...mealForm,
-    id: editingMealId.value ?? undefined,
-    quantity: Number(mealForm.quantity),
-    notes: mealForm.notes || null,
-  };
-  const saved = await trackerApi.saveMeal(payload);
-  if (saved) resetMealForm(true);
+  if (!draftMeals.value.length) return;
+  if (editingMealId.value) {
+    const item = draftMeals.value[0];
+    if (!item) return;
+    const saved = await trackerApi.saveMeal({
+      ...mealForm,
+      id: editingMealId.value,
+      foodId: item.foodId,
+      foodName: item.foodName,
+      quantity: Number(item.quantity),
+      notes: null,
+    });
+    if (saved) resetMealForm();
+    return;
+  }
+
+  let allSaved = true;
+  for (const item of draftMeals.value) {
+    const saved = await trackerApi.saveMeal({
+      ...mealForm,
+      foodId: item.foodId,
+      foodName: item.foodName,
+      quantity: Number(item.quantity),
+      notes: null,
+    });
+    if (!saved) {
+      allSaved = false;
+      break;
+    }
+  }
+  if (allSaved) resetMealForm();
 }
 
 async function removeMeal(id: number) {
@@ -154,7 +195,19 @@ async function removeMeal(id: number) {
 }
 
 function bumpQuantity(delta: number) {
-  mealForm.quantity = Math.max(0.01, roundQuantity(Number(mealForm.quantity) + delta));
+  const item = draftMeals.value[0];
+  if (!item) return;
+  bumpDraftQuantity(item.tempId, delta);
+}
+
+function bumpDraftQuantity(tempId: number, delta: number) {
+  const item = draftMeals.value.find((draft) => draft.tempId === tempId);
+  if (!item) return;
+  item.quantity = Math.max(0.01, roundQuantity(Number(item.quantity) + delta));
+}
+
+function removeDraftItem(tempId: number) {
+  draftMeals.value = draftMeals.value.filter((item) => item.tempId !== tempId);
 }
 
 function roundQuantity(value: number) {
@@ -209,28 +262,26 @@ watch(
         </button>
       </div>
 
-      <div class="form-grid">
-        <label>
+      <div class="meal-header-row">
+        <label class="compact-field">
           Date
           <input v-model="mealForm.date" type="date" required />
         </label>
-        <label>
+        <label class="compact-field">
           Meal
           <select v-model="mealForm.meal">
             <option v-for="meal in mealTypes" :key="meal">{{ meal }}</option>
           </select>
         </label>
+      </div>
+
+      <div class="form-grid">
         <label>
-          Food
+          Add food
           <input
             ref="foodInput"
             v-model="foodQuery"
             autocomplete="off"
-            required
-            @input="
-              mealForm.foodName = foodQuery;
-              mealForm.foodId = undefined;
-            "
           />
         </label>
         <div v-if="showSearchResults" class="search-results">
@@ -245,32 +296,47 @@ watch(
             <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
           </button>
         </div>
-        <label>
-          Quantity
-          <div class="quantity-row">
-            <button class="secondary qty-btn" type="button" @click="bumpQuantity(-0.25)">−</button>
-            <input v-model.number="mealForm.quantity" min="0.01" step="0.01" type="number" required />
-            <button class="secondary qty-btn" type="button" @click="bumpQuantity(0.25)">+</button>
-          </div>
-        </label>
-        <label>
-          Notes
-          <textarea v-model="mealForm.notes" />
-        </label>
       </div>
 
-      <div v-if="previewMeal" class="status">
-        <span v-if="previewMeal.knownFood">
-          {{ formatNumber(previewMeal.calories) }} cal ·
-          {{ formatNumber(previewMeal.proteinGrams, 1) }}g protein ·
-          {{ formatNumber(previewMeal.nutritionPoints, 1) }} nutrition points
-        </span>
-        <span v-else class="error">No - add nickname</span>
+      <div class="draft-list">
+        <div v-if="!draftMeals.length" class="empty-draft">Select one or more foods to add to this meal.</div>
+        <div v-for="(item, index) in draftMeals" :key="item.tempId" class="draft-item">
+          <div class="draft-main">
+            <strong>{{ item.foodName }}</strong>
+            <small>
+              {{ formatNumber(draftPreviews[index]?.calories) }} cal ·
+              {{ formatNumber(draftPreviews[index]?.proteinGrams, 1) }}g protein
+            </small>
+          </div>
+          <div class="quantity-row draft-quantity">
+            <button class="secondary qty-btn" type="button" @click="bumpDraftQuantity(item.tempId, -0.25)">−</button>
+            <input v-model.number="item.quantity" min="0.01" step="0.01" type="number" required />
+            <button class="secondary qty-btn" type="button" @click="bumpDraftQuantity(item.tempId, 0.25)">+</button>
+          </div>
+          <button
+            aria-label="Remove food"
+            class="icon-btn danger"
+            type="button"
+            @click="removeDraftItem(item.tempId)"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+              <path
+                fill="currentColor"
+                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div v-if="selectedFood" class="status">{{ selectedFood.servingDescription }}</div>
+
+      <div v-if="draftMeals.length" class="status">
+        Total preview:
+        {{ formatNumber(draftTotals.calories) }} cal ·
+        {{ formatNumber(draftTotals.proteinGrams, 1) }}g protein
+      </div>
 
       <div class="actions">
-        <button :disabled="trackerApi.isSaving.value" type="submit">
+        <button :disabled="trackerApi.isSaving.value || !draftMeals.length" type="submit">
           {{ editingMealId ? "Update meal" : "Save meal" }}
         </button>
         <button v-if="editingMealId" class="secondary" type="button" @click="resetMealForm()">Cancel</button>
@@ -395,6 +461,23 @@ watch(
   gap: 0.5rem;
 }
 
+.meal-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem;
+}
+
+.compact-field {
+  width: auto;
+}
+
+.compact-field input,
+.compact-field select {
+  width: auto;
+  min-width: 9.5rem;
+}
+
 .recent-btn {
   display: inline-flex;
   align-items: center;
@@ -486,6 +569,58 @@ watch(
   gap: 0.35rem;
 }
 
+.draft-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.empty-draft {
+  padding: 0.75rem;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.draft-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px 34px;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.draft-main {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.draft-main strong {
+  overflow-wrap: anywhere;
+}
+
+.draft-main small {
+  color: var(--muted);
+}
+
+.draft-quantity {
+  grid-template-columns: 34px minmax(52px, 1fr) 34px;
+}
+
+.draft-quantity .qty-btn {
+  min-height: 34px;
+}
+
+.draft-quantity input {
+  min-height: 34px;
+  padding: 0.35rem;
+  text-align: center;
+}
+
 .qty-btn {
   min-height: 44px;
   padding: 0;
@@ -518,5 +653,16 @@ watch(
 
 .table-scroll :deep(table) {
   min-width: 0;
+}
+
+@media (max-width: 520px) {
+  .draft-item {
+    grid-template-columns: minmax(0, 1fr) 34px;
+  }
+
+  .draft-quantity {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }
 </style>
