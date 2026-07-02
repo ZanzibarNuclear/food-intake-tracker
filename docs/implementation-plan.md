@@ -32,7 +32,7 @@ A **v1 candidate** exists. The app is no longer just a prototype: workbook impor
 | `server/data/seed.json` | Done (97 foods / 55 meals / 4 weights) | **Keep** |
 | `server/data/system-foods.json` | Starter catalog (228 foods) | **Expand soon** via FDA/USDA bulk import |
 | `db/schema.sql` | Done | **Keep** — app-data migration via `npm run db:migrate` |
-| `app.vue` + `components/*` | Tab shell with component screens | **Polish**; routes optional later |
+| `app.vue` + `components/*` | Tab shell with component screens | **Polish now**; port to Nuxt UI + smaller components as fast follow |
 | `composables/useTracker.ts` | API-only state | **Keep** |
 | `server/services/repository.ts` | User-scoped CRUD + quick lists + catalog copy | **Keep**, add integration coverage later |
 | `server/api/*.ts` | Auth-gated tracker, food, meal, weight, settings routes | **Keep**, validate more strictly later |
@@ -186,6 +186,7 @@ See [`../db/schema.sql`](../db/schema.sql). Summary:
 | App | Nuxt 4, Vue 3, TypeScript, mobile-first |
 | Database | Neon Postgres (`pg`) |
 | Charts | Chart.js + `vue-chartjs` |
+| UI components | Custom CSS now; Nuxt UI fast-follow after v1 launch |
 | Tests | Vitest — nutrition unit tests + workbook parity fixtures |
 | AI (v1.5) | Server route → OpenAI-compatible API (`OPENAI_API_KEY`) |
 
@@ -207,8 +208,11 @@ app.vue                    # <NuxtLayout><NuxtPage /></NuxtLayout> or tab shell 
 pages/                     # index, log, foods, weight, settings (optional)
 components/
   dashboard/             MetricCard, CalorieChart, WeightChart, ProteinProgress, SummaryTable
-  log/                     FoodChips, FoodSearch, MealForm, MealList
+  log/                   FoodChips, FoodSearch, MealForm, MealTypeSelect, MealList
   foods/                   FoodForm, FoodList
+  weight/                WeightForm, WeightHistory, WeightChart
+  settings/              SettingsForm
+  ui/                    shared Nuxt UI wrappers/helpers when useful
 composables/useTracker.ts  # $fetch API; no localStorage
 utils/nutrition.ts         # keep
 types/nutrition.ts         # extend
@@ -405,6 +409,60 @@ Next catalog import:
 
 ---
 
+### Phase 5c — Nuxt UI port + component refactor *(fast follow after v1 live)*
+
+Adopt Nuxt UI across the app rather than mixing two form/control systems long-term. The main goal is to eliminate alignment, containment, modal, dropdown, and form-state issues while shrinking the hand-written CSS surface.
+
+**Setup**
+
+- Install `@nuxt/ui` and `tailwindcss`.
+- Register `@nuxt/ui` in `nuxt.config.ts`.
+- Import Tailwind and Nuxt UI in the main CSS entry.
+- Wrap the app with `<UApp>` so overlays, tooltips, and toasts work correctly.
+- Keep the existing app colors as theme tokens where practical; avoid a generic default-library look.
+
+**Port targets**
+
+- Replace native/custom buttons with `UButton` and icon buttons.
+- Replace custom modal/dialog code with `UModal` for `+ Meal`, `+ Weight`, recents/favorites if they return, and future edit dialogs.
+- Replace inputs with `UInput`, `UInputNumber`, `UInputDate`/date-compatible input, and `UFormField`.
+- Replace the custom meal-type dropdown with `USelectMenu` or `UDropdownMenu`, preserving icon + label options while the dashboard keeps icon-only display.
+- Replace food search autocomplete with `UInputMenu` or a Nuxt UI popover/list pattern.
+- Replace tab/navigation controls with `UTabs` or `UNavigationMenu` if it improves layout consistency.
+- Replace data tables and pagination controls with `UTable`/`UPagination` where useful, especially Foods.
+- Add `UTooltip` to icon-only controls once `<UApp>` is in place.
+
+**Refactor targets**
+
+- Split the current large screen components into focused pieces:
+  - Dashboard: action buttons, metric cards, meals-on-date table, chart wrappers.
+  - Log: meal modal, meal type select, food search, draft item list, quick food lists.
+  - Weight: weight modal, trend chart, history table.
+  - Foods: search/filter bar, food table/list, food form, catalog actions.
+  - Settings: account fields and target fields.
+- Move repeated meal icon rendering into one component or helper so dashboard and selectors cannot drift.
+- Remove CSS that only exists to mimic component-library behavior after the Nuxt UI equivalent is in place.
+- Keep business logic in composables/services; Nuxt UI should not change API contracts or nutrition math.
+
+**Migration order**
+
+1. Install/configure Nuxt UI and verify the app boots with no visual conversion.
+2. Port shared primitives first: buttons, icon buttons, form fields, modal shell.
+3. Port `+ Meal` and `+ Weight` forms.
+4. Port navigation/tabs and settings.
+5. Port Foods list/search/paging.
+6. Port remaining tables and cleanup obsolete CSS.
+
+**Acceptance**
+
+- All primary flows still work: magic-link sign-in, log meal, log/update weight, edit settings, search/copy/favorite foods, delete meals/weights.
+- Meal type icons remain consistent across dashboard and log form.
+- Forms align cleanly on mobile and desktop without local one-off CSS fixes.
+- `npm run typecheck`, `npm test`, and `npm run build` pass.
+- A short manual smoke pass is recorded before calling the port complete.
+
+---
+
 ### Phase 6 — AI food suggest (v1.5)
 
 - `POST /api/foods/suggest` — server-side LLM, JSON validation.
@@ -477,6 +535,7 @@ npm run dev
 | 3 Charts | 1 day |
 | 4 Catalog | 2–3 days |
 | 5 Fast log polish | 1.5 days |
+| 5c Nuxt UI port + component refactor | 1.5–2.5 days |
 | **v1 total** | **~9–10 days** |
 | 6 AI suggest | 1–2 days |
 
@@ -486,6 +545,7 @@ npm run dev
 
 | Date | Decision |
 |------|----------|
+| 2026-07-02 | Adopt Nuxt UI as a fast-follow after v1 is live. Prefer a full UI port plus smaller components over a long-term mix of custom and library controls. |
 | 2026-07-02 | Production-readiness work uses Better Auth magic links, optional Resend delivery, and user-scoped app data. Auth tables are migrated separately from app tables. |
 | 2026-07-02 | Meals use `foodId` for durable logging/editing. Foods catalog rows support direct Use and Copy-to-personal. Starter catalog now includes heuristic nutrition and satiety scores. |
 | 2026-07-01 | Consolidated all specs into this plan. v1 = workbook + charts + catalog + usable logging. AI deferred to v1.5. |

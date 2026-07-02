@@ -14,6 +14,7 @@ const tracker = useTracker();
 const { timezone } = useUserTimezone();
 
 const form = reactive({
+  alias: props.settings.alias ?? "",
   timezone: props.settings.timezone ?? browserTimeZone(),
   goalWeight: props.settings.goalWeight,
 });
@@ -33,6 +34,7 @@ watch(
 watch(
   () => props.settings,
   (settings) => {
+    form.alias = settings.alias ?? "";
     form.timezone = settings.timezone ?? browserTimeZone();
     form.goalWeight = settings.goalWeight;
   },
@@ -42,6 +44,7 @@ watch(
 async function saveSettingsChange() {
   await tracker.saveSettings({
     ...props.settings,
+    alias: form.alias,
     timezone: form.timezone,
     goalWeight: Number(form.goalWeight),
   });
@@ -67,6 +70,17 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="form-grid">
+        <label>
+          Alias
+          <input
+            v-model="form.alias"
+            :disabled="tracker.isSaving.value"
+            type="text"
+            @change="saveSettingsChange"
+          />
+          <small class="field-hint">"alias" is whatever name you want to give yourself.</small>
+        </label>
+
         <label>
           Time zone
           <select
@@ -120,5 +134,10 @@ onBeforeUnmount(() => {
 
 .muted {
   color: var(--muted);
+}
+
+.field-hint {
+  color: var(--muted);
+  font-weight: 400;
 }
 </style>

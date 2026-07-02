@@ -3,6 +3,7 @@ export type MealName = "Breakfast" | "Lunch" | "Dinner" | "Snack" | "Dessert" | 
 export type FoodSource = "workbook" | "usda" | "user" | "ai";
 
 export interface TrackerSettings {
+  alias?: string | null;
   dailyCalorieTarget: number;
   proteinTargetGrams: number;
   nutritionScoreTarget: number;

@@ -75,6 +75,7 @@ function mapWeight(row: {
 }
 
 function mapSettings(row: {
+  alias?: string | null;
   daily_calorie_target: string | number;
   protein_target_grams: string | number;
   nutrition_score_target: string | number;
@@ -82,6 +83,7 @@ function mapSettings(row: {
   timezone: string | null;
 }): TrackerSettings {
   return {
+    alias: row.alias ?? null,
     dailyCalorieTarget: Number(row.daily_calorie_target),
     proteinTargetGrams: Number(row.protein_target_grams),
     nutritionScoreTarget: Number(row.nutrition_score_target),
@@ -92,14 +94,17 @@ function mapSettings(row: {
 
 async function ensureSettings(userId: string): Promise<TrackerSettings> {
   const db = getPool();
-  const result = await db.query(
-    `insert into settings (user_id)
-     values ($1)
-     on conflict (user_id) where user_id is not null do update set user_id = excluded.user_id
-     returning *`,
-    [userId],
-  );
-  return mapSettings(result.rows[0]);
+  const [settingsResult, userResult] = await Promise.all([
+    db.query(
+      `insert into settings (user_id)
+       values ($1)
+       on conflict (user_id) where user_id is not null do update set user_id = excluded.user_id
+       returning *`,
+      [userId],
+    ),
+    db.query(`select name from "user" where id = $1`, [userId]),
+  ]);
+  return mapSettings({ ...settingsResult.rows[0], alias: userResult.rows[0]?.name ?? null });
 }
 
 async function touchRecentFood(userId: string, foodId: number): Promise<void> {
@@ -164,33 +169,39 @@ export async function getTrackerData(userId: string): Promise<TrackerData> {
 
 export async function updateSettings(userId: string, settings: TrackerSettings): Promise<TrackerSettings> {
   const db = getPool();
-  const result = await db.query(
-    `insert into settings (
-      user_id,
-      daily_calorie_target,
-      protein_target_grams,
-      nutrition_score_target,
-      goal_weight,
-      timezone
-    ) values ($1, $2, $3, $4, $5, $6)
-    on conflict (user_id) where user_id is not null do update set
-      daily_calorie_target = excluded.daily_calorie_target,
-      protein_target_grams = excluded.protein_target_grams,
-      nutrition_score_target = excluded.nutrition_score_target,
-      goal_weight = excluded.goal_weight,
-      timezone = excluded.timezone,
-      updated_at = now()
-    returning *`,
-    [
+  const [settingsResult, userResult] = await Promise.all([
+    db.query(
+      `insert into settings (
+        user_id,
+        daily_calorie_target,
+        protein_target_grams,
+        nutrition_score_target,
+        goal_weight,
+        timezone
+      ) values ($1, $2, $3, $4, $5, $6)
+      on conflict (user_id) where user_id is not null do update set
+        daily_calorie_target = excluded.daily_calorie_target,
+        protein_target_grams = excluded.protein_target_grams,
+        nutrition_score_target = excluded.nutrition_score_target,
+        goal_weight = excluded.goal_weight,
+        timezone = excluded.timezone,
+        updated_at = now()
+      returning *`,
+      [
+        userId,
+        settings.dailyCalorieTarget,
+        settings.proteinTargetGrams,
+        settings.nutritionScoreTarget,
+        settings.goalWeight,
+        settings.timezone ?? null,
+      ],
+    ),
+    db.query(`update "user" set name = $2 where id = $1 returning name`, [
       userId,
-      settings.dailyCalorieTarget,
-      settings.proteinTargetGrams,
-      settings.nutritionScoreTarget,
-      settings.goalWeight,
-      settings.timezone ?? null,
-    ],
-  );
-  return mapSettings(result.rows[0]);
+      settings.alias?.trim() ?? "",
+    ]),
+  ]);
+  return mapSettings({ ...settingsResult.rows[0], alias: userResult.rows[0]?.name ?? null });
 }
 
 export async function searchFoods(
