@@ -83,6 +83,16 @@ const options = {
 
 <style scoped>
 .chart-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 220px;
+  overflow: hidden;
+}
+
+.chart-wrap :deep(canvas) {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 </style>

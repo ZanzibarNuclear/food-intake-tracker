@@ -15,6 +15,7 @@ const { timezone } = useUserTimezone();
 
 const form = reactive({
   timezone: props.settings.timezone ?? browserTimeZone(),
+  goalWeight: props.settings.goalWeight,
 });
 
 const zones = timeZoneOptions();
@@ -29,12 +30,21 @@ watch(
   },
 );
 
-async function submit() {
-  const saved = await tracker.saveSettings({
+watch(
+  () => props.settings,
+  (settings) => {
+    form.timezone = settings.timezone ?? browserTimeZone();
+    form.goalWeight = settings.goalWeight;
+  },
+  { deep: true },
+);
+
+async function saveSettingsChange() {
+  await tracker.saveSettings({
     ...props.settings,
     timezone: form.timezone,
+    goalWeight: Number(form.goalWeight),
   });
-  if (saved) emit("close");
 }
 
 onMounted(() => {
@@ -56,14 +66,31 @@ onBeforeUnmount(() => {
         <button class="secondary" type="button" @click="emit('close')">Close</button>
       </div>
 
-      <form class="form-grid" @submit.prevent="submit">
+      <div class="form-grid">
         <label>
           Time zone
-          <select v-model="form.timezone" required>
+          <select
+            v-model="form.timezone"
+            :disabled="tracker.isSaving.value"
+            required
+            @change="saveSettingsChange"
+          >
             <option v-for="zone in zones" :key="zone.value" :value="zone.value">
               {{ zone.label }}
             </option>
           </select>
+        </label>
+
+        <label>
+          Goal weight
+          <input
+            v-model.number="form.goalWeight"
+            :disabled="tracker.isSaving.value"
+            min="1"
+            step="0.1"
+            type="number"
+            @change="saveSettingsChange"
+          />
         </label>
 
         <p class="status">
@@ -73,11 +100,8 @@ onBeforeUnmount(() => {
         <p class="status muted">
           Current app time: {{ formatClockInTimeZone(timezone) }}
         </p>
-
-        <div class="actions">
-          <button :disabled="tracker.isSaving.value" type="submit">Save settings</button>
-        </div>
-      </form>
+        <p v-if="tracker.isSaving.value" class="status muted">Saving…</p>
+      </div>
     </div>
   </section>
 </template>

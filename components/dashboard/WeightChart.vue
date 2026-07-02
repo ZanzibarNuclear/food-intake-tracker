@@ -35,8 +35,10 @@ const chartData = computed(() => {
       {
         label: "Goal",
         data: sorted.map(() => props.goalWeight),
-        borderColor: "#e1b84f",
-        borderDash: [6, 4],
+        borderColor: "#ffcc00",
+        borderDash: [2, 5],
+        borderWidth: 3,
+        borderCapStyle: "round" as const,
         pointRadius: 0,
         fill: false,
       },
@@ -64,7 +66,17 @@ const options = {
 
 <style scoped>
 .chart-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 220px;
+  overflow: hidden;
+}
+
+.chart-wrap :deep(canvas) {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .muted {

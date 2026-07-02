@@ -120,7 +120,7 @@ export function dashboardMetrics(data: TrackerData, date = todayIso()): Dashboar
     } satisfies DailySummary);
   const currentWeight = latestWeight(data.weights)?.weight ?? null;
   const weightToGoal =
-    currentWeight === null ? null : round(currentWeight - data.settings.goalWeight, 1);
+    currentWeight === null ? null : round(data.settings.goalWeight - currentWeight, 1);
 
   return {
     today,

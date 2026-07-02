@@ -87,6 +87,6 @@ describe("nutrition calculations", () => {
 
   it("finds current weight and weight to goal", () => {
     expect(latestWeight(data.weights)?.weight).toBe(185);
-    expect(dashboardMetrics(data, "2026-06-24").weightToGoal).toBe(15);
+    expect(dashboardMetrics(data, "2026-06-24").weightToGoal).toBe(-15);
   });
 });

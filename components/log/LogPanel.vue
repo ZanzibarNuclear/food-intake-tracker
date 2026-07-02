@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import type { Food, FoodSearchResult, MealEntry, TrackerData } from "~/types/nutrition";
-import { calculateMeal, calculateMeals } from "~/utils/nutrition";
+import { calculateMeal, calculateMeals, summarizeDays } from "~/utils/nutrition";
 import { formatNumber } from "~/utils/format";
 import { todayIso } from "~/utils/dates";
 
 const props = defineProps<{
   tracker: TrackerData;
+  mode?: "page" | "modal";
   quickAddSignal?: number;
   pendingFood?: Food | null;
 }>();
 
 const emit = defineEmits<{
   consumePendingFood: [];
+  mealSaved: [];
 }>();
 
 const trackerApi = useTracker();
 const { timezone } = useUserTimezone();
 const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"] as const;
+const isModal = computed(() => props.mode === "modal");
 
 type DraftMealItem = Pick<MealEntry, "foodId" | "foodName" | "quantity"> & {
   tempId: number;
@@ -91,6 +94,7 @@ const dayMeals = computed(() =>
     props.tracker.foods,
   ),
 );
+const recentSummaries = computed(() => summarizeDays(props.tracker).slice(0, 14));
 
 function selectFood(food: Food) {
   if (searchTimer) clearTimeout(searchTimer);
@@ -178,7 +182,10 @@ async function submitMeal() {
       quantity: Number(item.quantity),
       notes: null,
     });
-    if (saved) resetMealForm();
+    if (saved) {
+      resetMealForm();
+      emit("mealSaved");
+    }
     return;
   }
 
@@ -196,7 +203,10 @@ async function submitMeal() {
       break;
     }
   }
-  if (allSaved) resetMealForm();
+  if (allSaved) {
+    resetMealForm();
+    emit("mealSaved");
+  }
 }
 
 async function removeMeal(id: number) {
@@ -241,33 +251,8 @@ watch(
 </script>
 
 <template>
-  <section class="section with-sidecar">
-    <form class="form-panel" @submit.prevent="submitMeal">
-      <h2>{{ editingMealId ? "Edit meal" : "Log meal" }}</h2>
-
-      <div class="quick-row">
-        <button
-          v-if="trackerApi.quickList.value.favorites.length"
-          aria-label="Favorite foods"
-          class="secondary quick-icon-btn"
-          title="Favorite foods"
-          type="button"
-          @click="openFavoritesPopup"
-        >
-          ★
-          <span class="recent-count">{{ trackerApi.quickList.value.favorites.length }}</span>
-        </button>
-        <button
-          v-if="trackerApi.quickList.value.recents.length"
-          class="secondary recent-btn"
-          type="button"
-          @click="openRecentsPopup"
-        >
-          Recent
-          <span class="recent-count">{{ trackerApi.quickList.value.recents.length }}</span>
-        </button>
-      </div>
-
+  <section class="section" :class="{ 'is-modal': isModal }">
+    <form v-if="isModal" class="form-panel" @submit.prevent="submitMeal">
       <div class="meal-header-row">
         <label class="compact-field">
           Date
@@ -349,7 +334,7 @@ watch(
       </div>
     </form>
 
-    <div class="table-panel">
+    <div v-if="!isModal" class="table-panel">
       <h2>Meals on {{ mealForm.date }}</h2>
       <div class="table-scroll">
         <table>
@@ -372,19 +357,6 @@ watch(
               <td class="number">{{ formatNumber(meal.proteinGrams, 1) }}g</td>
               <td class="row-actions">
                 <button
-                  aria-label="Edit meal"
-                  class="icon-btn"
-                  type="button"
-                  @click="editMeal(meal)"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      fill="currentColor"
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92-9.06 9.06zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                    />
-                  </svg>
-                </button>
-                <button
                   v-if="meal.id"
                   aria-label="Delete meal"
                   class="icon-btn danger"
@@ -405,7 +377,42 @@ watch(
       </div>
     </div>
 
-    <dialog ref="recentsDialog" class="recents-dialog" @close="closeRecentsPopup">
+    <div v-if="!isModal" class="table-panel history-summary">
+      <div class="panel-header">
+        <h2>Daily Summary</h2>
+        <input v-model="mealForm.date" aria-label="Selected date" type="date" />
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th class="number">Calories</th>
+              <th class="number">Protein</th>
+              <th class="number">Nutrition</th>
+              <th class="number">Items</th>
+              <th class="number">Weight</th>
+              <th class="number">7d Cal</th>
+              <th class="number">7d Wt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="summary in recentSummaries" :key="summary.date">
+              <td>{{ summary.date }}</td>
+              <td class="number">{{ formatNumber(summary.calories) }}</td>
+              <td class="number">{{ formatNumber(summary.proteinGrams, 1) }}g</td>
+              <td class="number">{{ formatNumber(summary.avgNutritionScore, 1) }}</td>
+              <td class="number">{{ summary.itemsLogged }}</td>
+              <td class="number">{{ formatNumber(summary.weight, 1) }}</td>
+              <td class="number">{{ formatNumber(summary.sevenDayAvgCalories) }}</td>
+              <td class="number">{{ formatNumber(summary.sevenDayAvgWeight, 1) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <dialog v-if="!isModal" ref="recentsDialog" class="recents-dialog" @close="closeRecentsPopup">
       <div class="popup-header">
         <h3>Recent foods</h3>
         <button aria-label="Close" class="icon-btn" type="button" @click="closeRecentsPopup">
@@ -431,7 +438,7 @@ watch(
       </div>
     </dialog>
 
-    <dialog ref="favoritesDialog" class="recents-dialog" @close="closeFavoritesPopup">
+    <dialog v-if="!isModal" ref="favoritesDialog" class="recents-dialog" @close="closeFavoritesPopup">
       <div class="popup-header">
         <h3>Favorite foods</h3>
         <button aria-label="Close" class="icon-btn" type="button" @click="closeFavoritesPopup">
@@ -466,11 +473,40 @@ watch(
   gap: 0.5rem;
 }
 
+.is-modal {
+  display: block;
+}
+
+.is-modal .form-panel {
+  border: 0;
+  border-radius: 0;
+}
+
 .meal-header-row {
   display: flex;
   flex-wrap: wrap;
   align-items: end;
   gap: 0.75rem;
+}
+
+.history-summary {
+  grid-column: 1 / -1;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.panel-header h2 {
+  margin: 0;
+}
+
+.panel-header input {
+  width: auto;
+  min-width: 9.5rem;
 }
 
 .compact-field {
