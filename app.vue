@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { formatClockInTimeZone, todayIso } from "~/utils/dates";
 import type { Food } from "~/types/nutrition";
+import { authClient } from "~~/lib/auth-client";
 
 const tabs = ["Dashboard", "Log", "Foods", "Weight"] as const;
 type Tab = (typeof tabs)[number];
@@ -13,6 +14,8 @@ const pendingLogFood = ref<Food | null>(null);
 
 const tracker = useTracker();
 const { timezone } = useUserTimezone();
+const { data: session, isPending: isSessionPending } = await authClient.useSession(useFetch);
+const isSignedIn = computed(() => Boolean(session.value?.user));
 
 const headerClock = ref(formatClockInTimeZone(timezone.value));
 
@@ -30,9 +33,14 @@ watch(timezone, () => {
   updateClock();
 });
 
-onMounted(async () => {
+async function refreshTracker() {
+  if (!isSignedIn.value) return;
   await tracker.refresh();
   await tracker.refreshQuickList();
+}
+
+onMounted(async () => {
+  await refreshTracker();
   selectedDate.value = todayIso(timezone.value);
   updateClock();
   clockTimer = setInterval(updateClock, 30_000);
@@ -57,17 +65,36 @@ function quickAdd(food: Food | null = null) {
   pendingLogFood.value = food;
   quickAddSignal.value += 1;
 }
+
+async function signOut() {
+  await authClient.signOut();
+  tracker.reset();
+  showSettings.value = false;
+}
+
+watch(isSignedIn, async (signedIn) => {
+  if (signedIn) {
+    await refreshTracker();
+    return;
+  }
+  tracker.reset();
+});
 </script>
 
 <template>
-  <main class="app-shell">
+  <AuthLoginPanel v-if="!isSessionPending && !isSignedIn" />
+  <main v-else class="app-shell">
     <header class="topbar">
       <div class="brand-row">
         <div>
           <h1>Weight Management Food Tracker</h1>
           <p>{{ headerClock }}</p>
         </div>
-        <AppAccountMenu @settings="openSettings" />
+        <AppAccountMenu
+          :user-email="session?.user.email"
+          @settings="openSettings"
+          @sign-out="signOut"
+        />
       </div>
       <nav v-if="!showSettings" class="tabbar" aria-label="Tracker sections">
         <button

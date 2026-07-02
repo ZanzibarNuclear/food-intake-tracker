@@ -4,7 +4,7 @@ A mobile-first food and weight tracker — log meals by nickname, watch calories
 
 ## Status
 
-**v1 candidate in progress** — workbook data is imported, DB-first CRUD is wired, dashboard charts render, fast logging exists, and a starter catalog is loaded. See [docs/implementation-plan.md](./docs/implementation-plan.md).
+**v1 candidate in progress** — workbook data import, DB-first CRUD, dashboard charts, magic-link auth, multi-user data scoping, fast logging, and a starter catalog are wired. See [docs/implementation-plan.md](./docs/implementation-plan.md).
 
 Current focus: finish catalog depth and polish the daily logging loop.
 
@@ -13,9 +13,18 @@ Current focus: finish catalog depth and polish the daily logging loop.
 ```bash
 npm install
 cp .env.example .env
-# Set DATABASE_URL to your Neon Postgres connection string
+# Set DATABASE_URL, BETTER_AUTH_SECRET, and BETTER_AUTH_URL
+npm run auth:migrate
 npm run db:setup
 npm run dev
+```
+
+For local development without Resend, magic links are printed in the dev server console. To send email, set `RESEND_API_KEY` and `AUTH_EMAIL_FROM`.
+
+To seed the workbook data for a user, sign in once so Better Auth creates the user, then run:
+
+```bash
+USER_EMAIL="you@example.com" npm run db:seed:user
 ```
 
 ## Checks

@@ -47,6 +47,12 @@ export function useTracker() {
     }
   }
 
+  function reset() {
+    data.value = null;
+    quickList.value = { favorites: [], recents: [] };
+    errorMessage.value = null;
+  }
+
   async function runSave<T>(action: () => Promise<T>): Promise<T | null> {
     isSaving.value = true;
     errorMessage.value = null;
@@ -112,6 +118,7 @@ export function useTracker() {
     errorMessage,
     refresh,
     refreshQuickList,
+    reset,
     saveSettings,
     saveFood,
     deleteFood,

@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const emit = defineEmits<{
   settings: [];
+  signOut: [];
+}>();
+
+defineProps<{
+  userEmail?: string | null;
 }>();
 
 const open = ref(false);
@@ -17,6 +22,11 @@ function close() {
 function openSettings() {
   close();
   emit("settings");
+}
+
+function signOut() {
+  close();
+  emit("signOut");
 }
 
 function onDocumentClick(event: MouseEvent) {
@@ -46,7 +56,9 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
       </svg>
     </button>
     <div v-if="open" class="dropdown" role="menu">
+      <p v-if="userEmail" class="menu-email">{{ userEmail }}</p>
       <button role="menuitem" type="button" @click="openSettings">Settings</button>
+      <button role="menuitem" type="button" @click="signOut">Sign out</button>
     </div>
   </div>
 </template>
@@ -94,5 +106,13 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
 .dropdown button:hover {
   background: var(--accent-soft);
   color: var(--accent-strong);
+}
+
+.menu-email {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  overflow-wrap: anywhere;
 }
 </style>

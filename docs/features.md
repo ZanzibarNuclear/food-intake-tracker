@@ -103,6 +103,36 @@ The catalog should help logging immediately but also allow personal customizatio
 
 ---
 
+## F004 — Magic-link auth and multi-user data
+
+**Status:** In progress
+
+### Problem
+
+The app cannot be safely deployed while all data is single-user and unauthenticated.
+
+### Requirements
+
+1. Use Better Auth for authentication.
+2. Support passwordless magic-link login.
+3. Send magic links through Resend when configured; log links locally when Resend is absent.
+4. Scope personal settings, foods, meals, weights, favorites, and recents by authenticated user.
+5. Keep system catalog foods global and visible to all users.
+6. Block all tracker API routes without a session.
+7. Split database migration, catalog seed, and per-user workbook seed scripts.
+
+### Acceptance criteria
+
+- [x] Anonymous users see a login screen.
+- [x] Tracker APIs require a Better Auth session.
+- [x] App tables include `user_id` for personal data.
+- [x] Catalog foods remain global.
+- [x] `db:migrate`, `db:seed:catalog`, and `db:seed:user` are separate scripts.
+- [ ] Run Better Auth migration against the target database.
+- [ ] Full local magic-link smoke test with a real database.
+
+---
+
 ## Template (copy for new features)
 
 ### F00X — Title

@@ -13,6 +13,20 @@
 npm run generate:seed
 ```
 
+**Prepare a local or preview database:**
+
+```bash
+npm run auth:migrate
+npm run db:migrate
+npm run db:seed:catalog
+```
+
+**Seed workbook data for one signed-in user:**
+
+```bash
+USER_EMAIL="you@example.com" npm run db:seed:user
+```
+
 **Regenerate starter catalog:**
 
 ```bash

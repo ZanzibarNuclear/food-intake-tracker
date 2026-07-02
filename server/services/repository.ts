@@ -67,71 +67,13 @@ function mapWeight(row: {
   };
 }
 
-async function touchRecentFood(foodId: number): Promise<void> {
-  const db = getPool();
-  await db.query(
-    `insert into food_recent (food_id, last_used_at, use_count)
-     values ($1, now(), 1)
-     on conflict (food_id) do update set
-       last_used_at = now(),
-       use_count = food_recent.use_count + 1`,
-    [foodId],
-  );
-}
-
-export async function getTrackerData(): Promise<TrackerData> {
-  const db = getPool();
-  const [settingsResult, foodsResult, mealsResult, weightsResult] = await Promise.all([
-    db.query("select * from settings where id = 1"),
-    db.query("select * from foods order by is_system_seed asc, name asc"),
-    db.query(
-      `select meal_entries.id, entry_date, meal, meal_entries.food_id, foods.name as food_name, quantity, meal_entries.notes, meal_entries.created_at
-       from meal_entries
-       join foods on foods.id = meal_entries.food_id
-       order by entry_date desc, meal_entries.id desc`,
-    ),
-    db.query("select * from weight_entries order by entry_date desc"),
-  ]);
-
-  if (!settingsResult.rowCount) {
-    throw createError({ statusCode: 500, statusMessage: "Settings row is missing." });
-  }
-
-  const settingsRow = settingsResult.rows[0];
-  return {
-    settings: {
-      dailyCalorieTarget: Number(settingsRow.daily_calorie_target),
-      proteinTargetGrams: Number(settingsRow.protein_target_grams),
-      nutritionScoreTarget: Number(settingsRow.nutrition_score_target),
-      goalWeight: Number(settingsRow.goal_weight),
-      timezone: settingsRow.timezone ?? null,
-    },
-    foods: foodsResult.rows.map((row) => mapFood(row as FoodRow)),
-    meals: mealsResult.rows.map((row) => mapMeal(row)),
-    weights: weightsResult.rows.map((row) => mapWeight(row)),
-  };
-}
-
-export async function updateSettings(settings: TrackerSettings): Promise<TrackerSettings> {
-  const db = getPool();
-  const result = await db.query(
-    `update settings set
-      daily_calorie_target = $1,
-      protein_target_grams = $2,
-      nutrition_score_target = $3,
-      goal_weight = $4,
-      timezone = $5
-     where id = 1
-     returning *`,
-    [
-      settings.dailyCalorieTarget,
-      settings.proteinTargetGrams,
-      settings.nutritionScoreTarget,
-      settings.goalWeight,
-      settings.timezone ?? null,
-    ],
-  );
-  const row = result.rows[0];
+function mapSettings(row: {
+  daily_calorie_target: string | number;
+  protein_target_grams: string | number;
+  nutrition_score_target: string | number;
+  goal_weight: string | number;
+  timezone: string | null;
+}): TrackerSettings {
   return {
     dailyCalorieTarget: Number(row.daily_calorie_target),
     proteinTargetGrams: Number(row.protein_target_grams),
@@ -141,7 +83,111 @@ export async function updateSettings(settings: TrackerSettings): Promise<Tracker
   };
 }
 
+async function ensureSettings(userId: string): Promise<TrackerSettings> {
+  const db = getPool();
+  const result = await db.query(
+    `insert into settings (user_id)
+     values ($1)
+     on conflict (user_id) do update set user_id = excluded.user_id
+     returning *`,
+    [userId],
+  );
+  return mapSettings(result.rows[0]);
+}
+
+async function touchRecentFood(userId: string, foodId: number): Promise<void> {
+  const db = getPool();
+  await db.query(
+    `insert into food_recent (user_id, food_id, last_used_at, use_count)
+     values ($1, $2, now(), 1)
+     on conflict (user_id, food_id) do update set
+       last_used_at = now(),
+       use_count = food_recent.use_count + 1`,
+    [userId, foodId],
+  );
+}
+
+async function findVisibleFood(userId: string, food: Pick<MealEntry, "foodId" | "foodName">) {
+  const db = getPool();
+  if (food.foodId !== undefined) {
+    return db.query(
+      `select id, name from foods
+       where id = $1 and (is_system_seed = true or user_id = $2)`,
+      [food.foodId, userId],
+    );
+  }
+
+  return db.query(
+    `select id, name from foods
+     where name = $1 and (is_system_seed = true or user_id = $2)
+     order by is_system_seed asc
+     limit 1`,
+    [food.foodName.trim(), userId],
+  );
+}
+
+export async function getTrackerData(userId: string): Promise<TrackerData> {
+  const db = getPool();
+  const [settings, foodsResult, mealsResult, weightsResult] = await Promise.all([
+    ensureSettings(userId),
+    db.query(
+      `select * from foods
+       where is_system_seed = true or user_id = $1
+       order by is_system_seed asc, name asc`,
+      [userId],
+    ),
+    db.query(
+      `select meal_entries.id, entry_date, meal, meal_entries.food_id, foods.name as food_name, quantity, meal_entries.notes, meal_entries.created_at
+       from meal_entries
+       join foods on foods.id = meal_entries.food_id
+       where meal_entries.user_id = $1
+       order by entry_date desc, meal_entries.id desc`,
+      [userId],
+    ),
+    db.query("select * from weight_entries where user_id = $1 order by entry_date desc", [userId]),
+  ]);
+
+  return {
+    settings,
+    foods: foodsResult.rows.map((row) => mapFood(row as FoodRow)),
+    meals: mealsResult.rows.map((row) => mapMeal(row)),
+    weights: weightsResult.rows.map((row) => mapWeight(row)),
+  };
+}
+
+export async function updateSettings(userId: string, settings: TrackerSettings): Promise<TrackerSettings> {
+  const db = getPool();
+  const result = await db.query(
+    `insert into settings (
+      user_id,
+      daily_calorie_target,
+      protein_target_grams,
+      nutrition_score_target,
+      goal_weight,
+      timezone
+    ) values ($1, $2, $3, $4, $5, $6)
+    on conflict (user_id) do update set
+      daily_calorie_target = excluded.daily_calorie_target,
+      protein_target_grams = excluded.protein_target_grams,
+      nutrition_score_target = excluded.nutrition_score_target,
+      goal_weight = excluded.goal_weight,
+      timezone = excluded.timezone,
+      updated_at = now()
+    returning *`,
+    [
+      userId,
+      settings.dailyCalorieTarget,
+      settings.proteinTargetGrams,
+      settings.nutritionScoreTarget,
+      settings.goalWeight,
+      settings.timezone ?? null,
+    ],
+  );
+  return mapSettings(result.rows[0]);
+}
+
 export async function searchFoods(
+  userId: string,
   query = "",
   filter: "all" | "my" | "catalog" = "all",
   limit = 50,
@@ -152,30 +198,34 @@ export async function searchFoods(
     `select * from foods
      where ($1 = '' or name ilike '%' || $1 || '%' or serving_description ilike '%' || $1 || '%')
        and (
-         $2 = 'all'
-         or ($2 = 'my' and is_system_seed = false)
+         ($2 = 'all' and (is_system_seed = true or user_id = $3))
+         or ($2 = 'my' and is_system_seed = false and user_id = $3)
          or ($2 = 'catalog' and is_system_seed = true)
        )
      order by is_system_seed asc, name asc
-     limit $3`,
-    [trimmed, filter, limit],
+     limit $4`,
+    [trimmed, filter, userId, limit],
   );
   return result.rows.map((row) => mapFood(row as FoodRow));
 }
 
-export async function getFoodQuickList(): Promise<{ favorites: Food[]; recents: Food[] }> {
+export async function getFoodQuickList(userId: string): Promise<{ favorites: Food[]; recents: Food[] }> {
   const db = getPool();
   const [favoritesResult, recentsResult] = await Promise.all([
     db.query(
       `select foods.* from food_favorites
        join foods on foods.id = food_favorites.food_id
+       where food_favorites.user_id = $1
        order by food_favorites.sort_order asc, foods.name asc`,
+      [userId],
     ),
     db.query(
       `select foods.* from food_recent
        join foods on foods.id = food_recent.food_id
+       where food_recent.user_id = $1
        order by food_recent.last_used_at desc
        limit 8`,
+      [userId],
     ),
   ]);
   return {
@@ -184,17 +234,16 @@ export async function getFoodQuickList(): Promise<{ favorites: Food[]; recents: 
   };
 }
 
-export async function createFood(food: Food): Promise<Food> {
+export async function createFood(userId: string, food: Food): Promise<Food> {
   const db = getPool();
-  const isSystemSeed = food.isSystemSeed ?? false;
-  const source = food.source ?? (isSystemSeed ? "usda" : "user");
   const result = await db.query(
     `insert into foods (
-      name, serving_description, calories, protein_grams, nutrition_score,
+      user_id, name, serving_description, calories, protein_grams, nutrition_score,
       satiety_score, notes, is_system_seed, source
-    ) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    ) values ($1, $2, $3, $4, $5, $6, $7, $8, false, $9)
     returning *`,
     [
+      userId,
       food.name.trim(),
       food.servingDescription.trim(),
       food.calories,
@@ -202,8 +251,7 @@ export async function createFood(food: Food): Promise<Food> {
       food.nutritionScore,
       food.satietyScore,
       food.notes,
-      isSystemSeed,
-      source,
+      food.source ?? "user",
     ],
   );
   return mapFood(result.rows[0] as FoodRow);
@@ -213,12 +261,13 @@ function personalCopyName(sourceName: string): string {
   return `${sourceName} (My)`;
 }
 
-async function nextAvailableFoodName(baseName: string): Promise<string> {
+async function nextAvailableFoodName(userId: string, baseName: string): Promise<string> {
   const db = getPool();
-  const result = await db.query("select name from foods where name = $1 or name like $2", [
-    baseName,
-    `${baseName} %`,
-  ]);
+  const result = await db.query(
+    `select name from foods
+     where user_id = $1 and (name = $2 or name like $3)`,
+    [userId, baseName, `${baseName} %`],
+  );
   const used = new Set(result.rows.map((row: { name: string }) => row.name));
   if (!used.has(baseName)) return baseName;
 
@@ -231,19 +280,16 @@ async function nextAvailableFoodName(baseName: string): Promise<string> {
   return candidate;
 }
 
-export async function copySystemFood(id: number): Promise<Food> {
+export async function copySystemFood(userId: string, id: number): Promise<Food> {
   const db = getPool();
-  const existing = await db.query("select * from foods where id = $1", [id]);
+  const existing = await db.query("select * from foods where id = $1 and is_system_seed = true", [id]);
   if (!existing.rowCount) {
-    throw createError({ statusCode: 404, statusMessage: "Food not found." });
-  }
-  const source = mapFood(existing.rows[0] as FoodRow);
-  if (!source.isSystemSeed) {
-    throw createError({ statusCode: 422, statusMessage: "Only catalog foods can be copied." });
+    throw createError({ statusCode: 404, statusMessage: "Catalog food not found." });
   }
 
-  const copyName = await nextAvailableFoodName(personalCopyName(source.name));
-  return createFood({
+  const source = mapFood(existing.rows[0] as FoodRow);
+  const copyName = await nextAvailableFoodName(userId, personalCopyName(source.name));
+  return createFood(userId, {
     ...source,
     id: undefined,
     name: copyName,
@@ -252,30 +298,31 @@ export async function copySystemFood(id: number): Promise<Food> {
   });
 }
 
-export async function updateFood(id: number, food: Food): Promise<Food> {
+export async function updateFood(userId: string, id: number, food: Food): Promise<Food> {
   const db = getPool();
-  const existing = await db.query("select is_system_seed from foods where id = $1", [id]);
+  const existing = await db.query("select 1 from foods where id = $1 and user_id = $2 and is_system_seed = false", [
+    id,
+    userId,
+  ]);
   if (!existing.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Food not found." });
-  }
-  if (existing.rows[0].is_system_seed) {
-    throw createError({ statusCode: 403, statusMessage: "System catalog foods cannot be edited." });
   }
 
   const result = await db.query(
     `update foods set
-      name = $2,
-      serving_description = $3,
-      calories = $4,
-      protein_grams = $5,
-      nutrition_score = $6,
-      satiety_score = $7,
-      notes = $8,
+      name = $3,
+      serving_description = $4,
+      calories = $5,
+      protein_grams = $6,
+      nutrition_score = $7,
+      satiety_score = $8,
+      notes = $9,
       updated_at = now()
-     where id = $1
+     where id = $1 and user_id = $2
      returning *`,
     [
       id,
+      userId,
       food.name.trim(),
       food.servingDescription.trim(),
       food.calories,
@@ -288,19 +335,20 @@ export async function updateFood(id: number, food: Food): Promise<Food> {
   return mapFood(result.rows[0] as FoodRow);
 }
 
-export async function deleteFood(id: number): Promise<void> {
+export async function deleteFood(userId: string, id: number): Promise<void> {
   const db = getPool();
-  const existing = await db.query("select is_system_seed from foods where id = $1", [id]);
+  const existing = await db.query("select 1 from foods where id = $1 and user_id = $2 and is_system_seed = false", [
+    id,
+    userId,
+  ]);
   if (!existing.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Food not found." });
   }
-  if (existing.rows[0].is_system_seed) {
-    throw createError({ statusCode: 403, statusMessage: "System catalog foods cannot be deleted." });
-  }
 
-  const mealCount = await db.query("select count(*)::int as count from meal_entries where food_id = $1", [
-    id,
-  ]);
+  const mealCount = await db.query(
+    "select count(*)::int as count from meal_entries where food_id = $1 and user_id = $2",
+    [id, userId],
+  );
   const count = mealCount.rows[0].count as number;
   if (count > 0) {
     throw createError({
@@ -309,33 +357,43 @@ export async function deleteFood(id: number): Promise<void> {
     });
   }
 
-  await db.query("delete from foods where id = $1", [id]);
+  await db.query("delete from foods where id = $1 and user_id = $2", [id, userId]);
 }
 
-export async function toggleFavorite(foodId: number): Promise<{ favorited: boolean }> {
+export async function toggleFavorite(userId: string, foodId: number): Promise<{ favorited: boolean }> {
   const db = getPool();
-  const existing = await db.query("select 1 from food_favorites where food_id = $1", [foodId]);
+  const food = await db.query("select 1 from foods where id = $1 and (is_system_seed = true or user_id = $2)", [
+    foodId,
+    userId,
+  ]);
+  if (!food.rowCount) {
+    throw createError({ statusCode: 404, statusMessage: "Food not found." });
+  }
+
+  const existing = await db.query("select 1 from food_favorites where user_id = $1 and food_id = $2", [
+    userId,
+    foodId,
+  ]);
   if (existing.rowCount) {
-    await db.query("delete from food_favorites where food_id = $1", [foodId]);
+    await db.query("delete from food_favorites where user_id = $1 and food_id = $2", [userId, foodId]);
     return { favorited: false };
   }
 
-  const maxOrder = await db.query("select coalesce(max(sort_order), 0) + 1 as next from food_favorites");
-  await db.query("insert into food_favorites (food_id, sort_order) values ($1, $2)", [
+  const maxOrder = await db.query(
+    "select coalesce(max(sort_order), 0) + 1 as next from food_favorites where user_id = $1",
+    [userId],
+  );
+  await db.query("insert into food_favorites (user_id, food_id, sort_order) values ($1, $2, $3)", [
+    userId,
     foodId,
     maxOrder.rows[0].next,
   ]);
   return { favorited: true };
 }
 
-export async function createMeal(meal: MealEntry): Promise<MealEntry> {
+export async function createMeal(userId: string, meal: MealEntry): Promise<MealEntry> {
   const db = getPool();
-  const foodResult =
-    meal.foodId !== undefined
-      ? await db.query("select id, name from foods where id = $1", [meal.foodId])
-      : await db.query("select id, name from foods where name = $1 order by is_system_seed asc limit 1", [
-          meal.foodName.trim(),
-        ]);
+  const foodResult = await findVisibleFood(userId, meal);
   if (!foodResult.rowCount) {
     throw createError({ statusCode: 422, statusMessage: "Food must be added before logging." });
   }
@@ -343,12 +401,12 @@ export async function createMeal(meal: MealEntry): Promise<MealEntry> {
   const foodId = Number(foodResult.rows[0].id);
   const foodName = foodResult.rows[0].name as string;
   const result = await db.query(
-    `insert into meal_entries (entry_date, meal, food_id, quantity, notes)
-     values ($1, $2, $3, $4, $5)
+    `insert into meal_entries (user_id, entry_date, meal, food_id, quantity, notes)
+     values ($1, $2, $3, $4, $5, $6)
      returning id, entry_date, meal, quantity, notes, created_at`,
-    [meal.date, meal.meal, foodId, meal.quantity, meal.notes],
+    [userId, meal.date, meal.meal, foodId, meal.quantity, meal.notes],
   );
-  await touchRecentFood(foodId);
+  await touchRecentFood(userId, foodId);
 
   const row = result.rows[0];
   return {
@@ -363,14 +421,9 @@ export async function createMeal(meal: MealEntry): Promise<MealEntry> {
   };
 }
 
-export async function updateMeal(id: number, meal: MealEntry): Promise<MealEntry> {
+export async function updateMeal(userId: string, id: number, meal: MealEntry): Promise<MealEntry> {
   const db = getPool();
-  const foodResult =
-    meal.foodId !== undefined
-      ? await db.query("select id, name from foods where id = $1", [meal.foodId])
-      : await db.query("select id, name from foods where name = $1 order by is_system_seed asc limit 1", [
-          meal.foodName.trim(),
-        ]);
+  const foodResult = await findVisibleFood(userId, meal);
   if (!foodResult.rowCount) {
     throw createError({ statusCode: 422, statusMessage: "Food must exist in catalog." });
   }
@@ -379,21 +432,21 @@ export async function updateMeal(id: number, meal: MealEntry): Promise<MealEntry
   const foodName = foodResult.rows[0].name as string;
   const result = await db.query(
     `update meal_entries set
-      entry_date = $2,
-      meal = $3,
-      food_id = $4,
-      quantity = $5,
-      notes = $6,
+      entry_date = $3,
+      meal = $4,
+      food_id = $5,
+      quantity = $6,
+      notes = $7,
       updated_at = now()
-     where id = $1
+     where id = $1 and user_id = $2
      returning id, entry_date, meal, quantity, notes, created_at`,
-    [id, meal.date, meal.meal, foodId, meal.quantity, meal.notes],
+    [id, userId, meal.date, meal.meal, foodId, meal.quantity, meal.notes],
   );
   if (!result.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Meal not found." });
   }
 
-  await touchRecentFood(foodId);
+  await touchRecentFood(userId, foodId);
   const row = result.rows[0];
   return {
     id: Number(row.id),
@@ -407,27 +460,30 @@ export async function updateMeal(id: number, meal: MealEntry): Promise<MealEntry
   };
 }
 
-export async function deleteMeal(id: number): Promise<void> {
+export async function deleteMeal(userId: string, id: number): Promise<void> {
   const db = getPool();
-  const result = await db.query("delete from meal_entries where id = $1 returning id", [id]);
+  const result = await db.query("delete from meal_entries where id = $1 and user_id = $2 returning id", [
+    id,
+    userId,
+  ]);
   if (!result.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Meal not found." });
   }
 }
 
-export async function upsertWeight(weight: WeightEntry): Promise<WeightEntry> {
+export async function upsertWeight(userId: string, weight: WeightEntry): Promise<WeightEntry> {
   const db = getPool();
   if (weight.id !== undefined) {
     const result = await db.query(
       `update weight_entries set
-        entry_date = $2,
-        weight = $3,
-        goal_weight = $4,
-        notes = $5,
+        entry_date = $3,
+        weight = $4,
+        goal_weight = $5,
+        notes = $6,
         updated_at = now()
-       where id = $1
+       where id = $1 and user_id = $2
        returning *`,
-      [weight.id, weight.date, weight.weight, weight.goalWeight, weight.notes],
+      [weight.id, userId, weight.date, weight.weight, weight.goalWeight, weight.notes],
     );
     if (!result.rowCount) {
       throw createError({ statusCode: 404, statusMessage: "Weight entry not found." });
@@ -436,22 +492,25 @@ export async function upsertWeight(weight: WeightEntry): Promise<WeightEntry> {
   }
 
   const result = await db.query(
-    `insert into weight_entries (entry_date, weight, goal_weight, notes)
-     values ($1, $2, $3, $4)
-     on conflict (entry_date) do update set
+    `insert into weight_entries (user_id, entry_date, weight, goal_weight, notes)
+     values ($1, $2, $3, $4, $5)
+     on conflict (user_id, entry_date) do update set
        weight = excluded.weight,
        goal_weight = excluded.goal_weight,
        notes = excluded.notes,
        updated_at = now()
      returning *`,
-    [weight.date, weight.weight, weight.goalWeight, weight.notes],
+    [userId, weight.date, weight.weight, weight.goalWeight, weight.notes],
   );
   return mapWeight(result.rows[0]);
 }
 
-export async function deleteWeight(id: number): Promise<void> {
+export async function deleteWeight(userId: string, id: number): Promise<void> {
   const db = getPool();
-  const result = await db.query("delete from weight_entries where id = $1 returning id", [id]);
+  const result = await db.query("delete from weight_entries where id = $1 and user_id = $2 returning id", [
+    id,
+    userId,
+  ]);
   if (!result.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Weight entry not found." });
   }
