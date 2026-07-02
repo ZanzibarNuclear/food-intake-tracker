@@ -31,6 +31,7 @@ const editingMealId = ref<number | null>(null);
 const foodQuery = ref("");
 const foodInput = ref<HTMLInputElement | null>(null);
 const recentsDialog = ref<HTMLDialogElement | null>(null);
+const favoritesDialog = ref<HTMLDialogElement | null>(null);
 const draftMeals = ref<DraftMealItem[]>([]);
 let nextDraftId = 1;
 
@@ -104,6 +105,7 @@ function selectFood(food: Food) {
   nextDraftId += 1;
   foodQuery.value = "";
   closeRecentsPopup();
+  closeFavoritesPopup();
   focusFoodInput();
 }
 
@@ -125,6 +127,14 @@ function openRecentsPopup() {
 
 function closeRecentsPopup() {
   if (recentsDialog.value?.open) recentsDialog.value.close();
+}
+
+function openFavoritesPopup() {
+  favoritesDialog.value?.showModal();
+}
+
+function closeFavoritesPopup() {
+  if (favoritesDialog.value?.open) favoritesDialog.value.close();
 }
 
 function resetMealForm() {
@@ -235,22 +245,18 @@ watch(
     <form class="form-panel" @submit.prevent="submitMeal">
       <h2>{{ editingMealId ? "Edit meal" : "Log meal" }}</h2>
 
-      <div v-if="trackerApi.quickList.value.favorites.length" class="chip-row">
-        <span class="chip-label">Favorites</span>
-        <div class="chips">
-          <button
-            v-for="food in trackerApi.quickList.value.favorites"
-            :key="food.id"
-            class="chip"
-            type="button"
-            @click="selectFood(food)"
-          >
-            {{ food.name }}
-          </button>
-        </div>
-      </div>
-
       <div class="quick-row">
+        <button
+          v-if="trackerApi.quickList.value.favorites.length"
+          aria-label="Favorite foods"
+          class="secondary quick-icon-btn"
+          title="Favorite foods"
+          type="button"
+          @click="openFavoritesPopup"
+        >
+          ★
+          <span class="recent-count">{{ trackerApi.quickList.value.favorites.length }}</span>
+        </button>
         <button
           v-if="trackerApi.quickList.value.recents.length"
           class="secondary recent-btn"
@@ -424,37 +430,36 @@ watch(
         </button>
       </div>
     </dialog>
+
+    <dialog ref="favoritesDialog" class="recents-dialog" @close="closeFavoritesPopup">
+      <div class="popup-header">
+        <h3>Favorite foods</h3>
+        <button aria-label="Close" class="icon-btn" type="button" @click="closeFavoritesPopup">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+            <path
+              fill="currentColor"
+              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="popup-list">
+        <button
+          v-for="food in trackerApi.quickList.value.favorites"
+          :key="food.id"
+          class="search-item"
+          type="button"
+          @click="selectFood(food)"
+        >
+          <span>{{ food.name }}</span>
+          <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
+        </button>
+      </div>
+    </dialog>
   </section>
 </template>
 
 <style scoped>
-.chip-row {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.chip-label {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.chip {
-  min-height: 34px;
-  padding: 0.35rem 0.65rem;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
 .quick-row {
   display: flex;
   flex-wrap: wrap;
@@ -484,6 +489,17 @@ watch(
   gap: 0.45rem;
   min-height: 36px;
   padding: 0 0.75rem;
+}
+
+.quick-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 44px;
+  min-height: 36px;
+  padding: 0 0.55rem;
+  color: var(--accent-strong);
 }
 
 .recent-count {

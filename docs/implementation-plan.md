@@ -443,11 +443,13 @@ OPENAI_API_KEY=...              # Phase 6 only
 
 ```bash
 npm install
-cp .env.example .env
+cp .env.example .env.local
 npm run auth:migrate
 npm run db:setup
 npm run dev
 ```
+
+`.env.local` is the local source of truth for secrets and connection strings. Nuxt reads it for the app server and exposes server-only values through `runtimeConfig`; standalone Node scripts load the same file before falling back to `.env`.
 
 ---
 

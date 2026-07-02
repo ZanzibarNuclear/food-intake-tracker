@@ -12,12 +12,14 @@ Current focus: finish catalog depth and polish the daily logging loop.
 
 ```bash
 npm install
-cp .env.example .env
+cp .env.example .env.local
 # Set DATABASE_URL, BETTER_AUTH_SECRET, and BETTER_AUTH_URL
 npm run auth:migrate
 npm run db:setup
 npm run dev
 ```
+
+`.env.local` is the local source of truth for secrets and connection strings. Nuxt reads it for the app server and exposes server-only values through `runtimeConfig`; standalone database/auth scripts load the same file before falling back to `.env`.
 
 For local development without Resend, magic links are printed in the dev server console. To send email, set `RESEND_API_KEY` and `AUTH_EMAIL_FROM`.
 
