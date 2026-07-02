@@ -30,7 +30,7 @@ ChartJS.register(
 const props = defineProps<{
   summaries: DailySummary[];
   selectedDate: string;
-  calorieTarget: number;
+  proteinTarget: number;
 }>();
 
 const chartData = computed(() => {
@@ -40,20 +40,20 @@ const chartData = computed(() => {
     const date = addDaysIso(props.selectedDate, -offset);
     labels.push(date.slice(5));
     const summary = props.summaries.find((row) => row.date === date);
-    values.push(summary?.calories ?? 0);
+    values.push(summary?.proteinGrams ?? 0);
   }
   return {
     labels,
     datasets: [
       {
-        label: "Calories",
+        label: "Protein",
         data: values,
-        backgroundColor: "rgba(47, 111, 94, 0.75)",
+        backgroundColor: "rgba(85, 93, 165, 0.72)",
         borderRadius: 6,
       },
       {
         label: "Target",
-        data: labels.map(() => props.calorieTarget),
+        data: labels.map(() => props.proteinTarget),
         type: "line" as const,
         borderColor: "#ffcc00",
         borderDash: [2, 5],

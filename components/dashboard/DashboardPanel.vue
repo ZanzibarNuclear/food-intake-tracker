@@ -77,7 +77,7 @@ function mealIcon(meal: string) {
       </article>
     </div>
 
-    <div class="table-panel">
+    <div class="table-panel dashboard-meals-panel">
       <h2>Meals on {{ selectedDate }}</h2>
       <div class="table-scroll">
         <table>
@@ -194,6 +194,25 @@ function mealIcon(meal: string) {
 
 .dashboard-actions button {
   padding: 0 1rem;
+}
+
+.dashboard-meals-panel {
+  gap: 0.65rem;
+  font-size: 0.86rem;
+}
+
+.dashboard-meals-panel h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.dashboard-meals-panel table {
+  font-size: 0.82rem;
+}
+
+.dashboard-meals-panel :deep(th),
+.dashboard-meals-panel :deep(td) {
+  padding: 0.5rem 0.45rem;
 }
 
 .meal-col {

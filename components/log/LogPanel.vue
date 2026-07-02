@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Food, FoodSearchResult, MealEntry, TrackerData } from "~/types/nutrition";
-import { calculateMeal, summarizeDays } from "~/utils/nutrition";
+import { calculateMeal, calculateMeals, summarizeDays } from "~/utils/nutrition";
 import { formatNumber } from "~/utils/format";
 import { todayIso } from "~/utils/dates";
 
@@ -37,6 +37,8 @@ const mealMenuOpen = ref(false);
 const favoritesMenuOpen = ref(false);
 const recentsDialog = ref<HTMLDialogElement | null>(null);
 const favoritesDialog = ref<HTMLDialogElement | null>(null);
+const summaryDialog = ref<HTMLDialogElement | null>(null);
+const selectedSummaryDate = ref<string | null>(null);
 const draftMeals = ref<DraftMealItem[]>([]);
 let nextDraftId = 1;
 
@@ -90,8 +92,28 @@ const draftTotals = computed(() => ({
   proteinGrams: draftPreviews.value.reduce((sum, meal) => sum + (meal.proteinGrams ?? 0), 0),
 }));
 
+const summaryPage = ref(1);
+const summaryPageSize = 10;
 const summaries = computed(() => summarizeDays(props.tracker));
-const recentSummaries = computed(() => summaries.value.slice(0, 14));
+const summaryTotalPages = computed(() => Math.max(1, Math.ceil(summaries.value.length / summaryPageSize)));
+const summaryFirstResult = computed(() =>
+  summaries.value.length === 0 ? 0 : (summaryPage.value - 1) * summaryPageSize + 1,
+);
+const summaryLastResult = computed(() => Math.min(summaries.value.length, summaryPage.value * summaryPageSize));
+const recentSummaries = computed(() => {
+  const start = (summaryPage.value - 1) * summaryPageSize;
+  return summaries.value.slice(start, start + summaryPageSize);
+});
+const selectedSummaryMeals = computed(() =>
+  calculateMeals(
+    props.tracker.meals.filter((meal) => meal.date === selectedSummaryDate.value),
+    props.tracker.foods,
+  ),
+);
+const selectedSummaryTotals = computed(() => ({
+  calories: selectedSummaryMeals.value.reduce((sum, meal) => sum + (meal.calories ?? 0), 0),
+  proteinGrams: selectedSummaryMeals.value.reduce((sum, meal) => sum + (meal.proteinGrams ?? 0), 0),
+}));
 const selectedMealType = computed(() => mealTypes.find((meal) => meal === mealForm.meal) ?? "Breakfast");
 const favoriteFoods = computed(() => trackerApi.quickList.value.favorites);
 
@@ -154,6 +176,20 @@ function openFavoritesPopup() {
 
 function closeFavoritesPopup() {
   if (favoritesDialog.value?.open) favoritesDialog.value.close();
+}
+
+function openSummaryPopup(date: string) {
+  selectedSummaryDate.value = date;
+  nextTick(() => summaryDialog.value?.showModal());
+}
+
+function closeSummaryPopup() {
+  if (summaryDialog.value?.open) summaryDialog.value.close();
+  selectedSummaryDate.value = null;
+}
+
+function goToSummaryPage(nextPage: number) {
+  summaryPage.value = Math.min(Math.max(1, nextPage), summaryTotalPages.value);
 }
 
 function resetMealForm() {
@@ -262,6 +298,13 @@ watch(timezone, () => {
 watch(
   () => props.quickAddSignal,
   () => handleQuickAdd(),
+);
+
+watch(
+  () => summaries.value.length,
+  () => {
+    summaryPage.value = Math.min(summaryPage.value, summaryTotalPages.value);
+  },
 );
 </script>
 
@@ -530,40 +573,126 @@ watch(
       />
     </div>
 
+    <div v-if="!isModal" class="table-panel meal-chart-panel">
+      <h2>Protein trend (7 days)</h2>
+      <DashboardProteinChart
+        :summaries="summaries"
+        :selected-date="mealForm.date"
+        :protein-target="props.tracker.settings.proteinTargetGrams"
+      />
+    </div>
+
     <div v-if="!isModal" class="table-panel history-summary">
       <div class="panel-header">
         <h2>Daily Summary</h2>
-        <input v-model="mealForm.date" aria-label="Selected date" type="date" />
+      </div>
+      <div class="summary-pagination">
+        <span>{{ summaryFirstResult }}-{{ summaryLastResult }} of {{ summaries.length }}</span>
+        <div class="summary-pager-actions">
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="summaryPage <= 1"
+            @click="goToSummaryPage(summaryPage - 1)"
+          >
+            Previous
+          </button>
+          <span>Page {{ summaryPage }} of {{ summaryTotalPages }}</span>
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="summaryPage >= summaryTotalPages"
+            @click="goToSummaryPage(summaryPage + 1)"
+          >
+            Next
+          </button>
+        </div>
       </div>
       <div class="table-scroll">
-        <table>
+        <table class="summary-table">
           <thead>
             <tr>
               <th>Date</th>
               <th class="number">Calories</th>
               <th class="number">Protein</th>
               <th class="number">Nutrition</th>
-              <th class="number">Items</th>
-              <th class="number">Weight</th>
-              <th class="number">7d Cal</th>
-              <th class="number">7d Wt</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="summary in recentSummaries" :key="summary.date">
+            <tr
+              v-for="summary in recentSummaries"
+              :key="summary.date"
+              class="summary-row"
+              tabindex="0"
+              @click="openSummaryPopup(summary.date)"
+              @keydown.enter.prevent="openSummaryPopup(summary.date)"
+              @keydown.space.prevent="openSummaryPopup(summary.date)"
+            >
               <td>{{ summary.date }}</td>
               <td class="number">{{ formatNumber(summary.calories) }}</td>
               <td class="number">{{ formatNumber(summary.proteinGrams, 1) }}g</td>
               <td class="number">{{ formatNumber(summary.avgNutritionScore, 1) }}</td>
-              <td class="number">{{ summary.itemsLogged }}</td>
-              <td class="number">{{ formatNumber(summary.weight, 1) }}</td>
-              <td class="number">{{ formatNumber(summary.sevenDayAvgCalories) }}</td>
-              <td class="number">{{ formatNumber(summary.sevenDayAvgWeight, 1) }}</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div class="summary-pagination bottom">
+        <span>{{ summaryFirstResult }}-{{ summaryLastResult }} of {{ summaries.length }}</span>
+        <div class="summary-pager-actions">
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="summaryPage <= 1"
+            @click="goToSummaryPage(summaryPage - 1)"
+          >
+            Previous
+          </button>
+          <span>Page {{ summaryPage }} of {{ summaryTotalPages }}</span>
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="summaryPage >= summaryTotalPages"
+            @click="goToSummaryPage(summaryPage + 1)"
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
+
+    <dialog v-if="!isModal" ref="summaryDialog" class="summary-dialog" @close="closeSummaryPopup">
+      <div class="popup-header">
+        <h3>Meals on {{ selectedSummaryDate }}</h3>
+        <button aria-label="Close" class="icon-btn" type="button" @click="closeSummaryPopup">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+            <path
+              fill="currentColor"
+              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="summary-detail">
+        <div v-if="!selectedSummaryMeals.length" class="empty-draft">No meals logged for this day.</div>
+        <div v-for="meal in selectedSummaryMeals" :key="meal.id" class="summary-meal-row">
+          <div>
+            <strong>{{ meal.foodName }}</strong>
+            <small>{{ meal.meal }} · Qty {{ formatNumber(meal.quantity, 2) }}</small>
+          </div>
+          <div class="summary-meal-macros">
+            <span>{{ formatNumber(meal.calories) }} cal</span>
+            <span>{{ formatNumber(meal.proteinGrams, 1) }}g</span>
+          </div>
+        </div>
+        <div v-if="selectedSummaryMeals.length" class="summary-detail-total">
+          <strong>Total</strong>
+          <span>
+            {{ formatNumber(selectedSummaryTotals.calories) }} cal ·
+            {{ formatNumber(selectedSummaryTotals.proteinGrams, 1) }}g protein
+          </span>
+        </div>
+      </div>
+    </dialog>
 
     <dialog v-if="!isModal" ref="recentsDialog" class="recents-dialog" @close="closeRecentsPopup">
       <div class="popup-header">
@@ -644,10 +773,18 @@ watch(
 
 .history-summary {
   grid-column: 1 / -1;
+  gap: 0.65rem;
+  font-size: 0.86rem;
 }
 
 .meal-chart-panel {
   min-width: 0;
+  gap: 0.65rem;
+}
+
+.meal-chart-panel h2 {
+  margin: 0;
+  font-size: 1rem;
 }
 
 .panel-header {
@@ -661,9 +798,71 @@ watch(
   margin: 0;
 }
 
+.history-summary .panel-header h2 {
+  font-size: 1rem;
+}
+
 .panel-header input {
   width: auto;
   min-width: 9.5rem;
+}
+
+.history-summary .panel-header input {
+  min-height: 36px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.82rem;
+}
+
+.summary-table {
+  min-width: 0;
+  font-size: 0.82rem;
+}
+
+.summary-table :deep(th),
+.summary-table :deep(td) {
+  padding: 0.5rem 0.45rem;
+}
+
+.summary-table tbody tr:nth-child(even) {
+  background: #eef6ff;
+}
+
+.summary-row {
+  cursor: pointer;
+}
+
+.summary-row:hover,
+.summary-row:focus-visible {
+  background: var(--accent-soft);
+  outline: none;
+}
+
+.summary-pagination,
+.summary-pager-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.summary-pagination {
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.summary-pagination.bottom {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.summary-pager-actions span {
+  white-space: nowrap;
+}
+
+.summary-pagination button.small {
+  min-height: 30px;
+  padding: 0 0.45rem;
+  font-size: 0.76rem;
 }
 
 .compact-field {
@@ -859,7 +1058,8 @@ watch(
   font-weight: 700;
 }
 
-.recents-dialog {
+.recents-dialog,
+.summary-dialog {
   width: min(480px, calc(100% - 2rem));
   max-height: min(70vh, 520px);
   margin: auto;
@@ -870,7 +1070,8 @@ watch(
   box-shadow: 0 16px 40px rgba(32, 36, 31, 0.18);
 }
 
-.recents-dialog::backdrop {
+.recents-dialog::backdrop,
+.summary-dialog::backdrop {
   background: rgba(32, 36, 31, 0.45);
 }
 
@@ -894,6 +1095,47 @@ watch(
   padding: 0.75rem;
   overflow: auto;
   max-height: min(60vh, 440px);
+}
+
+.summary-detail {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.75rem;
+}
+
+.summary-meal-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.summary-meal-row small {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.summary-meal-macros {
+  display: grid;
+  gap: 0.1rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.summary-detail-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0.6rem 0;
+  border-top: 1px solid var(--line);
 }
 
 .search-results {

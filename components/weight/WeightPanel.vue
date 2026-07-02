@@ -18,6 +18,17 @@ const trackerApi = useTracker();
 const { timezone } = useUserTimezone();
 const editingWeightId = ref<number | null>(null);
 const isModal = computed(() => props.mode === "modal");
+const weightPage = ref(1);
+const weightPageSize = 10;
+const weightTotalPages = computed(() => Math.max(1, Math.ceil(props.tracker.weights.length / weightPageSize)));
+const weightFirstResult = computed(() =>
+  props.tracker.weights.length === 0 ? 0 : (weightPage.value - 1) * weightPageSize + 1,
+);
+const weightLastResult = computed(() => Math.min(props.tracker.weights.length, weightPage.value * weightPageSize));
+const pagedWeights = computed(() => {
+  const start = (weightPage.value - 1) * weightPageSize;
+  return props.tracker.weights.slice(start, start + weightPageSize);
+});
 
 const weightForm = reactive<WeightEntry>({
   date: todayIso(timezone.value),
@@ -87,6 +98,10 @@ async function removeWeight(id: number) {
   if (editingWeightId.value === id) resetWeightForm();
 }
 
+function goToWeightPage(nextPage: number) {
+  weightPage.value = Math.min(Math.max(1, nextPage), weightTotalPages.value);
+}
+
 onMounted(() => {
   if (isModal.value && props.pendingWeight) {
     editWeight(props.pendingWeight);
@@ -110,6 +125,10 @@ watch(
     setWeightFormForDate(date);
   },
 );
+
+watch(weightTotalPages, (totalPages) => {
+  weightPage.value = Math.min(weightPage.value, totalPages);
+});
 </script>
 
 <template>
@@ -147,8 +166,30 @@ watch(
       />
     </div>
 
-    <div v-if="!isModal" class="table-panel">
+    <div v-if="!isModal" class="table-panel weight-log-panel">
       <h2>Weight log</h2>
+      <div class="weight-pagination">
+        <span>{{ weightFirstResult }}-{{ weightLastResult }} of {{ props.tracker.weights.length }}</span>
+        <div class="weight-pager-actions">
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="weightPage <= 1"
+            @click="goToWeightPage(weightPage - 1)"
+          >
+            Previous
+          </button>
+          <span>Page {{ weightPage }} of {{ weightTotalPages }}</span>
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="weightPage >= weightTotalPages"
+            @click="goToWeightPage(weightPage + 1)"
+          >
+            Next
+          </button>
+        </div>
+      </div>
       <div class="table-scroll">
         <table class="weight-table">
           <thead>
@@ -160,7 +201,7 @@ watch(
             </tr>
           </thead>
           <tbody>
-            <tr v-for="weight in props.tracker.weights" :key="weight.id ?? weight.date">
+            <tr v-for="weight in pagedWeights" :key="weight.id ?? weight.date">
               <td>{{ weight.date }}</td>
               <td class="number">{{ formatNumber(weight.weight, 1) }}</td>
               <td class="spacer-col" aria-hidden="true" />
@@ -198,6 +239,28 @@ watch(
           </tbody>
         </table>
       </div>
+      <div class="weight-pagination bottom">
+        <span>{{ weightFirstResult }}-{{ weightLastResult }} of {{ props.tracker.weights.length }}</span>
+        <div class="weight-pager-actions">
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="weightPage <= 1"
+            @click="goToWeightPage(weightPage - 1)"
+          >
+            Previous
+          </button>
+          <span>Page {{ weightPage }} of {{ weightTotalPages }}</span>
+          <button
+            class="secondary small"
+            type="button"
+            :disabled="weightPage >= weightTotalPages"
+            @click="goToWeightPage(weightPage + 1)"
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -210,13 +273,22 @@ watch(
   white-space: nowrap;
 }
 
-.weight-chart-panel {
+.weight-chart-panel,
+.weight-log-panel {
+  gap: 0.65rem;
   min-width: 0;
+  font-size: 0.86rem;
+}
+
+.weight-chart-panel h2,
+.weight-log-panel h2 {
+  margin: 0;
+  font-size: 1rem;
 }
 
 .weight-table th,
 .weight-table td {
-  padding-block: 0.4rem;
+  padding: 0.5rem 0.45rem;
   vertical-align: middle;
 }
 
@@ -224,6 +296,7 @@ watch(
   width: 100%;
   min-width: 0;
   table-layout: auto;
+  font-size: 0.82rem;
 }
 
 .date-col {
@@ -244,6 +317,34 @@ watch(
 
 .actions-col {
   width: 5rem;
+}
+
+.weight-pagination,
+.weight-pager-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.weight-pagination {
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.weight-pagination.bottom {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.weight-pager-actions span {
+  white-space: nowrap;
+}
+
+.weight-pagination button.small {
+  min-height: 30px;
+  padding: 0 0.45rem;
+  font-size: 0.76rem;
 }
 
 .weight-form-grid {
