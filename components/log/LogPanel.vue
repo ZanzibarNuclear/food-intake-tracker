@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Food, MealEntry, TrackerData } from "~/types/nutrition";
+import type { Food, FoodSearchResult, MealEntry, TrackerData } from "~/types/nutrition";
 import { calculateMeal, calculateMeals } from "~/utils/nutrition";
 import { formatNumber } from "~/utils/format";
 import { todayIso } from "~/utils/dates";
@@ -46,9 +46,10 @@ watch(foodQuery, (query) => {
     return;
   }
   searchTimer = setTimeout(async () => {
-    searchResults.value = await $fetch<Food[]>("/api/foods", {
-      query: { q: query, filter: "all", limit: 12 },
+    const result = await $fetch<FoodSearchResult>("/api/foods", {
+      query: { q: query, filter: "all", page: 1, pageSize: 12 },
     });
+    searchResults.value = result.foods;
   }, 200);
 });
 

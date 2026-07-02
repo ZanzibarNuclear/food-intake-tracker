@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
   const q = typeof query.q === "string" ? query.q : "";
   const filter =
     query.filter === "my" || query.filter === "catalog" ? query.filter : "all";
-  const limit = Math.min(Number(query.limit) || 50, 200);
-  return searchFoods(userId, q, filter, limit);
+  const page = Math.max(1, Number(query.page) || 1);
+  const pageSize = Math.min(Math.max(1, Number(query.pageSize) || Number(query.limit) || 25), 100);
+  return searchFoods(userId, q, filter, page, pageSize);
 });

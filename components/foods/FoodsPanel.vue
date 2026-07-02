@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Food, TrackerData } from "~/types/nutrition";
+import type { Food, FoodSearchResult, TrackerData } from "~/types/nutrition";
 import { formatNumber } from "~/utils/format";
 
 const props = defineProps<{
@@ -13,6 +13,9 @@ const emit = defineEmits<{
 const trackerApi = useTracker();
 const foodQuery = ref("");
 const foodFilter = ref<"all" | "my" | "catalog">("all");
+const page = ref(1);
+const pageSize = ref(25);
+const totalFoods = ref(0);
 const editingFoodId = ref<number | null>(null);
 
 const foodForm = reactive<Food>({
@@ -29,15 +32,39 @@ const searchResults = ref<Food[]>([]);
 let searchTimer: ReturnType<typeof setTimeout> | null = null;
 
 async function runSearch() {
-  searchResults.value = await $fetch<Food[]>("/api/foods", {
-    query: { q: foodQuery.value, filter: foodFilter.value, limit: 100 },
+  const result = await $fetch<FoodSearchResult>("/api/foods", {
+    query: {
+      q: foodQuery.value,
+      filter: foodFilter.value,
+      page: page.value,
+      pageSize: pageSize.value,
+    },
   });
+  searchResults.value = result.foods;
+  totalFoods.value = result.total;
+  page.value = result.page;
+  pageSize.value = result.pageSize;
 }
 
 watch([foodQuery, foodFilter], () => {
   if (searchTimer) clearTimeout(searchTimer);
+  page.value = 1;
   searchTimer = setTimeout(runSearch, 200);
 });
+
+watch(pageSize, () => {
+  page.value = 1;
+  runSearch();
+});
+
+const totalPages = computed(() => Math.max(1, Math.ceil(totalFoods.value / pageSize.value)));
+const firstResult = computed(() => (totalFoods.value === 0 ? 0 : (page.value - 1) * pageSize.value + 1));
+const lastResult = computed(() => Math.min(totalFoods.value, page.value * pageSize.value));
+
+async function goToPage(nextPage: number) {
+  page.value = Math.min(Math.max(1, nextPage), totalPages.value);
+  await runSearch();
+}
 
 function resetFoodForm() {
   editingFoodId.value = null;
@@ -154,6 +181,24 @@ onMounted(runSearch);
             <option value="my">My foods</option>
             <option value="catalog">Catalog</option>
           </select>
+          <select v-model.number="pageSize" aria-label="Rows per page">
+            <option :value="10">10 / page</option>
+            <option :value="25">25 / page</option>
+            <option :value="50">50 / page</option>
+            <option :value="100">100 / page</option>
+          </select>
+        </div>
+      </div>
+      <div class="pagination-bar">
+        <span>{{ firstResult }}-{{ lastResult }} of {{ totalFoods }}</span>
+        <div class="pager-actions">
+          <button class="secondary small" type="button" :disabled="page <= 1" @click="goToPage(page - 1)">
+            Previous
+          </button>
+          <span>Page {{ page }} of {{ totalPages }}</span>
+          <button class="secondary small" type="button" :disabled="page >= totalPages" @click="goToPage(page + 1)">
+            Next
+          </button>
         </div>
       </div>
       <div class="table-scroll">
@@ -251,6 +296,23 @@ onMounted(runSearch);
   white-space: nowrap;
 }
 
+.pagination-bar,
+.pager-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pagination-bar {
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.pager-actions span {
+  white-space: nowrap;
+}
+
 button.small {
   min-height: 34px;
   padding: 0 0.55rem;
@@ -263,7 +325,7 @@ button.danger {
 
 @media (min-width: 720px) {
   .filters {
-    grid-template-columns: 1fr 160px;
+    grid-template-columns: 1fr 160px 130px;
   }
 }
 </style>

@@ -29,7 +29,7 @@ try {
       nutrition_score_target,
       goal_weight
     ) values ($1, $2, $3, $4, $5)
-    on conflict (user_id) do update set
+    on conflict (user_id) where user_id is not null do update set
       daily_calorie_target = excluded.daily_calorie_target,
       protein_target_grams = excluded.protein_target_grams,
       nutrition_score_target = excluded.nutrition_score_target,
@@ -58,7 +58,7 @@ try {
         is_system_seed,
         source
       ) values ($1, $2, $3, $4, $5, $6, $7, $8, false, 'workbook')
-      on conflict (user_id, lower(name)) where is_system_seed = false do update set
+      on conflict (user_id, (lower(name))) where is_system_seed = false do update set
         serving_description = excluded.serving_description,
         calories = excluded.calories,
         protein_grams = excluded.protein_grams,
@@ -104,7 +104,7 @@ try {
     await pool.query(
       `insert into weight_entries (user_id, entry_date, weight, goal_weight, notes)
        values ($1, $2, $3, $4, $5)
-       on conflict (user_id, entry_date) do update set
+       on conflict (user_id, entry_date) where user_id is not null do update set
          weight = excluded.weight,
          goal_weight = excluded.goal_weight,
          notes = excluded.notes,
@@ -125,9 +125,22 @@ try {
     [userId],
   );
 
+  const counts = await pool.query(
+    `select
+      (select count(*)::int from foods where user_id = $1 and is_system_seed = false) as personal_foods,
+      (select count(*)::int from meal_entries where user_id = $1) as meals,
+      (select count(*)::int from weight_entries where user_id = $1) as weights,
+      exists(select 1 from foods where user_id = $1 and name = 'Blueberry Protein Shake') as has_blueberry_shake`,
+    [userId],
+  );
+
   await pool.query("commit");
+  const row = counts.rows[0];
   console.log(
     `Seeded ${seed.foods.length} personal foods, ${seed.meals.length} meals, and ${seed.weights.length} weights for ${email}.`,
+  );
+  console.log(
+    `Database now has ${row.personal_foods} personal foods, ${row.meals} meals, ${row.weights} weights for this user. Blueberry Protein Shake: ${row.has_blueberry_shake ? "yes" : "no"}.`,
   );
 } catch (error) {
   await pool.query("rollback").catch(() => {});

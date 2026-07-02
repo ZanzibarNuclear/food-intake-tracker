@@ -17,7 +17,8 @@ const { timezone } = useUserTimezone();
 const { data: session, isPending: isSessionPending } = await authClient.useSession(useFetch);
 const isSignedIn = computed(() => Boolean(session.value?.user));
 
-const headerClock = ref(formatClockInTimeZone(timezone.value));
+const hasMounted = ref(false);
+const headerClock = ref("");
 
 let clockTimer: ReturnType<typeof setInterval> | null = null;
 
@@ -40,6 +41,7 @@ async function refreshTracker() {
 }
 
 onMounted(async () => {
+  hasMounted.value = true;
   await refreshTracker();
   selectedDate.value = todayIso(timezone.value);
   updateClock();
@@ -82,13 +84,19 @@ watch(isSignedIn, async (signedIn) => {
 </script>
 
 <template>
-  <AuthLoginPanel v-if="!isSessionPending && !isSignedIn" />
+  <main v-if="!hasMounted" class="app-shell">
+    <div class="auth-shell">
+      <p class="status">Loading...</p>
+    </div>
+  </main>
+
+  <AuthLoginPanel v-else-if="!isSessionPending && !isSignedIn" />
   <main v-else class="app-shell">
     <header class="topbar">
       <div class="brand-row">
         <div>
           <h1>Weight Management Food Tracker</h1>
-          <p>{{ headerClock }}</p>
+          <p>{{ hasMounted ? headerClock : "Loading..." }}</p>
         </div>
         <AppAccountMenu
           :user-email="session?.user.email"

@@ -18,6 +18,9 @@ alter table settings drop constraint if exists single_settings_row;
 alter table settings add column if not exists user_id text;
 alter table settings add column if not exists created_at timestamptz not null default now();
 alter table settings add column if not exists updated_at timestamptz not null default now();
+create sequence if not exists settings_id_seq;
+select setval('settings_id_seq', (select coalesce(max(id), 0) + 1 from settings), false);
+alter table settings alter column id set default nextval('settings_id_seq');
 create unique index if not exists settings_user_id_unique_idx on settings (user_id) where user_id is not null;
 
 create table if not exists foods (
@@ -82,6 +85,7 @@ create table if not exists weight_entries (
 alter table weight_entries drop constraint if exists weight_entries_entry_date_key;
 alter table weight_entries add column if not exists user_id text;
 create index if not exists weight_entries_user_date_idx on weight_entries(user_id, entry_date);
+create unique index if not exists weight_entries_user_date_unique_idx on weight_entries (user_id, entry_date) where user_id is not null;
 
 create table if not exists food_favorites (
   user_id text not null,

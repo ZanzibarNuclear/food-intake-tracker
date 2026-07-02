@@ -28,6 +28,13 @@ export interface FoodQuickList {
   recents: Food[];
 }
 
+export interface FoodSearchResult {
+  foods: Food[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
 export interface MealEntry {
   id?: number;
   foodId?: number;

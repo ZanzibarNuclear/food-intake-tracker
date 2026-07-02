@@ -1,4 +1,11 @@
-import type { Food, MealEntry, TrackerData, TrackerSettings, WeightEntry } from "~/types/nutrition";
+import type {
+  Food,
+  FoodSearchResult,
+  MealEntry,
+  TrackerData,
+  TrackerSettings,
+  WeightEntry,
+} from "~/types/nutrition";
 import { getPool, toIsoDate } from "~/server/utils/db";
 
 type FoodRow = {
@@ -88,7 +95,7 @@ async function ensureSettings(userId: string): Promise<TrackerSettings> {
   const result = await db.query(
     `insert into settings (user_id)
      values ($1)
-     on conflict (user_id) do update set user_id = excluded.user_id
+     on conflict (user_id) where user_id is not null do update set user_id = excluded.user_id
      returning *`,
     [userId],
   );
@@ -166,7 +173,7 @@ export async function updateSettings(userId: string, settings: TrackerSettings):
       goal_weight,
       timezone
     ) values ($1, $2, $3, $4, $5, $6)
-    on conflict (user_id) do update set
+    on conflict (user_id) where user_id is not null do update set
       daily_calorie_target = excluded.daily_calorie_target,
       protein_target_grams = excluded.protein_target_grams,
       nutrition_score_target = excluded.nutrition_score_target,
@@ -190,11 +197,16 @@ export async function searchFoods(
   userId: string,
   query = "",
   filter: "all" | "my" | "catalog" = "all",
-  limit = 50,
-): Promise<Food[]> {
+  page = 1,
+  pageSize = 25,
+): Promise<FoodSearchResult> {
   const db = getPool();
   const trimmed = query.trim();
-  const result = await db.query(
+  const safePage = Math.max(1, page);
+  const safePageSize = Math.min(Math.max(1, pageSize), 100);
+  const offset = (safePage - 1) * safePageSize;
+  const [result, countResult] = await Promise.all([
+    db.query(
     `select * from foods
      where ($1 = '' or name ilike '%' || $1 || '%' or serving_description ilike '%' || $1 || '%')
        and (
@@ -203,10 +215,26 @@ export async function searchFoods(
          or ($2 = 'catalog' and is_system_seed = true)
        )
      order by is_system_seed asc, name asc
-     limit $4`,
-    [trimmed, filter, userId, limit],
-  );
-  return result.rows.map((row) => mapFood(row as FoodRow));
+     limit $4 offset $5`,
+      [trimmed, filter, userId, safePageSize, offset],
+    ),
+    db.query(
+      `select count(*)::int as count from foods
+       where ($1 = '' or name ilike '%' || $1 || '%' or serving_description ilike '%' || $1 || '%')
+         and (
+           ($2 = 'all' and (is_system_seed = true or user_id = $3))
+           or ($2 = 'my' and is_system_seed = false and user_id = $3)
+           or ($2 = 'catalog' and is_system_seed = true)
+         )`,
+      [trimmed, filter, userId],
+    ),
+  ]);
+  return {
+    foods: result.rows.map((row) => mapFood(row as FoodRow)),
+    total: countResult.rows[0].count as number,
+    page: safePage,
+    pageSize: safePageSize,
+  };
 }
 
 export async function getFoodQuickList(userId: string): Promise<{ favorites: Food[]; recents: Food[] }> {
@@ -494,7 +522,7 @@ export async function upsertWeight(userId: string, weight: WeightEntry): Promise
   const result = await db.query(
     `insert into weight_entries (user_id, entry_date, weight, goal_weight, notes)
      values ($1, $2, $3, $4, $5)
-     on conflict (user_id, entry_date) do update set
+     on conflict (user_id, entry_date) where user_id is not null do update set
        weight = excluded.weight,
        goal_weight = excluded.goal_weight,
        notes = excluded.notes,
