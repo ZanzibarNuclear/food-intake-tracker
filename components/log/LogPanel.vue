@@ -34,6 +34,7 @@ const editingMealId = ref<number | null>(null);
 const foodQuery = ref("");
 const foodInput = ref<HTMLInputElement | null>(null);
 const mealMenuOpen = ref(false);
+const favoritesMenuOpen = ref(false);
 const recentsDialog = ref<HTMLDialogElement | null>(null);
 const favoritesDialog = ref<HTMLDialogElement | null>(null);
 const draftMeals = ref<DraftMealItem[]>([]);
@@ -92,6 +93,7 @@ const draftTotals = computed(() => ({
 const summaries = computed(() => summarizeDays(props.tracker));
 const recentSummaries = computed(() => summaries.value.slice(0, 14));
 const selectedMealType = computed(() => mealTypes.find((meal) => meal === mealForm.meal) ?? "Breakfast");
+const favoriteFoods = computed(() => trackerApi.quickList.value.favorites);
 
 function mealIcon(meal: string) {
   const normalized = meal.toLowerCase();
@@ -112,6 +114,7 @@ function selectFood(food: Food) {
   if (searchTimer) clearTimeout(searchTimer);
   skipNextSearch = true;
   searchResults.value = [];
+  favoritesMenuOpen.value = false;
   draftMeals.value.push({
     tempId: nextDraftId,
     foodId: food.id,
@@ -249,6 +252,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   mealMenuOpen.value = false;
+  favoritesMenuOpen.value = false;
 });
 
 watch(timezone, () => {
@@ -416,6 +420,40 @@ watch(
       </div>
 
       <div class="form-grid">
+        <div class="favorite-picker">
+          <span class="field-label">Favorites</span>
+          <button
+            class="favorite-picker-trigger"
+            type="button"
+            :disabled="!favoriteFoods.length"
+            aria-haspopup="listbox"
+            :aria-expanded="favoritesMenuOpen"
+            @click="favoritesMenuOpen = !favoritesMenuOpen"
+            @keydown.escape.prevent="favoritesMenuOpen = false"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.9 5.87 6.48.94-4.69 4.57 1.1 6.45L12 17.28l-5.79 3.05 1.1-6.45-4.69-4.57 6.48-.94L12 2.5Z"
+              />
+            </svg>
+            <span>{{ favoriteFoods.length ? "Choose favorite" : "No favorites yet" }}</span>
+            <span class="meal-picker-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div v-if="favoritesMenuOpen && favoriteFoods.length" class="favorite-picker-menu" role="listbox">
+            <button
+              v-for="food in favoriteFoods"
+              :key="food.id"
+              class="favorite-picker-option"
+              role="option"
+              type="button"
+              @click="selectFood(food)"
+            >
+              <span>{{ food.name }}</span>
+              <small>{{ food.servingDescription }} · {{ formatNumber(food.calories) }} cal</small>
+            </button>
+          </div>
+        </div>
         <label>
           Add food
           <input
@@ -716,6 +754,76 @@ watch(
 .meal-picker-option.selected .meal-type-icon,
 .meal-picker-option:hover .meal-type-icon {
   background: var(--panel);
+}
+
+.favorite-picker {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.favorite-picker-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: min(18rem, 100%);
+  min-height: 42px;
+  padding: 0 0.65rem;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.favorite-picker-trigger svg {
+  color: #a87600;
+}
+
+.favorite-picker-trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.favorite-picker-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  display: grid;
+  gap: 0.25rem;
+  width: min(100%, 24rem);
+  min-width: min(18rem, 100%);
+  max-height: 240px;
+  padding: 0.35rem;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 14px 30px rgba(32, 36, 31, 0.16);
+}
+
+.favorite-picker-option {
+  display: grid;
+  gap: 0.15rem;
+  justify-content: stretch;
+  min-height: auto;
+  padding: 0.55rem 0.65rem;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  text-align: left;
+}
+
+.favorite-picker-option:hover {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.favorite-picker-option small {
+  color: var(--muted);
+  font-weight: 400;
 }
 
 .recent-btn {
