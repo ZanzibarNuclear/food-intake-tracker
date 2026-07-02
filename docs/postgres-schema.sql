@@ -9,6 +9,7 @@ create table if not exists settings (
   protein_target_grams numeric(8, 2) not null default 100,
   nutrition_score_target numeric(4, 1) not null default 7,
   goal_weight numeric(6, 2) not null default 170,
+  timezone text,
   constraint single_settings_row check (id = 1)
 );
 

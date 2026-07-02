@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import process from "node:process";
 import pg from "pg";
+import { normalizeDatabaseUrl } from "./database-url.mjs";
 
 const databaseUrl = process.env.DATABASE_URL;
 
@@ -10,7 +11,7 @@ if (!databaseUrl) {
 }
 
 const pool = new pg.Pool({
-  connectionString: databaseUrl,
+  connectionString: normalizeDatabaseUrl(databaseUrl),
   ssl: { rejectUnauthorized: true },
 });
 
@@ -34,6 +35,7 @@ try {
   await pool.query(`
     alter table foods add column if not exists is_system_seed boolean not null default false;
     alter table foods add column if not exists source text;
+    alter table settings add column if not exists timezone text;
     create table if not exists food_favorites (
       food_id bigint primary key references foods(id) on delete cascade,
       sort_order smallint not null default 0

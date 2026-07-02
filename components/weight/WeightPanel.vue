@@ -8,10 +8,11 @@ const props = defineProps<{
 }>();
 
 const trackerApi = useTracker();
+const { timezone } = useUserTimezone();
 const editingWeightId = ref<number | null>(null);
 
 const weightForm = reactive<WeightEntry>({
-  date: todayIso(),
+  date: todayIso(timezone.value),
   weight: 0,
   goalWeight: null,
   notes: null,
@@ -19,7 +20,8 @@ const weightForm = reactive<WeightEntry>({
 
 function resetWeightForm() {
   editingWeightId.value = null;
-  weightForm.date = todayIso();
+  weightForm.id = undefined;
+  weightForm.date = todayIso(timezone.value);
   weightForm.weight = 0;
   weightForm.goalWeight = null;
   weightForm.notes = null;
@@ -33,6 +35,7 @@ function editWeight(weight: WeightEntry) {
 async function submitWeight() {
   const payload = {
     ...weightForm,
+    id: editingWeightId.value ?? undefined,
     weight: Number(weightForm.weight),
     goalWeight: weightForm.goalWeight === null ? null : Number(weightForm.goalWeight),
     notes: weightForm.notes || null,

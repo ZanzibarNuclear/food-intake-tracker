@@ -1,4 +1,5 @@
 import pg from "pg";
+import { normalizeDatabaseUrl } from "~/server/utils/database-url";
 
 let pool: pg.Pool | null = null;
 
@@ -12,7 +13,7 @@ export function getPool(): pg.Pool {
   }
 
   pool ??= new pg.Pool({
-    connectionString: databaseUrl,
+    connectionString: normalizeDatabaseUrl(databaseUrl),
     ssl: { rejectUnauthorized: true },
   });
   return pool;

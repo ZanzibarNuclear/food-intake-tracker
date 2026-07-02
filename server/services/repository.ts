@@ -33,17 +33,21 @@ function mapMeal(row: {
   id: string | number;
   entry_date: Date | string;
   meal: string;
+  food_id: string | number;
   food_name: string;
   quantity: string | number;
   notes: string | null;
+  created_at?: Date | string;
 }): MealEntry {
   return {
     id: Number(row.id),
+    foodId: Number(row.food_id),
     date: toIsoDate(row.entry_date),
     meal: row.meal,
     foodName: row.food_name,
     quantity: Number(row.quantity),
     notes: row.notes,
+    loggedAt: row.created_at ? new Date(row.created_at).toISOString() : null,
   };
 }
 
@@ -81,7 +85,7 @@ export async function getTrackerData(): Promise<TrackerData> {
     db.query("select * from settings where id = 1"),
     db.query("select * from foods order by is_system_seed asc, name asc"),
     db.query(
-      `select meal_entries.id, entry_date, meal, foods.name as food_name, quantity, meal_entries.notes
+      `select meal_entries.id, entry_date, meal, meal_entries.food_id, foods.name as food_name, quantity, meal_entries.notes, meal_entries.created_at
        from meal_entries
        join foods on foods.id = meal_entries.food_id
        order by entry_date desc, meal_entries.id desc`,
@@ -100,6 +104,7 @@ export async function getTrackerData(): Promise<TrackerData> {
       proteinTargetGrams: Number(settingsRow.protein_target_grams),
       nutritionScoreTarget: Number(settingsRow.nutrition_score_target),
       goalWeight: Number(settingsRow.goal_weight),
+      timezone: settingsRow.timezone ?? null,
     },
     foods: foodsResult.rows.map((row) => mapFood(row as FoodRow)),
     meals: mealsResult.rows.map((row) => mapMeal(row)),
@@ -114,7 +119,8 @@ export async function updateSettings(settings: TrackerSettings): Promise<Tracker
       daily_calorie_target = $1,
       protein_target_grams = $2,
       nutrition_score_target = $3,
-      goal_weight = $4
+      goal_weight = $4,
+      timezone = $5
      where id = 1
      returning *`,
     [
@@ -122,6 +128,7 @@ export async function updateSettings(settings: TrackerSettings): Promise<Tracker
       settings.proteinTargetGrams,
       settings.nutritionScoreTarget,
       settings.goalWeight,
+      settings.timezone ?? null,
     ],
   );
   const row = result.rows[0];
@@ -130,6 +137,7 @@ export async function updateSettings(settings: TrackerSettings): Promise<Tracker
     proteinTargetGrams: Number(row.protein_target_grams),
     nutritionScoreTarget: Number(row.nutrition_score_target),
     goalWeight: Number(row.goal_weight),
+    timezone: row.timezone ?? null,
   };
 }
 
@@ -199,6 +207,49 @@ export async function createFood(food: Food): Promise<Food> {
     ],
   );
   return mapFood(result.rows[0] as FoodRow);
+}
+
+function personalCopyName(sourceName: string): string {
+  return `${sourceName} (My)`;
+}
+
+async function nextAvailableFoodName(baseName: string): Promise<string> {
+  const db = getPool();
+  const result = await db.query("select name from foods where name = $1 or name like $2", [
+    baseName,
+    `${baseName} %`,
+  ]);
+  const used = new Set(result.rows.map((row: { name: string }) => row.name));
+  if (!used.has(baseName)) return baseName;
+
+  let index = 2;
+  let candidate = `${baseName} ${index}`;
+  while (used.has(candidate)) {
+    index += 1;
+    candidate = `${baseName} ${index}`;
+  }
+  return candidate;
+}
+
+export async function copySystemFood(id: number): Promise<Food> {
+  const db = getPool();
+  const existing = await db.query("select * from foods where id = $1", [id]);
+  if (!existing.rowCount) {
+    throw createError({ statusCode: 404, statusMessage: "Food not found." });
+  }
+  const source = mapFood(existing.rows[0] as FoodRow);
+  if (!source.isSystemSeed) {
+    throw createError({ statusCode: 422, statusMessage: "Only catalog foods can be copied." });
+  }
+
+  const copyName = await nextAvailableFoodName(personalCopyName(source.name));
+  return createFood({
+    ...source,
+    id: undefined,
+    name: copyName,
+    isSystemSeed: false,
+    source: "user",
+  });
 }
 
 export async function updateFood(id: number, food: Food): Promise<Food> {
@@ -279,16 +330,22 @@ export async function toggleFavorite(foodId: number): Promise<{ favorited: boole
 
 export async function createMeal(meal: MealEntry): Promise<MealEntry> {
   const db = getPool();
-  const foodResult = await db.query("select id from foods where name = $1", [meal.foodName.trim()]);
+  const foodResult =
+    meal.foodId !== undefined
+      ? await db.query("select id, name from foods where id = $1", [meal.foodId])
+      : await db.query("select id, name from foods where name = $1 order by is_system_seed asc limit 1", [
+          meal.foodName.trim(),
+        ]);
   if (!foodResult.rowCount) {
     throw createError({ statusCode: 422, statusMessage: "Food must be added before logging." });
   }
 
   const foodId = Number(foodResult.rows[0].id);
+  const foodName = foodResult.rows[0].name as string;
   const result = await db.query(
     `insert into meal_entries (entry_date, meal, food_id, quantity, notes)
      values ($1, $2, $3, $4, $5)
-     returning id, entry_date, meal, quantity, notes`,
+     returning id, entry_date, meal, quantity, notes, created_at`,
     [meal.date, meal.meal, foodId, meal.quantity, meal.notes],
   );
   await touchRecentFood(foodId);
@@ -296,22 +353,30 @@ export async function createMeal(meal: MealEntry): Promise<MealEntry> {
   const row = result.rows[0];
   return {
     id: Number(row.id),
+    foodId,
     date: toIsoDate(row.entry_date),
     meal: row.meal,
-    foodName: meal.foodName.trim(),
+    foodName,
     quantity: Number(row.quantity),
     notes: row.notes,
+    loggedAt: row.created_at ? new Date(row.created_at).toISOString() : null,
   };
 }
 
 export async function updateMeal(id: number, meal: MealEntry): Promise<MealEntry> {
   const db = getPool();
-  const foodResult = await db.query("select id from foods where name = $1", [meal.foodName.trim()]);
+  const foodResult =
+    meal.foodId !== undefined
+      ? await db.query("select id, name from foods where id = $1", [meal.foodId])
+      : await db.query("select id, name from foods where name = $1 order by is_system_seed asc limit 1", [
+          meal.foodName.trim(),
+        ]);
   if (!foodResult.rowCount) {
     throw createError({ statusCode: 422, statusMessage: "Food must exist in catalog." });
   }
 
   const foodId = Number(foodResult.rows[0].id);
+  const foodName = foodResult.rows[0].name as string;
   const result = await db.query(
     `update meal_entries set
       entry_date = $2,
@@ -321,7 +386,7 @@ export async function updateMeal(id: number, meal: MealEntry): Promise<MealEntry
       notes = $6,
       updated_at = now()
      where id = $1
-     returning id, entry_date, meal, quantity, notes`,
+     returning id, entry_date, meal, quantity, notes, created_at`,
     [id, meal.date, meal.meal, foodId, meal.quantity, meal.notes],
   );
   if (!result.rowCount) {
@@ -332,11 +397,13 @@ export async function updateMeal(id: number, meal: MealEntry): Promise<MealEntry
   const row = result.rows[0];
   return {
     id: Number(row.id),
+    foodId,
     date: toIsoDate(row.entry_date),
     meal: row.meal,
-    foodName: meal.foodName.trim(),
+    foodName,
     quantity: Number(row.quantity),
     notes: row.notes,
+    loggedAt: row.created_at ? new Date(row.created_at).toISOString() : null,
   };
 }
 
@@ -350,6 +417,24 @@ export async function deleteMeal(id: number): Promise<void> {
 
 export async function upsertWeight(weight: WeightEntry): Promise<WeightEntry> {
   const db = getPool();
+  if (weight.id !== undefined) {
+    const result = await db.query(
+      `update weight_entries set
+        entry_date = $2,
+        weight = $3,
+        goal_weight = $4,
+        notes = $5,
+        updated_at = now()
+       where id = $1
+       returning *`,
+      [weight.id, weight.date, weight.weight, weight.goalWeight, weight.notes],
+    );
+    if (!result.rowCount) {
+      throw createError({ statusCode: 404, statusMessage: "Weight entry not found." });
+    }
+    return mapWeight(result.rows[0]);
+  }
+
   const result = await db.query(
     `insert into weight_entries (entry_date, weight, goal_weight, notes)
      values ($1, $2, $3, $4)

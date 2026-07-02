@@ -232,13 +232,52 @@ const foods = [
   ["Chicken sandwich fried", "1", 480, 22],
 ];
 
+function nameIncludes(name, terms) {
+  const lower = name.toLowerCase();
+  return terms.some((term) => lower.includes(term));
+}
+
+function estimateNutritionScore(name, calories, proteinGrams) {
+  let score = 5;
+  const proteinDensity = proteinGrams / Math.max(calories / 100, 1);
+
+  if (proteinDensity >= 10) score += 2;
+  else if (proteinDensity >= 6) score += 1;
+
+  if (nameIncludes(name, ["broccoli", "spinach", "salad", "beans", "lentils", "peas", "vegetable", "veggie", "fruit", "berries", "apple", "banana", "orange", "kale", "asparagus", "brussels", "artichoke"])) score += 1.5;
+  if (nameIncludes(name, ["salmon", "tuna", "shrimp", "cod", "tilapia", "lobster", "chicken breast", "turkey", "tofu", "tempeh", "edamame", "greek yogurt", "cottage cheese"])) score += 1;
+  if (nameIncludes(name, ["whole wheat", "oatmeal", "quinoa", "brown rice", "barley", "soba"])) score += 0.5;
+
+  if (nameIncludes(name, ["soda", "cola", "lemonade", "energy drink", "sports drink", "beer", "wine", "whiskey", "margarita"])) score -= 2;
+  if (nameIncludes(name, ["donut", "cookie", "brownie", "cake", "pie", "ice cream", "chips", "fries", "fried", "muffin", "croissant"])) score -= 1.5;
+  if (nameIncludes(name, ["bacon", "sausage", "hot dog", "nachos", "ramen"])) score -= 1;
+
+  return Math.max(1, Math.min(10, Math.round(score * 10) / 10));
+}
+
+function estimateSatietyScore(name, calories, proteinGrams) {
+  let score = 4.5;
+  const proteinDensity = proteinGrams / Math.max(calories / 100, 1);
+
+  if (proteinDensity >= 10) score += 2;
+  else if (proteinDensity >= 6) score += 1;
+  else if (proteinDensity <= 1) score -= 1;
+
+  if (nameIncludes(name, ["beans", "lentils", "chickpeas", "oatmeal", "potato", "sweet potato", "vegetable", "salad", "broccoli", "cauliflower", "brussels", "apple", "berries", "popcorn"])) score += 1;
+  if (nameIncludes(name, ["nuts", "almonds", "walnuts", "peanut butter", "avocado", "olive oil", "cheese"])) score += 0.5;
+  if (nameIncludes(name, ["soda", "juice", "lemonade", "sports drink", "energy drink", "beer", "wine", "whiskey", "margarita", "coffee black", "tea"])) score -= 2;
+  if (nameIncludes(name, ["cookie", "brownie", "cake", "pie", "ice cream", "chips", "pretzels", "crackers", "donut", "croissant"])) score -= 1;
+
+  return Math.max(1, Math.min(10, Math.round(score * 10) / 10));
+}
+
 const output = foods.map(([name, servingDescription, calories, proteinGrams]) => ({
   name,
   servingDescription,
   calories,
   proteinGrams,
-  nutritionScore: 5,
-  satietyScore: null,
+  nutritionScore: estimateNutritionScore(name, calories, proteinGrams),
+  satietyScore: estimateSatietyScore(name, calories, proteinGrams),
   notes: null,
 }));
 

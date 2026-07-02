@@ -4,9 +4,9 @@ A mobile-first food and weight tracker — log meals by nickname, watch calories
 
 ## Status
 
-**Ready to build v1** — workbook parity, dashboard charts, and a pre-loaded food catalog. See [docs/implementation-plan.md](./docs/implementation-plan.md).
+**v1 candidate in progress** — workbook data is imported, DB-first CRUD is wired, dashboard charts render, fast logging exists, and a starter catalog is loaded. See [docs/implementation-plan.md](./docs/implementation-plan.md).
 
-A first prototype exists (`app.vue`, partial API). The plan describes what to keep, replace, and build next.
+Current focus: finish catalog depth and polish the daily logging loop.
 
 ## Setup
 

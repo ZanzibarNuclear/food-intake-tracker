@@ -81,6 +81,10 @@ export function useTracker() {
     return runSave(() => $fetch(`/api/foods/${id}/favorite`, { method: "POST" }));
   }
 
+  async function copyFood(id: number) {
+    return runSave(() => $fetch<Food>(`/api/foods/${id}/copy`, { method: "POST" }));
+  }
+
   async function saveMeal(meal: MealEntry) {
     if (meal.id) {
       return runSave(() => $fetch<MealEntry>(`/api/meals/${meal.id}`, { method: "PATCH", body: meal }));
@@ -112,6 +116,7 @@ export function useTracker() {
     saveFood,
     deleteFood,
     toggleFavorite,
+    copyFood,
     saveMeal,
     deleteMeal,
     saveWeight,

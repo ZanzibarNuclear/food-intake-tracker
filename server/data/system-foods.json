@@ -4,8 +4,8 @@
     "servingDescription": "1 large",
     "calories": 72,
     "proteinGrams": 6.3,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -14,7 +14,7 @@
     "calories": 17,
     "proteinGrams": 3.6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -22,8 +22,8 @@
     "servingDescription": "2 large",
     "calories": 182,
     "proteinGrams": 12,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -31,8 +31,8 @@
     "servingDescription": "2-egg",
     "calories": 200,
     "proteinGrams": 14,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -40,8 +40,8 @@
     "servingDescription": "4 oz",
     "calories": 187,
     "proteinGrams": 35,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -49,8 +49,8 @@
     "servingDescription": "4 oz",
     "calories": 250,
     "proteinGrams": 26,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -58,8 +58,8 @@
     "servingDescription": "4 oz",
     "calories": 190,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -67,8 +67,8 @@
     "servingDescription": "4 oz cooked",
     "calories": 200,
     "proteinGrams": 23,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -76,8 +76,8 @@
     "servingDescription": "4 oz",
     "calories": 170,
     "proteinGrams": 21,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -85,8 +85,8 @@
     "servingDescription": "4 oz",
     "calories": 240,
     "proteinGrams": 26,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -94,8 +94,8 @@
     "servingDescription": "4 oz",
     "calories": 210,
     "proteinGrams": 26,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -104,7 +104,7 @@
     "calories": 90,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -112,8 +112,8 @@
     "servingDescription": "3 oz",
     "calories": 90,
     "proteinGrams": 14,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -121,8 +121,8 @@
     "servingDescription": "4 oz",
     "calories": 233,
     "proteinGrams": 25,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -130,8 +130,8 @@
     "servingDescription": "3 oz",
     "calories": 100,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -139,8 +139,8 @@
     "servingDescription": "4 oz",
     "calories": 112,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -148,8 +148,8 @@
     "servingDescription": "4 oz",
     "calories": 120,
     "proteinGrams": 25,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -157,8 +157,8 @@
     "servingDescription": "4 oz",
     "calories": 145,
     "proteinGrams": 30,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -166,8 +166,8 @@
     "servingDescription": "1 cup",
     "calories": 216,
     "proteinGrams": 5,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 5.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -176,7 +176,7 @@
     "calories": 206,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -184,8 +184,8 @@
     "servingDescription": "1 cup",
     "calories": 222,
     "proteinGrams": 8,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 5.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -193,8 +193,8 @@
     "servingDescription": "1 cup",
     "calories": 166,
     "proteinGrams": 6,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 5.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -203,7 +203,7 @@
     "calories": 220,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -211,8 +211,8 @@
     "servingDescription": "1 slice",
     "calories": 81,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 5.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -221,7 +221,7 @@
     "calories": 75,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -230,7 +230,7 @@
     "calories": 277,
     "proteinGrams": 11,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -239,7 +239,7 @@
     "calories": 140,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -247,8 +247,8 @@
     "servingDescription": "1 cup",
     "calories": 130,
     "proteinGrams": 23,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -257,7 +257,7 @@
     "calories": 208,
     "proteinGrams": 11,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -266,7 +266,7 @@
     "calories": 149,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -274,8 +274,8 @@
     "servingDescription": "1 cup",
     "calories": 122,
     "proteinGrams": 8,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -283,8 +283,8 @@
     "servingDescription": "1 oz",
     "calories": 113,
     "proteinGrams": 7,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 6,
     "notes": null
   },
   {
@@ -292,8 +292,8 @@
     "servingDescription": "1 oz",
     "calories": 85,
     "proteinGrams": 6,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -301,8 +301,8 @@
     "servingDescription": "1 cup",
     "calories": 206,
     "proteinGrams": 28,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 7,
     "notes": null
   },
   {
@@ -311,7 +311,7 @@
     "calories": 102,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -319,8 +319,8 @@
     "servingDescription": "1 medium",
     "calories": 95,
     "proteinGrams": 0.5,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -328,8 +328,8 @@
     "servingDescription": "1 medium",
     "calories": 105,
     "proteinGrams": 1.3,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -337,8 +337,8 @@
     "servingDescription": "1 cup",
     "calories": 84,
     "proteinGrams": 1,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -346,8 +346,8 @@
     "servingDescription": "1 cup",
     "calories": 49,
     "proteinGrams": 1,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -355,8 +355,8 @@
     "servingDescription": "1 medium",
     "calories": 62,
     "proteinGrams": 1.2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -365,7 +365,7 @@
     "calories": 104,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -374,7 +374,7 @@
     "calories": 120,
     "proteinGrams": 1.5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -382,8 +382,8 @@
     "servingDescription": "1 cup",
     "calories": 55,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -391,8 +391,8 @@
     "servingDescription": "2 cups",
     "calories": 14,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -401,7 +401,7 @@
     "calories": 52,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -410,7 +410,7 @@
     "calories": 103,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -419,7 +419,7 @@
     "calories": 161,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -427,8 +427,8 @@
     "servingDescription": "2 cups",
     "calories": 20,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -437,7 +437,7 @@
     "calories": 22,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -446,7 +446,7 @@
     "calories": 16,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -454,8 +454,8 @@
     "servingDescription": "1 cup",
     "calories": 227,
     "proteinGrams": 15,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -463,8 +463,8 @@
     "servingDescription": "1 cup",
     "calories": 269,
     "proteinGrams": 15,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -472,8 +472,8 @@
     "servingDescription": "1 cup",
     "calories": 230,
     "proteinGrams": 18,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -482,7 +482,7 @@
     "calories": 164,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -491,7 +491,7 @@
     "calories": 188,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -500,7 +500,7 @@
     "calories": 185,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -509,7 +509,7 @@
     "calories": 172,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -517,8 +517,8 @@
     "servingDescription": "1 scoop",
     "calories": 120,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -526,8 +526,8 @@
     "servingDescription": "1 bar",
     "calories": 200,
     "proteinGrams": 20,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -536,7 +536,7 @@
     "calories": 285,
     "proteinGrams": 12,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -545,7 +545,7 @@
     "calories": 350,
     "proteinGrams": 20,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -553,8 +553,8 @@
     "servingDescription": "1 with bun",
     "calories": 290,
     "proteinGrams": 10,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 4,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -562,8 +562,8 @@
     "servingDescription": "medium",
     "calories": 365,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -572,7 +572,7 @@
     "calories": 270,
     "proteinGrams": 14,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -580,8 +580,8 @@
     "servingDescription": "1 serving",
     "calories": 470,
     "proteinGrams": 10,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -589,8 +589,8 @@
     "servingDescription": "1 sandwich",
     "calories": 320,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -599,7 +599,7 @@
     "calories": 390,
     "proteinGrams": 12,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -607,8 +607,8 @@
     "servingDescription": "1 sandwich",
     "calories": 420,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -617,7 +617,7 @@
     "calories": 420,
     "proteinGrams": 14,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -626,7 +626,7 @@
     "calories": 470,
     "proteinGrams": 20,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -635,7 +635,7 @@
     "calories": 255,
     "proteinGrams": 9,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -643,8 +643,8 @@
     "servingDescription": "1 cup",
     "calories": 250,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -652,8 +652,8 @@
     "servingDescription": "1 cup",
     "calories": 280,
     "proteinGrams": 18,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -662,7 +662,7 @@
     "calories": 75,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -671,7 +671,7 @@
     "calories": 5,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -680,7 +680,7 @@
     "calories": 190,
     "proteinGrams": 10,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -688,8 +688,8 @@
     "servingDescription": "8 oz",
     "calories": 110,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 2.5,
     "notes": null
   },
   {
@@ -697,8 +697,8 @@
     "servingDescription": "12 oz",
     "calories": 140,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -706,8 +706,8 @@
     "servingDescription": "12 oz",
     "calories": 150,
     "proteinGrams": 1,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -715,8 +715,8 @@
     "servingDescription": "5 oz",
     "calories": 125,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -725,7 +725,7 @@
     "calories": 100,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -734,7 +734,7 @@
     "calories": 210,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -742,8 +742,8 @@
     "servingDescription": "2 medium",
     "calories": 180,
     "proteinGrams": 5,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -752,7 +752,7 @@
     "calories": 220,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -760,8 +760,8 @@
     "servingDescription": "1/2 cup",
     "calories": 140,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -769,8 +769,8 @@
     "servingDescription": "1 medium",
     "calories": 150,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 1.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -778,8 +778,8 @@
     "servingDescription": "1 oz",
     "calories": 152,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -788,7 +788,7 @@
     "calories": 70,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -797,7 +797,7 @@
     "calories": 50,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -806,7 +806,7 @@
     "calories": 10,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -814,8 +814,8 @@
     "servingDescription": "4 oz",
     "calories": 94,
     "proteinGrams": 10,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -823,8 +823,8 @@
     "servingDescription": "3 oz",
     "calories": 160,
     "proteinGrams": 15,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -832,8 +832,8 @@
     "servingDescription": "1 cup",
     "calories": 188,
     "proteinGrams": 18,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -842,7 +842,7 @@
     "calories": 176,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -850,8 +850,8 @@
     "servingDescription": "1 cup",
     "calories": 193,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 5.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -860,7 +860,7 @@
     "calories": 90,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -868,8 +868,8 @@
     "servingDescription": "1 cup",
     "calories": 134,
     "proteinGrams": 9,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -877,8 +877,8 @@
     "servingDescription": "1 cup",
     "calories": 44,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -887,7 +887,7 @@
     "calories": 24,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -896,7 +896,7 @@
     "calories": 15,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -905,7 +905,7 @@
     "calories": 20,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -914,7 +914,7 @@
     "calories": 25,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -922,8 +922,8 @@
     "servingDescription": "1 link",
     "calories": 170,
     "proteinGrams": 7,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 4,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -932,7 +932,7 @@
     "calories": 240,
     "proteinGrams": 14,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -941,7 +941,7 @@
     "calories": 350,
     "proteinGrams": 20,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -950,7 +950,7 @@
     "calories": 310,
     "proteinGrams": 13,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -958,8 +958,8 @@
     "servingDescription": "1 cup",
     "calories": 330,
     "proteinGrams": 12,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -968,7 +968,7 @@
     "calories": 380,
     "proteinGrams": 14,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -976,8 +976,8 @@
     "servingDescription": "1 bowl",
     "calories": 450,
     "proteinGrams": 10,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 4,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -985,8 +985,8 @@
     "servingDescription": "1 bowl",
     "calories": 400,
     "proteinGrams": 25,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -994,8 +994,8 @@
     "servingDescription": "1 cup",
     "calories": 300,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1004,7 +1004,7 @@
     "calories": 360,
     "proteinGrams": 20,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1013,7 +1013,7 @@
     "calories": 380,
     "proteinGrams": 14,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -1022,7 +1022,7 @@
     "calories": 420,
     "proteinGrams": 16,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1031,7 +1031,7 @@
     "calories": 520,
     "proteinGrams": 28,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1039,8 +1039,8 @@
     "servingDescription": "1",
     "calories": 280,
     "proteinGrams": 18,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1049,7 +1049,7 @@
     "calories": 360,
     "proteinGrams": 12,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -1057,8 +1057,8 @@
     "servingDescription": "12 oz",
     "calories": 220,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1066,8 +1066,8 @@
     "servingDescription": "12 oz",
     "calories": 320,
     "proteinGrams": 28,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1076,7 +1076,7 @@
     "calories": 400,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1085,7 +1085,7 @@
     "calories": 170,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1094,7 +1094,7 @@
     "calories": 93,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1103,7 +1103,7 @@
     "calories": 110,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1112,7 +1112,7 @@
     "calories": 80,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 2.5,
     "notes": null
   },
   {
@@ -1121,7 +1121,7 @@
     "calories": 150,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4,
     "notes": null
   },
   {
@@ -1129,8 +1129,8 @@
     "servingDescription": "2 cakes",
     "calories": 70,
     "proteinGrams": 1,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 2.5,
     "notes": null
   },
   {
@@ -1138,8 +1138,8 @@
     "servingDescription": "1 medium",
     "calories": 230,
     "proteinGrams": 5,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1147,8 +1147,8 @@
     "servingDescription": "1 medium",
     "calories": 420,
     "proteinGrams": 6,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1156,8 +1156,8 @@
     "servingDescription": "1",
     "calories": 260,
     "proteinGrams": 3,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1165,8 +1165,8 @@
     "servingDescription": "1 square",
     "calories": 130,
     "proteinGrams": 2,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1174,8 +1174,8 @@
     "servingDescription": "1 slice",
     "calories": 350,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 1.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1184,7 +1184,7 @@
     "calories": 300,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1192,8 +1192,8 @@
     "servingDescription": "1 serving",
     "calories": 400,
     "proteinGrams": 30,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1201,8 +1201,8 @@
     "servingDescription": "1 serving",
     "calories": 600,
     "proteinGrams": 28,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1210,8 +1210,8 @@
     "servingDescription": "6 wings",
     "calories": 430,
     "proteinGrams": 36,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1219,8 +1219,8 @@
     "servingDescription": "4 oz",
     "calories": 290,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1228,8 +1228,8 @@
     "servingDescription": "4 oz",
     "calories": 210,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -1237,8 +1237,8 @@
     "servingDescription": "4 oz",
     "calories": 250,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1246,8 +1246,8 @@
     "servingDescription": "1 cake",
     "calories": 160,
     "proteinGrams": 12,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 4.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1255,8 +1255,8 @@
     "servingDescription": "4 oz",
     "calories": 120,
     "proteinGrams": 26,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -1265,7 +1265,7 @@
     "calories": 180,
     "proteinGrams": 10,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1273,8 +1273,8 @@
     "servingDescription": "1 serving",
     "calories": 250,
     "proteinGrams": 8,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1282,8 +1282,8 @@
     "servingDescription": "1 serving",
     "calories": 550,
     "proteinGrams": 30,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1292,7 +1292,7 @@
     "calories": 170,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1300,8 +1300,8 @@
     "servingDescription": "1 serving",
     "calories": 450,
     "proteinGrams": 12,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 4,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1310,7 +1310,7 @@
     "calories": 160,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1319,7 +1319,7 @@
     "calories": 200,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1328,7 +1328,7 @@
     "calories": 200,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1336,8 +1336,8 @@
     "servingDescription": "1 skewer",
     "calories": 180,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -1346,7 +1346,7 @@
     "calories": 520,
     "proteinGrams": 28,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1354,8 +1354,8 @@
     "servingDescription": "1 cup",
     "calories": 240,
     "proteinGrams": 12,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1364,7 +1364,7 @@
     "calories": 110,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1373,7 +1373,7 @@
     "calories": 210,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1382,7 +1382,7 @@
     "calories": 180,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1391,7 +1391,7 @@
     "calories": 180,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1400,7 +1400,7 @@
     "calories": 200,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1408,8 +1408,8 @@
     "servingDescription": "1",
     "calories": 130,
     "proteinGrams": 5,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1418,7 +1418,7 @@
     "calories": 165,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1427,7 +1427,7 @@
     "calories": 260,
     "proteinGrams": 9,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1436,7 +1436,7 @@
     "calories": 90,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1445,7 +1445,7 @@
     "calories": 83,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1454,7 +1454,7 @@
     "calories": 192,
     "proteinGrams": 4,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1463,7 +1463,7 @@
     "calories": 210,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1471,8 +1471,8 @@
     "servingDescription": "1 cup",
     "calories": 113,
     "proteinGrams": 6,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 5.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1480,8 +1480,8 @@
     "servingDescription": "1 cup",
     "calories": 163,
     "proteinGrams": 28,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8,
+    "satietyScore": 7,
     "notes": null
   },
   {
@@ -1489,8 +1489,8 @@
     "servingDescription": "1 stick",
     "calories": 80,
     "proteinGrams": 7,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 6,
     "notes": null
   },
   {
@@ -1499,7 +1499,7 @@
     "calories": 100,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -1508,7 +1508,7 @@
     "calories": 60,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1517,7 +1517,7 @@
     "calories": 130,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1526,7 +1526,7 @@
     "calories": 119,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4,
     "notes": null
   },
   {
@@ -1535,7 +1535,7 @@
     "calories": 64,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1544,7 +1544,7 @@
     "calories": 52,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1553,7 +1553,7 @@
     "calories": 56,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1562,7 +1562,7 @@
     "calories": 42,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1571,7 +1571,7 @@
     "calories": 99,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1579,8 +1579,8 @@
     "servingDescription": "1 cup",
     "calories": 82,
     "proteinGrams": 1,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1589,7 +1589,7 @@
     "calories": 46,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1598,7 +1598,7 @@
     "calories": 59,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1607,7 +1607,7 @@
     "calories": 101,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1616,7 +1616,7 @@
     "calories": 97,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1624,8 +1624,8 @@
     "servingDescription": "1 cup",
     "calories": 64,
     "proteinGrams": 1,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1634,7 +1634,7 @@
     "calories": 54,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1642,8 +1642,8 @@
     "servingDescription": "1/4 cup",
     "calories": 123,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1652,7 +1652,7 @@
     "calories": 120,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1661,7 +1661,7 @@
     "calories": 133,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1670,7 +1670,7 @@
     "calories": 96,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1678,8 +1678,8 @@
     "servingDescription": "1 cup",
     "calories": 27,
     "proteinGrams": 3,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1687,8 +1687,8 @@
     "servingDescription": "1 cup",
     "calories": 56,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1696,8 +1696,8 @@
     "servingDescription": "1 cup",
     "calories": 33,
     "proteinGrams": 3,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1706,7 +1706,7 @@
     "calories": 75,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1715,7 +1715,7 @@
     "calories": 20,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1723,8 +1723,8 @@
     "servingDescription": "1 medium",
     "calories": 60,
     "proteinGrams": 4,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1733,7 +1733,7 @@
     "calories": 158,
     "proteinGrams": 9,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1742,7 +1742,7 @@
     "calories": 165,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1751,7 +1751,7 @@
     "calories": 138,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1760,7 +1760,7 @@
     "calories": 37,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1769,7 +1769,7 @@
     "calories": 157,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1778,7 +1778,7 @@
     "calories": 159,
     "proteinGrams": 6,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1787,7 +1787,7 @@
     "calories": 196,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1796,7 +1796,7 @@
     "calories": 204,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4,
     "notes": null
   },
   {
@@ -1804,8 +1804,8 @@
     "servingDescription": "1 cup",
     "calories": 105,
     "proteinGrams": 7,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1814,7 +1814,7 @@
     "calories": 40,
     "proteinGrams": 1,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 3.5,
     "notes": null
   },
   {
@@ -1823,7 +1823,7 @@
     "calories": 120,
     "proteinGrams": 3,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1832,7 +1832,7 @@
     "calories": 46,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1840,8 +1840,8 @@
     "servingDescription": "12 oz",
     "calories": 80,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1849,8 +1849,8 @@
     "servingDescription": "8 oz",
     "calories": 110,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1859,7 +1859,7 @@
     "calories": 5,
     "proteinGrams": 0,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1867,8 +1867,8 @@
     "servingDescription": "8 oz",
     "calories": 100,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1876,8 +1876,8 @@
     "servingDescription": "1 drink",
     "calories": 100,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1885,8 +1885,8 @@
     "servingDescription": "1.5 oz",
     "calories": 105,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1894,8 +1894,8 @@
     "servingDescription": "1 drink",
     "calories": 280,
     "proteinGrams": 0,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3,
+    "satietyScore": 1.5,
     "notes": null
   },
   {
@@ -1903,8 +1903,8 @@
     "servingDescription": "1 cup",
     "calories": 320,
     "proteinGrams": 24,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -1912,8 +1912,8 @@
     "servingDescription": "1/2 cup",
     "calories": 200,
     "proteinGrams": 10,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1921,8 +1921,8 @@
     "servingDescription": "1/2 cup",
     "calories": 190,
     "proteinGrams": 16,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8.5,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -1930,8 +1930,8 @@
     "servingDescription": "1 cup",
     "calories": 250,
     "proteinGrams": 20,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -1940,7 +1940,7 @@
     "calories": 120,
     "proteinGrams": 5,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1949,7 +1949,7 @@
     "calories": 90,
     "proteinGrams": 2,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1957,8 +1957,8 @@
     "servingDescription": "1 bowl",
     "calories": 450,
     "proteinGrams": 35,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 8.5,
+    "satietyScore": 6.5,
     "notes": null
   },
   {
@@ -1966,8 +1966,8 @@
     "servingDescription": "1 bowl",
     "calories": 380,
     "proteinGrams": 12,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1976,7 +1976,7 @@
     "calories": 300,
     "proteinGrams": 12,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -1985,7 +1985,7 @@
     "calories": 250,
     "proteinGrams": 8,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 5,
     "notes": null
   },
   {
@@ -1994,7 +1994,7 @@
     "calories": 450,
     "proteinGrams": 18,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -2002,8 +2002,8 @@
     "servingDescription": "1",
     "calories": 520,
     "proteinGrams": 32,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -2011,8 +2011,8 @@
     "servingDescription": "1 patty",
     "calories": 180,
     "proteinGrams": 15,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 7.5,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -2020,8 +2020,8 @@
     "servingDescription": "1 patty",
     "calories": 250,
     "proteinGrams": 20,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -2029,8 +2029,8 @@
     "servingDescription": "1 patty",
     "calories": 240,
     "proteinGrams": 19,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 6,
+    "satietyScore": 5.5,
     "notes": null
   },
   {
@@ -2039,7 +2039,7 @@
     "calories": 400,
     "proteinGrams": 18,
     "nutritionScore": 5,
-    "satietyScore": null,
+    "satietyScore": 4.5,
     "notes": null
   },
   {
@@ -2047,8 +2047,8 @@
     "servingDescription": "1",
     "calories": 480,
     "proteinGrams": 22,
-    "nutritionScore": 5,
-    "satietyScore": null,
+    "nutritionScore": 3.5,
+    "satietyScore": 4.5,
     "notes": null
   }
 ]

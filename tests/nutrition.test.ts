@@ -13,6 +13,7 @@ const data: TrackerData = {
     proteinTargetGrams: 100,
     nutritionScoreTarget: 7,
     goalWeight: 170,
+    timezone: "UTC",
   },
   foods: [
     {

@@ -6,6 +6,10 @@ const props = defineProps<{
   tracker: TrackerData;
 }>();
 
+const emit = defineEmits<{
+  logFood: [food: Food];
+}>();
+
 const trackerApi = useTracker();
 const foodQuery = ref("");
 const foodFilter = ref<"all" | "my" | "catalog">("all");
@@ -80,6 +84,19 @@ async function favoriteFood(id: number) {
   await trackerApi.toggleFavorite(id);
 }
 
+async function copyFood(food: Food) {
+  if (!food.id) return;
+  const copied = await trackerApi.copyFood(food.id);
+  if (copied) {
+    editFood(copied);
+    await runSearch();
+  }
+}
+
+function useFood(food: Food) {
+  emit("logFood", food);
+}
+
 onMounted(runSearch);
 </script>
 
@@ -148,6 +165,7 @@ onMounted(runSearch);
               <th class="number">Cal</th>
               <th class="number">Protein</th>
               <th class="number">Nutrition</th>
+              <th class="number">Satiety</th>
               <th />
             </tr>
           </thead>
@@ -161,7 +179,24 @@ onMounted(runSearch);
               <td class="number">{{ formatNumber(food.calories) }}</td>
               <td class="number">{{ formatNumber(food.proteinGrams, 1) }}g</td>
               <td class="number">{{ formatNumber(food.nutritionScore, 1) }}</td>
+              <td class="number">{{ formatNumber(food.satietyScore, 1) }}</td>
               <td class="row-actions">
+                <button
+                  v-if="food.id"
+                  class="secondary small"
+                  type="button"
+                  @click="useFood(food)"
+                >
+                  Use
+                </button>
+                <button
+                  v-if="food.isSystemSeed"
+                  class="secondary small"
+                  type="button"
+                  @click="copyFood(food)"
+                >
+                  Copy
+                </button>
                 <button
                   v-if="food.id"
                   class="secondary small"

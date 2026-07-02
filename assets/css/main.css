@@ -114,7 +114,7 @@ label {
 
 .tabbar {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.35rem;
 }
 
@@ -130,6 +130,11 @@ label {
   background: var(--accent-soft);
   border-color: #bdd9ce;
   color: var(--accent-strong);
+}
+
+.tabbar button.quick-add {
+  background: var(--accent);
+  color: white;
 }
 
 .content {

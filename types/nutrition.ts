@@ -7,6 +7,7 @@ export interface TrackerSettings {
   proteinTargetGrams: number;
   nutritionScoreTarget: number;
   goalWeight: number;
+  timezone?: string | null;
 }
 
 export interface Food {
@@ -29,11 +30,13 @@ export interface FoodQuickList {
 
 export interface MealEntry {
   id?: number;
+  foodId?: number;
   date: string;
   meal: MealName;
   foodName: string;
   quantity: number;
   notes: string | null;
+  loggedAt?: string | null;
 }
 
 export interface WeightEntry {

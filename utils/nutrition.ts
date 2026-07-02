@@ -18,8 +18,15 @@ export function foodLookup(foods: Food[]): Map<string, Food> {
   return new Map(foods.map((food) => [food.name.trim(), food]));
 }
 
+export function foodLookupById(foods: Food[]): Map<number, Food> {
+  return new Map(foods.filter((food) => food.id !== undefined).map((food) => [food.id as number, food]));
+}
+
 export function calculateMeal(entry: MealEntry, foods: Food[]): CalculatedMealEntry {
-  const food = foodLookup(foods).get(entry.foodName.trim()) ?? null;
+  const food =
+    (entry.foodId === undefined ? null : foodLookupById(foods).get(entry.foodId)) ??
+    foodLookup(foods).get(entry.foodName.trim()) ??
+    null;
   if (!food) {
     return {
       ...entry,

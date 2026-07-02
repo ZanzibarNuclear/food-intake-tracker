@@ -6,13 +6,20 @@ import { todayIso } from "~/utils/dates";
 
 const props = defineProps<{
   tracker: TrackerData;
+  quickAddSignal?: number;
+  pendingFood?: Food | null;
+}>();
+
+const emit = defineEmits<{
+  consumePendingFood: [];
 }>();
 
 const trackerApi = useTracker();
+const { timezone } = useUserTimezone();
 const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"] as const;
 
 const mealForm = reactive<MealEntry>({
-  date: todayIso(),
+  date: todayIso(timezone.value),
   meal: "Breakfast",
   foodName: "",
   quantity: 1,
@@ -21,12 +28,23 @@ const mealForm = reactive<MealEntry>({
 
 const editingMealId = ref<number | null>(null);
 const foodQuery = ref("");
+const foodInput = ref<HTMLInputElement | null>(null);
+const recentsDialog = ref<HTMLDialogElement | null>(null);
 
 const searchResults = ref<Food[]>([]);
 let searchTimer: ReturnType<typeof setTimeout> | null = null;
+let skipNextSearch = false;
 
 watch(foodQuery, (query) => {
+  if (skipNextSearch) {
+    skipNextSearch = false;
+    return;
+  }
   if (searchTimer) clearTimeout(searchTimer);
+  if (!query.trim()) {
+    searchResults.value = [];
+    return;
+  }
   searchTimer = setTimeout(async () => {
     searchResults.value = await $fetch<Food[]>("/api/foods", {
       query: { q: query, filter: "all", limit: 12 },
@@ -35,8 +53,18 @@ watch(foodQuery, (query) => {
 });
 
 const selectedFood = computed(
-  () => props.tracker.foods.find((food) => food.name === mealForm.foodName) ?? null,
+  () =>
+    props.tracker.foods.find((food) => food.id !== undefined && food.id === mealForm.foodId) ??
+    props.tracker.foods.find((food) => food.name === mealForm.foodName.trim()) ??
+    null,
 );
+
+const showSearchResults = computed(() => {
+  const query = foodQuery.value.trim();
+  if (!query || !searchResults.value.length) return false;
+  // Hide suggestions when the field is an exact catalog match (e.g. Recent → "Banana").
+  return !props.tracker.foods.some((food) => food.name === query);
+});
 const previewMeal = computed(() =>
   mealForm.foodName ? calculateMeal(mealForm, props.tracker.foods) : null,
 );
@@ -49,28 +77,62 @@ const dayMeals = computed(() =>
 );
 
 function selectFood(food: Food) {
+  if (searchTimer) clearTimeout(searchTimer);
+  skipNextSearch = true;
+  searchResults.value = [];
+  mealForm.foodId = food.id;
   mealForm.foodName = food.name;
   foodQuery.value = food.name;
+  closeRecentsPopup();
+}
+
+function focusFoodInput() {
+  nextTick(() => foodInput.value?.focus());
+}
+
+function handleQuickAdd() {
+  if (props.pendingFood) {
+    selectFood(props.pendingFood);
+    emit("consumePendingFood");
+  }
+  focusFoodInput();
+}
+
+function openRecentsPopup() {
+  recentsDialog.value?.showModal();
+}
+
+function closeRecentsPopup() {
+  if (recentsDialog.value?.open) recentsDialog.value.close();
 }
 
 function resetMealForm(keepFood = false) {
   const foodName = keepFood ? mealForm.foodName : "";
+  const foodId = keepFood ? mealForm.foodId : undefined;
   editingMealId.value = null;
-  mealForm.date = todayIso();
+  mealForm.date = todayIso(timezone.value);
   mealForm.meal = mealForm.meal || "Breakfast";
+  mealForm.foodId = foodId;
   mealForm.foodName = foodName;
   mealForm.quantity = 1;
   mealForm.notes = null;
-  if (!keepFood) foodQuery.value = "";
+  if (!keepFood) {
+    skipNextSearch = true;
+    searchResults.value = [];
+    foodQuery.value = "";
+  }
 }
 
 function editMeal(meal: MealEntry) {
   editingMealId.value = meal.id ?? null;
   mealForm.date = meal.date;
   mealForm.meal = meal.meal;
+  mealForm.foodId = meal.foodId;
   mealForm.foodName = meal.foodName;
   mealForm.quantity = meal.quantity;
   mealForm.notes = meal.notes;
+  skipNextSearch = true;
+  searchResults.value = [];
   foodQuery.value = meal.foodName;
 }
 
@@ -101,7 +163,17 @@ function roundQuantity(value: number) {
 onMounted(() => {
   trackerApi.refreshQuickList();
   resetMealForm();
+  if (props.quickAddSignal) handleQuickAdd();
 });
+
+watch(timezone, () => {
+  if (!editingMealId.value) mealForm.date = todayIso(timezone.value);
+});
+
+watch(
+  () => props.quickAddSignal,
+  () => handleQuickAdd(),
+);
 </script>
 
 <template>
@@ -124,19 +196,16 @@ onMounted(() => {
         </div>
       </div>
 
-      <div v-if="trackerApi.quickList.value.recents.length" class="chip-row">
-        <span class="chip-label">Recent</span>
-        <div class="chips">
-          <button
-            v-for="food in trackerApi.quickList.value.recents"
-            :key="food.id"
-            class="chip"
-            type="button"
-            @click="selectFood(food)"
-          >
-            {{ food.name }}
-          </button>
-        </div>
+      <div class="quick-row">
+        <button
+          v-if="trackerApi.quickList.value.recents.length"
+          class="secondary recent-btn"
+          type="button"
+          @click="openRecentsPopup"
+        >
+          Recent
+          <span class="recent-count">{{ trackerApi.quickList.value.recents.length }}</span>
+        </button>
       </div>
 
       <div class="form-grid">
@@ -152,9 +221,18 @@ onMounted(() => {
         </label>
         <label>
           Food
-          <input v-model="foodQuery" autocomplete="off" required @input="mealForm.foodName = foodQuery" />
+          <input
+            ref="foodInput"
+            v-model="foodQuery"
+            autocomplete="off"
+            required
+            @input="
+              mealForm.foodName = foodQuery;
+              mealForm.foodId = undefined;
+            "
+          />
         </label>
-        <div v-if="searchResults.length && foodQuery" class="search-results">
+        <div v-if="showSearchResults" class="search-results">
           <button
             v-for="food in searchResults"
             :key="food.id"
@@ -207,9 +285,9 @@ onMounted(() => {
               <th>Meal</th>
               <th>Food</th>
               <th class="number">Qty</th>
-              <th class="number">Calories</th>
+              <th class="number">Cal</th>
               <th class="number">Protein</th>
-              <th />
+              <th class="actions-col" aria-label="Actions" />
             </tr>
           </thead>
           <tbody>
@@ -220,14 +298,32 @@ onMounted(() => {
               <td class="number">{{ formatNumber(meal.calories) }}</td>
               <td class="number">{{ formatNumber(meal.proteinGrams, 1) }}g</td>
               <td class="row-actions">
-                <button class="secondary small" type="button" @click="editMeal(meal)">Edit</button>
+                <button
+                  aria-label="Edit meal"
+                  class="icon-btn"
+                  type="button"
+                  @click="editMeal(meal)"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+                    <path
+                      fill="currentColor"
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92-9.06 9.06zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </button>
                 <button
                   v-if="meal.id"
-                  class="secondary small danger"
+                  aria-label="Delete meal"
+                  class="icon-btn danger"
                   type="button"
                   @click="removeMeal(meal.id)"
                 >
-                  Delete
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+                    <path
+                      fill="currentColor"
+                      d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+                    />
+                  </svg>
                 </button>
               </td>
             </tr>
@@ -235,6 +331,32 @@ onMounted(() => {
         </table>
       </div>
     </div>
+
+    <dialog ref="recentsDialog" class="recents-dialog" @close="closeRecentsPopup">
+      <div class="popup-header">
+        <h3>Recent foods</h3>
+        <button aria-label="Close" class="icon-btn" type="button" @click="closeRecentsPopup">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+            <path
+              fill="currentColor"
+              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="popup-list">
+        <button
+          v-for="food in trackerApi.quickList.value.recents"
+          :key="food.id"
+          class="search-item"
+          type="button"
+          @click="selectFood(food)"
+        >
+          <span>{{ food.name }}</span>
+          <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
+        </button>
+      </div>
+    </dialog>
   </section>
 </template>
 
@@ -264,6 +386,71 @@ onMounted(() => {
   color: var(--accent-strong);
   font-size: 0.82rem;
   font-weight: 600;
+}
+
+.quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.recent-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 36px;
+  padding: 0 0.75rem;
+}
+
+.recent-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.recents-dialog {
+  width: min(480px, calc(100% - 2rem));
+  max-height: min(70vh, 520px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: 0 16px 40px rgba(32, 36, 31, 0.18);
+}
+
+.recents-dialog::backdrop {
+  background: rgba(32, 36, 31, 0.45);
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.popup-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.popup-list {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  overflow: auto;
+  max-height: min(60vh, 440px);
 }
 
 .search-results {
@@ -305,17 +492,30 @@ onMounted(() => {
 
 .row-actions {
   display: flex;
-  gap: 0.35rem;
-  white-space: nowrap;
+  gap: 0.2rem;
+  justify-content: flex-end;
 }
 
-button.small {
+.actions-col {
+  width: 4.5rem;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
   min-height: 34px;
-  padding: 0 0.55rem;
-  font-size: 0.78rem;
+  padding: 0;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
-button.danger {
+.icon-btn.danger {
   color: var(--warn);
+}
+
+.table-scroll :deep(table) {
+  min-width: 0;
 }
 </style>
