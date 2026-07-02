@@ -419,6 +419,88 @@ export async function deleteFood(userId: string, id: number): Promise<void> {
   await db.query("delete from foods where id = $1 and user_id = $2", [id, userId]);
 }
 
+export async function mergeFood(
+  userId: string,
+  sourceFoodId: number,
+  targetFoodId: number,
+): Promise<{ updatedMeals: number }> {
+  if (sourceFoodId === targetFoodId) {
+    throw createError({ statusCode: 422, statusMessage: "Choose a different food to merge into." });
+  }
+
+  const db = getPool();
+  const client = await db.connect();
+
+  try {
+    await client.query("begin");
+
+    const source = await client.query(
+      `select id from foods
+       where id = $1
+         and user_id = $2
+         and is_system_seed = false
+         and archived_at is null
+       for update`,
+      [sourceFoodId, userId],
+    );
+    if (!source.rowCount) {
+      throw createError({ statusCode: 404, statusMessage: "Source food not found." });
+    }
+
+    const target = await client.query(
+      `select id from foods
+       where id = $1
+         and archived_at is null
+         and (is_system_seed = true or user_id = $2)
+       for update`,
+      [targetFoodId, userId],
+    );
+    if (!target.rowCount) {
+      throw createError({ statusCode: 404, statusMessage: "Target food not found." });
+    }
+
+    const meals = await client.query(
+      `update meal_entries
+       set food_id = $3, updated_at = now()
+       where user_id = $1 and food_id = $2`,
+      [userId, sourceFoodId, targetFoodId],
+    );
+
+    await client.query(
+      `insert into food_favorites (user_id, food_id, sort_order)
+       select user_id, $3, sort_order
+       from food_favorites
+       where user_id = $1 and food_id = $2
+       on conflict (user_id, food_id) do update set
+         sort_order = least(food_favorites.sort_order, excluded.sort_order)`,
+      [userId, sourceFoodId, targetFoodId],
+    );
+
+    await client.query(
+      `insert into food_recent (user_id, food_id, last_used_at, use_count)
+       select user_id, $3, last_used_at, use_count
+       from food_recent
+       where user_id = $1 and food_id = $2
+       on conflict (user_id, food_id) do update set
+         last_used_at = greatest(food_recent.last_used_at, excluded.last_used_at),
+         use_count = food_recent.use_count + excluded.use_count`,
+      [userId, sourceFoodId, targetFoodId],
+    );
+
+    await client.query("delete from food_favorites where user_id = $1 and food_id = $2", [userId, sourceFoodId]);
+    await client.query("delete from food_recent where user_id = $1 and food_id = $2", [userId, sourceFoodId]);
+    await client.query("delete from foods where id = $1 and user_id = $2", [sourceFoodId, userId]);
+
+    await client.query("commit");
+    return { updatedMeals: meals.rowCount ?? 0 };
+  } catch (error) {
+    await client.query("rollback");
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
 export async function toggleFavorite(userId: string, foodId: number): Promise<{ favorited: boolean }> {
   const db = getPool();
   const food = await db.query(

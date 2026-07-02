@@ -19,7 +19,10 @@ const totalFoods = ref(0);
 const editingFoodId = ref<number | null>(null);
 const showFoodModal = ref(false);
 const selectedFood = ref<Food | null>(null);
-const foodModalMode = ref<"add" | "view" | "edit">("add");
+const foodModalMode = ref<"add" | "view" | "edit" | "merge">("add");
+const mergeQuery = ref("");
+const mergeResults = ref<Food[]>([]);
+const mergeTarget = ref<Food | null>(null);
 
 const foodForm = reactive<Food>({
   name: "",
@@ -33,6 +36,8 @@ const foodForm = reactive<Food>({
 
 const searchResults = ref<Food[]>([]);
 let searchTimer: ReturnType<typeof setTimeout> | null = null;
+let mergeSearchTimer: ReturnType<typeof setTimeout> | null = null;
+let skipNextMergeSearch = false;
 
 async function runSearch() {
   const result = await $fetch<FoodSearchResult>("/api/foods", {
@@ -60,6 +65,26 @@ watch(pageSize, () => {
   runSearch();
 });
 
+watch(mergeQuery, (query) => {
+  if (skipNextMergeSearch) {
+    skipNextMergeSearch = false;
+    return;
+  }
+  if (mergeSearchTimer) clearTimeout(mergeSearchTimer);
+  mergeTarget.value = null;
+  const sourceId = selectedFood.value?.id;
+  if (!query.trim() || !sourceId) {
+    mergeResults.value = [];
+    return;
+  }
+  mergeSearchTimer = setTimeout(async () => {
+    const result = await $fetch<FoodSearchResult>("/api/foods", {
+      query: { q: query, filter: "all", page: 1, pageSize: 8 },
+    });
+    mergeResults.value = result.foods.filter((food) => food.id !== sourceId);
+  }, 200);
+});
+
 const totalPages = computed(() => Math.max(1, Math.ceil(totalFoods.value / pageSize.value)));
 const firstResult = computed(() => (totalFoods.value === 0 ? 0 : (page.value - 1) * pageSize.value + 1));
 const lastResult = computed(() => Math.min(totalFoods.value, page.value * pageSize.value));
@@ -84,6 +109,7 @@ function closeFoodModal() {
   selectedFood.value = null;
   foodModalMode.value = "add";
   resetFoodForm();
+  resetMergeForm();
 }
 
 function resetFoodForm() {
@@ -116,6 +142,20 @@ function viewFood(food: Food) {
 function editSelectedFood() {
   if (!selectedFood.value) return;
   editFood(selectedFood.value);
+}
+
+function resetMergeForm() {
+  mergeQuery.value = "";
+  mergeResults.value = [];
+  mergeTarget.value = null;
+}
+
+function startMergeFood() {
+  if (!selectedFood.value || selectedFood.value.isSystemSeed) return;
+  resetMergeForm();
+  foodModalMode.value = "merge";
+  mergeQuery.value = selectedFood.value.name;
+  mergeTarget.value = null;
 }
 
 async function submitFood() {
@@ -164,6 +204,27 @@ async function copyFood(food: Food) {
   const copied = await trackerApi.copyFood(food.id);
   if (copied) {
     editFood(copied);
+    await runSearch();
+  }
+}
+
+function selectMergeTarget(food: Food) {
+  skipNextMergeSearch = true;
+  mergeTarget.value = food;
+  mergeQuery.value = food.name;
+  mergeResults.value = [];
+}
+
+async function submitMergeFood() {
+  if (!selectedFood.value?.id || !mergeTarget.value?.id) return;
+  const confirmed = window.confirm(
+    `Merge "${selectedFood.value.name}" into "${mergeTarget.value.name}"? All meal entries will use the target food, then the source food will be deleted.`,
+  );
+  if (!confirmed) return;
+
+  const merged = await trackerApi.mergeFood(selectedFood.value.id, mergeTarget.value.id);
+  if (merged) {
+    closeFoodModal();
     await runSearch();
   }
 }
@@ -290,7 +351,15 @@ onMounted(runSearch);
       <div class="food-modal">
         <div class="modal-header">
           <h2 id="food-modal-title">
-            {{ foodModalMode === "view" ? "Food details" : editingFoodId ? "Edit food" : "Add food" }}
+            {{
+              foodModalMode === "view"
+                ? "Food details"
+                : foodModalMode === "merge"
+                  ? "Merge food"
+                  : editingFoodId
+                    ? "Edit food"
+                    : "Add food"
+            }}
           </h2>
           <button aria-label="Close" class="modal-close" type="button" @click="closeFoodModal">
             <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
@@ -352,6 +421,14 @@ onMounted(runSearch);
               Edit
             </button>
             <button
+              v-if="!selectedFood.isSystemSeed"
+              class="secondary"
+              type="button"
+              @click="startMergeFood"
+            >
+              Merge
+            </button>
+            <button
               v-if="!selectedFood.isSystemSeed && selectedFood.id"
               class="secondary danger"
               type="button"
@@ -359,6 +436,55 @@ onMounted(runSearch);
             >
               Delete
             </button>
+          </div>
+        </div>
+
+        <div v-else-if="foodModalMode === 'merge' && selectedFood" class="merge-panel">
+          <div>
+            <h3>{{ selectedFood.name }}</h3>
+            <p class="status muted">Choose the food that should replace this one in meal history.</p>
+          </div>
+
+          <label>
+            Merge into
+            <input v-model="mergeQuery" autocomplete="off" />
+          </label>
+
+          <div v-if="mergeResults.length" class="merge-results">
+            <button
+              v-for="food in mergeResults"
+              :key="food.id"
+              class="merge-result"
+              type="button"
+              @click="selectMergeTarget(food)"
+            >
+              <span>
+                {{ food.name }}
+                <span v-if="food.isSystemSeed" class="pill">Catalog</span>
+              </span>
+              <small>
+                {{ food.servingDescription }} ·
+                {{ formatNumber(food.calories) }} cal ·
+                {{ formatNumber(food.proteinGrams, 1) }}g protein
+              </small>
+            </button>
+          </div>
+
+          <div v-if="mergeTarget" class="merge-target">
+            <strong>Target</strong>
+            <span>{{ mergeTarget.name }}</span>
+            <small>{{ mergeTarget.servingDescription }}</small>
+          </div>
+
+          <div class="actions">
+            <button
+              type="button"
+              :disabled="trackerApi.isSaving.value || !mergeTarget"
+              @click="submitMergeFood"
+            >
+              Merge
+            </button>
+            <button class="secondary" type="button" @click="foodModalMode = 'view'">Cancel</button>
           </div>
         </div>
 
@@ -644,6 +770,54 @@ button.danger {
 
 .detail-notes p {
   margin: 0;
+}
+
+.merge-panel {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+}
+
+.merge-panel h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.merge-results {
+  display: grid;
+  gap: 0.35rem;
+  max-height: 240px;
+  overflow: auto;
+  padding: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.merge-result {
+  display: grid;
+  gap: 0.18rem;
+  justify-content: stretch;
+  min-height: auto;
+  padding: 0.55rem 0.65rem;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+  border: 1px solid var(--line);
+}
+
+.merge-result small,
+.merge-target small {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.merge-target {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
 }
 
 .score-grid {
