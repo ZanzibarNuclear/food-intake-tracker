@@ -288,6 +288,7 @@ onMounted(runSearch);
               v-for="food in searchResults"
               :key="food.id"
               class="food-row"
+              :class="{ personal: !food.isSystemSeed }"
               tabindex="0"
               @click="viewFood(food)"
               @keydown.enter.prevent="viewFood(food)"
@@ -295,7 +296,14 @@ onMounted(runSearch);
             >
               <td>
                 {{ food.name }}
-                <span v-if="food.isSystemSeed" class="pill">Catalog</span>
+                <span v-if="food.isSystemSeed" aria-label="Catalog food" class="source-icon" title="Catalog food">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14">
+                    <path
+                      fill="currentColor"
+                      d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm2.5-.5a.5.5 0 0 0-.5.5v13.05c.17-.03.33-.05.5-.05H18V4H7.5ZM4 4h1v17.5H4V4Z"
+                    />
+                  </svg>
+                </span>
               </td>
               <td>{{ food.servingDescription }}</td>
               <td class="favorite-col">
@@ -375,7 +383,19 @@ onMounted(runSearch);
           <div>
             <h3>{{ selectedFood.name }}</h3>
             <p>{{ selectedFood.servingDescription }}</p>
-            <span v-if="selectedFood.isSystemSeed" class="pill">Catalog</span>
+            <span
+              v-if="selectedFood.isSystemSeed"
+              aria-label="Catalog food"
+              class="source-icon"
+              title="Catalog food"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14">
+                <path
+                  fill="currentColor"
+                  d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm2.5-.5a.5.5 0 0 0-.5.5v13.05c.17-.03.33-.05.5-.05H18V4H7.5ZM4 4h1v17.5H4V4Z"
+                />
+              </svg>
+            </span>
           </div>
 
           <dl class="detail-grid">
@@ -460,7 +480,14 @@ onMounted(runSearch);
             >
               <span>
                 {{ food.name }}
-                <span v-if="food.isSystemSeed" class="pill">Catalog</span>
+                <span v-if="food.isSystemSeed" aria-label="Catalog food" class="source-icon" title="Catalog food">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14">
+                    <path
+                      fill="currentColor"
+                      d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm2.5-.5a.5.5 0 0 0-.5.5v13.05c.17-.03.33-.05.5-.05H18V4H7.5ZM4 4h1v17.5H4V4Z"
+                    />
+                  </svg>
+                </span>
               </span>
               <small>
                 {{ food.servingDescription }} ·
@@ -609,10 +636,27 @@ onMounted(runSearch);
   cursor: pointer;
 }
 
+.food-row.personal {
+  background: #f7f1ff;
+}
+
 .food-row:hover,
 .food-row:focus-visible {
   background: var(--accent-soft);
   outline: none;
+}
+
+.source-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: 0.3rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  vertical-align: middle;
 }
 
 .favorite-col {
