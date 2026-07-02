@@ -16,6 +16,15 @@
       "notes": "Adjust if you change milk amount/type."
     },
     {
+      "name": "PB Sandwich",
+      "servingDescription": "1 sandwich on sourdough",
+      "calories": 395.0,
+      "proteinGrams": 18.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": "Peanut butter amount drives calories."
+    },
+    {
       "name": "PB Banana Sandwich",
       "servingDescription": "1 sandwich on sourdough",
       "calories": 500.0,
@@ -293,6 +302,582 @@
       "nutritionScore": 7.8,
       "satietyScore": null,
       "notes": null
+    },
+    {
+      "name": "IPA beer",
+      "servingDescription": "1 pint (16 oz)",
+      "calories": 250.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 2.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Lager beer",
+      "servingDescription": "1 pint (16 oz)",
+      "calories": 190.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 2.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Red ale",
+      "servingDescription": "1 pint (16 oz)",
+      "calories": 210.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 2.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Stout",
+      "servingDescription": "1 pint (16 oz)",
+      "calories": 220.0,
+      "proteinGrams": 3.0,
+      "nutritionScore": 2.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Mango lassi",
+      "servingDescription": "12 oz",
+      "calories": 320.0,
+      "proteinGrams": 10.0,
+      "nutritionScore": 6.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Pepperoni pizza",
+      "servingDescription": "1 slice (large)",
+      "calories": 320.0,
+      "proteinGrams": 14.0,
+      "nutritionScore": 4.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Combo (supreme) pizza",
+      "servingDescription": "1 slice (large)",
+      "calories": 330.0,
+      "proteinGrams": 15.0,
+      "nutritionScore": 5.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Hawaiian pizza",
+      "servingDescription": "1 slice (large)",
+      "calories": 300.0,
+      "proteinGrams": 14.0,
+      "nutritionScore": 5.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Chicken soup",
+      "servingDescription": "1 cup",
+      "calories": 140.0,
+      "proteinGrams": 12.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Turkey pesto sandwich",
+      "servingDescription": "1 deli sandwich",
+      "calories": 640.0,
+      "proteinGrams": 38.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Whole milk",
+      "servingDescription": "1 cup",
+      "calories": 150.0,
+      "proteinGrams": 8.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Large egg",
+      "servingDescription": "1 egg",
+      "calories": 70.0,
+      "proteinGrams": 6.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Egg whites",
+      "servingDescription": "3 whites",
+      "calories": 50.0,
+      "proteinGrams": 11.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Cheddar cheese",
+      "servingDescription": "1 oz",
+      "calories": 115.0,
+      "proteinGrams": 7.0,
+      "nutritionScore": 6.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Swiss cheese",
+      "servingDescription": "1 oz",
+      "calories": 110.0,
+      "proteinGrams": 8.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Mozzarella",
+      "servingDescription": "1 oz",
+      "calories": 85.0,
+      "proteinGrams": 7.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Parmesan",
+      "servingDescription": "1 oz",
+      "calories": 110.0,
+      "proteinGrams": 10.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Cottage cheese (2%)",
+      "servingDescription": "1 cup",
+      "calories": 180.0,
+      "proteinGrams": 24.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Plain Greek yogurt",
+      "servingDescription": "1 cup",
+      "calories": 140.0,
+      "proteinGrams": 23.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Blueberries",
+      "servingDescription": "1 cup",
+      "calories": 85.0,
+      "proteinGrams": 1.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Strawberries",
+      "servingDescription": "1 cup",
+      "calories": 50.0,
+      "proteinGrams": 1.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Raspberries",
+      "servingDescription": "1 cup",
+      "calories": 65.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Blackberries",
+      "servingDescription": "1 cup",
+      "calories": 60.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Peach",
+      "servingDescription": "1 medium",
+      "calories": 60.0,
+      "proteinGrams": 1.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Nectarine",
+      "servingDescription": "1 medium",
+      "calories": 65.0,
+      "proteinGrams": 1.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Plum",
+      "servingDescription": "1 medium",
+      "calories": 30.0,
+      "proteinGrams": 0.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Apricot",
+      "servingDescription": "1 medium",
+      "calories": 20.0,
+      "proteinGrams": 0.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Cherries",
+      "servingDescription": "1 cup",
+      "calories": 95.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Granola",
+      "servingDescription": "\u00bd cup",
+      "calories": 230.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 6.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Sourdough bread",
+      "servingDescription": "1 slice",
+      "calories": 120.0,
+      "proteinGrams": 4.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Whole wheat bread",
+      "servingDescription": "1 slice",
+      "calories": 110.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Multigrain bread",
+      "servingDescription": "1 slice",
+      "calories": 120.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Shokupan (Japanese milk bread)",
+      "servingDescription": "1 thick slice",
+      "calories": 150.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 6.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Flour tortilla (10\")",
+      "servingDescription": "1.0",
+      "calories": 190.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 5.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Corn tortilla (6\")",
+      "servingDescription": "1.0",
+      "calories": 60.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Hummus",
+      "servingDescription": "2 Tbsp",
+      "calories": 70.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Avocado",
+      "servingDescription": "\u00bd medium",
+      "calories": 120.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 10.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Peanut butter",
+      "servingDescription": "2 Tbsp",
+      "calories": 190.0,
+      "proteinGrams": 7.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Almond butter",
+      "servingDescription": "2 Tbsp",
+      "calories": 190.0,
+      "proteinGrams": 7.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Ground beef (80%)",
+      "servingDescription": "4 oz",
+      "calories": 290.0,
+      "proteinGrams": 24.0,
+      "nutritionScore": 6.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Ground beef (90%)",
+      "servingDescription": "4 oz",
+      "calories": 200.0,
+      "proteinGrams": 23.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Ground pork",
+      "servingDescription": "4 oz",
+      "calories": 300.0,
+      "proteinGrams": 23.0,
+      "nutritionScore": 6.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Ground turkey (93%)",
+      "servingDescription": "4 oz",
+      "calories": 170.0,
+      "proteinGrams": 23.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Ground chicken",
+      "servingDescription": "4 oz",
+      "calories": 170.0,
+      "proteinGrams": 25.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Turkey slices",
+      "servingDescription": "2 oz",
+      "calories": 60.0,
+      "proteinGrams": 12.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Ham",
+      "servingDescription": "2 oz",
+      "calories": 70.0,
+      "proteinGrams": 11.0,
+      "nutritionScore": 7.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Roast beef",
+      "servingDescription": "2 oz",
+      "calories": 80.0,
+      "proteinGrams": 13.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Salami",
+      "servingDescription": "2 oz",
+      "calories": 230.0,
+      "proteinGrams": 12.0,
+      "nutritionScore": 3.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Hamburger (plain)",
+      "servingDescription": "1.0",
+      "calories": 430.0,
+      "proteinGrams": 26.0,
+      "nutritionScore": 5.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Cheeseburger",
+      "servingDescription": "1.0",
+      "calories": 520.0,
+      "proteinGrams": 30.0,
+      "nutritionScore": 5.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Double cheeseburger",
+      "servingDescription": "1.0",
+      "calories": 740.0,
+      "proteinGrams": 43.0,
+      "nutritionScore": 4.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Cheese omelet (2 eggs)",
+      "servingDescription": "1.0",
+      "calories": 250.0,
+      "proteinGrams": 18.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Vegetable omelet (2 eggs)",
+      "servingDescription": "1.0",
+      "calories": 220.0,
+      "proteinGrams": 15.0,
+      "nutritionScore": 9.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Denver omelet",
+      "servingDescription": "1.0",
+      "calories": 320.0,
+      "proteinGrams": 22.0,
+      "nutritionScore": 8.0,
+      "satietyScore": null,
+      "notes": null
+    },
+    {
+      "name": "Dorayaki",
+      "servingDescription": "1 piece",
+      "calories": 200.0,
+      "proteinGrams": 4.0,
+      "nutritionScore": 4.0,
+      "satietyScore": 4.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Senbei / sembe",
+      "servingDescription": "1 serving, ~30 g",
+      "calories": 130.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 3.0,
+      "satietyScore": 3.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Mitarashi dango",
+      "servingDescription": "1 skewer",
+      "calories": 130.0,
+      "proteinGrams": 1.0,
+      "nutritionScore": 3.0,
+      "satietyScore": 3.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Sesame dango",
+      "servingDescription": "3 pieces",
+      "calories": 200.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 4.0,
+      "satietyScore": 5.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Mochi, plain",
+      "servingDescription": "1 piece",
+      "calories": 100.0,
+      "proteinGrams": 2.0,
+      "nutritionScore": 4.0,
+      "satietyScore": 4.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Daifuku mochi",
+      "servingDescription": "1 piece",
+      "calories": 160.0,
+      "proteinGrams": 3.0,
+      "nutritionScore": 4.0,
+      "satietyScore": 4.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Taiyaki, red bean",
+      "servingDescription": "1 piece",
+      "calories": 230.0,
+      "proteinGrams": 5.0,
+      "nutritionScore": 4.0,
+      "satietyScore": 5.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Onigiri, salmon",
+      "servingDescription": "1 piece",
+      "calories": 200.0,
+      "proteinGrams": 6.0,
+      "nutritionScore": 6.0,
+      "satietyScore": 6.0,
+      "notes": "Japanese snack / light meal"
+    },
+    {
+      "name": "Pocky",
+      "servingDescription": "1 box / pack",
+      "calories": 200.0,
+      "proteinGrams": 3.0,
+      "nutritionScore": 2.0,
+      "satietyScore": 2.0,
+      "notes": "Japanese snack"
+    },
+    {
+      "name": "Mochi ice cream",
+      "servingDescription": "1 piece",
+      "calories": 100.0,
+      "proteinGrams": 1.0,
+      "nutritionScore": 2.0,
+      "satietyScore": 2.0,
+      "notes": "Japanese snack / dessert"
     }
   ],
   "meals": [
@@ -456,6 +1041,230 @@
       "foodName": "Watermelon",
       "quantity": 1.0,
       "notes": null
+    },
+    {
+      "date": "2026-06-25",
+      "meal": "Snack",
+      "foodName": "Banana",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-25",
+      "meal": "Snack",
+      "foodName": "Mango lassi",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-25",
+      "meal": "Dinner",
+      "foodName": "Turkey pesto sandwich",
+      "quantity": 0.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-25",
+      "meal": "Dinner",
+      "foodName": "Chicken soup",
+      "quantity": 2.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-25",
+      "meal": "Dessert",
+      "foodName": "Plain Whole-Milk Greek Yogurt",
+      "quantity": 1.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Breakfast",
+      "foodName": "Cereal with Whole Milk",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Breakfast",
+      "foodName": "Banana",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Breakfast",
+      "foodName": "Black Coffee / Tea / Sparkling Water",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Lunch",
+      "foodName": "PB Sandwich",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Lunch",
+      "foodName": "Leafy greens salad w/tomatoes",
+      "quantity": 1.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Snack",
+      "foodName": "Mixed Nuts & Raisins (1 cup)",
+      "quantity": 0.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Dinner",
+      "foodName": "Roasted chicken",
+      "quantity": 1.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Dinner",
+      "foodName": "Fingerling potatoes",
+      "quantity": 1.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Dinner",
+      "foodName": "Broccoli",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Dessert",
+      "foodName": "Plain Whole-Milk Greek Yogurt",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-26",
+      "meal": "Dessert",
+      "foodName": "Dorayaki",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Breakfast",
+      "foodName": "Large egg",
+      "quantity": 3.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Breakfast",
+      "foodName": "Peach",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Breakfast",
+      "foodName": "Black Coffee / Tea / Sparkling Water",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Snack",
+      "foodName": "Banana",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Lunch",
+      "foodName": "Tamale, black bean and yam",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Lunch",
+      "foodName": "Leafy greens salad w/tomatoes",
+      "quantity": 1.5,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Lunch",
+      "foodName": "Blueberry Protein Shake",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Dinner",
+      "foodName": "Corn on the cob",
+      "quantity": 2.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Dinner",
+      "foodName": "Chicken Salad",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Dinner",
+      "foodName": "White wine",
+      "quantity": 2.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Dinner",
+      "foodName": "Plain Whole-Milk Greek Yogurt",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "meal": "Dinner",
+      "foodName": "Banana",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-28",
+      "meal": "Breakfast",
+      "foodName": "Banana",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-28",
+      "meal": "Breakfast",
+      "foodName": "Blueberry Protein Shake",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-28",
+      "meal": "Lunch",
+      "foodName": "Tamale, chicken",
+      "quantity": 1.0,
+      "notes": null
+    },
+    {
+      "date": "2026-06-28",
+      "meal": "Lunch",
+      "foodName": "Leafy greens salad w/cheese",
+      "quantity": 1.0,
+      "notes": null
     }
   ],
   "weights": [
@@ -474,6 +1283,12 @@
     {
       "date": "2026-06-25",
       "weight": 184.0,
+      "goalWeight": null,
+      "notes": null
+    },
+    {
+      "date": "2026-06-27",
+      "weight": 181.8,
       "goalWeight": null,
       "notes": null
     }

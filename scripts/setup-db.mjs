@@ -15,7 +15,7 @@ const pool = new pg.Pool({
 });
 
 const schema = await fs.readFile(
-  new URL("../docs/legacy/postgres-schema-v1.sql", import.meta.url),
+  new URL("../docs/postgres-schema.sql", import.meta.url),
   "utf8",
 );
 const seed = JSON.parse(
@@ -55,8 +55,10 @@ try {
         protein_grams,
         nutrition_score,
         satiety_score,
-        notes
-      ) values ($1, $2, $3, $4, $5, $6, $7)
+        notes,
+        is_system_seed,
+        source
+      ) values ($1, $2, $3, $4, $5, $6, $7, false, 'workbook')
       on conflict (name) do update set
         serving_description = excluded.serving_description,
         calories = excluded.calories,
@@ -64,6 +66,8 @@ try {
         nutrition_score = excluded.nutrition_score,
         satiety_score = excluded.satiety_score,
         notes = excluded.notes,
+        is_system_seed = excluded.is_system_seed,
+        source = excluded.source,
         updated_at = now()`,
       [
         food.name,

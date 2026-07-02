@@ -4,14 +4,9 @@ A mobile-first food and weight tracker — log meals by nickname, watch calories
 
 ## Status
 
-**Rebuilding v1** — workbook parity plus charts, food catalog, fast logging, and AI food suggest. See [docs/product-spec.md](./docs/product-spec.md).
+**Ready to build v1** — workbook parity, dashboard charts, and a pre-loaded food catalog. See [docs/implementation-plan.md](./docs/implementation-plan.md).
 
-## Docs
-
-- [Documentation index](./docs/README.md)
-- [Product spec (active)](./docs/product-spec.md)
-- [Architecture](./docs/spa-architecture.md)
-- [Prototype review](./docs/prototype-review.md)
+A first prototype exists (`app.vue`, partial API). The plan describes what to keep, replace, and build next.
 
 ## Setup
 
@@ -33,10 +28,8 @@ npm run build
 
 ## Source workbook
 
-Ported from `Daily Intake.xlsx` — 32 foods, meal logging, daily summaries, and weight tracking toward a goal.
-
-Regenerate seed data from the source workbook:
+Personal data is ported from `docs/original/Daily Intake - 2026-06-28.xlsx` (97 foods, 55 meals, 4 weights).
 
 ```bash
-python3 tools/extract_seed.py "docs/original/Daily Intake - 2026-06-28.xlsx" server/data/seed.json
+npm run generate:seed
 ```
