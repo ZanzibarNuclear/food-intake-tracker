@@ -163,6 +163,7 @@ watch(weightTotalPages, (totalPages) => {
       <DashboardWeightChart
         :weights="props.tracker.weights"
         :goal-weight="props.tracker.settings.goalWeight"
+        :selected-date="todayIso(timezone)"
       />
     </div>
 

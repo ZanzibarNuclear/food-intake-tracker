@@ -12,24 +12,27 @@ import {
 } from "chart.js";
 import { Line } from "vue-chartjs";
 import type { WeightEntry } from "~/types/nutrition";
+import { addDaysIso, todayIso } from "~/utils/dates";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Title, Tooltip, Legend);
 
 const props = defineProps<{
   weights: WeightEntry[];
   goalWeight: number;
+  selectedDate?: string;
 }>();
 
 const chartData = computed(() => {
-  const sorted = [...props.weights].sort((a, b) => a.date.localeCompare(b.date));
+  const dates = Array.from({ length: 7 }, (_, index) => addDaysIso(props.selectedDate ?? todayIso(), index - 6));
+  const weightsByDate = new Map(props.weights.map((row) => [row.date, row.weight]));
   const targetLow = props.goalWeight - 2;
   const targetHigh = props.goalWeight + 2;
   return {
-    labels: sorted.map((row) => row.date.slice(5)),
+    labels: dates.map((date) => date.slice(5)),
     datasets: [
       {
         label: "Target range low",
-        data: sorted.map(() => targetLow),
+        data: dates.map(() => targetLow),
         borderColor: "rgba(255, 204, 0, 0)",
         backgroundColor: "rgba(255, 204, 0, 0)",
         pointRadius: 0,
@@ -38,7 +41,7 @@ const chartData = computed(() => {
       },
       {
         label: "Target range",
-        data: sorted.map(() => targetHigh),
+        data: dates.map(() => targetHigh),
         borderColor: "rgba(255, 204, 0, 0)",
         backgroundColor: "rgba(255, 204, 0, 0.24)",
         pointRadius: 0,
@@ -47,7 +50,7 @@ const chartData = computed(() => {
       },
       {
         label: "Goal",
-        data: sorted.map(() => props.goalWeight),
+        data: dates.map(() => props.goalWeight),
         borderColor: "#ffcc00",
         borderDash: [2, 5],
         borderWidth: 3,
@@ -57,11 +60,12 @@ const chartData = computed(() => {
       },
       {
         label: "Weight",
-        data: sorted.map((row) => row.weight),
+        data: dates.map((date) => weightsByDate.get(date) ?? null),
         borderColor: "#446b9e",
         backgroundColor: "rgba(68, 107, 158, 0.15)",
         tension: 0.25,
         fill: false,
+        spanGaps: false,
       },
     ],
   };
