@@ -35,6 +35,7 @@ create table if not exists foods (
   notes text,
   is_system_seed boolean not null default false,
   source text check (source in ('workbook', 'usda', 'user', 'ai')),
+  archived_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   constraint system_food_has_no_user check (
@@ -47,12 +48,15 @@ alter table foods drop constraint if exists foods_name_key;
 alter table foods add column if not exists user_id text;
 alter table foods add column if not exists is_system_seed boolean not null default false;
 alter table foods add column if not exists source text;
+alter table foods add column if not exists archived_at timestamptz;
 
 create index if not exists foods_name_idx on foods (name);
 create index if not exists foods_user_id_idx on foods (user_id) where user_id is not null;
 create index if not exists foods_system_seed_idx on foods (is_system_seed) where is_system_seed = true;
-create unique index if not exists foods_system_name_unique_idx on foods (lower(name)) where is_system_seed = true;
-create unique index if not exists foods_user_name_unique_idx on foods (user_id, lower(name)) where is_system_seed = false;
+drop index if exists foods_system_name_unique_idx;
+drop index if exists foods_user_name_unique_idx;
+create unique index if not exists foods_system_name_unique_idx on foods (lower(name)) where is_system_seed = true and archived_at is null;
+create unique index if not exists foods_user_name_unique_idx on foods (user_id, lower(name)) where is_system_seed = false and archived_at is null;
 
 create table if not exists meal_entries (
   id bigserial primary key,

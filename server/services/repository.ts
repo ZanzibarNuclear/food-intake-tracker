@@ -19,6 +19,7 @@ type FoodRow = {
   notes: string | null;
   is_system_seed: boolean;
   source: string | null;
+  archived_at?: string | Date | null;
 };
 
 function mapFood(row: FoodRow): Food {
@@ -33,6 +34,7 @@ function mapFood(row: FoodRow): Food {
     notes: row.notes,
     isSystemSeed: row.is_system_seed,
     source: (row.source as Food["source"]) ?? null,
+    archivedAt: row.archived_at ? new Date(row.archived_at).toISOString() : null,
   };
 }
 
@@ -124,14 +126,18 @@ async function findVisibleFood(userId: string, food: Pick<MealEntry, "foodId" | 
   if (food.foodId !== undefined) {
     return db.query(
       `select id, name from foods
-       where id = $1 and (is_system_seed = true or user_id = $2)`,
+       where id = $1
+         and archived_at is null
+         and (is_system_seed = true or user_id = $2)`,
       [food.foodId, userId],
     );
   }
 
   return db.query(
     `select id, name from foods
-     where name = $1 and (is_system_seed = true or user_id = $2)
+     where name = $1
+       and archived_at is null
+       and (is_system_seed = true or user_id = $2)
      order by is_system_seed asc
      limit 1`,
     [food.foodName.trim(), userId],
@@ -144,7 +150,7 @@ export async function getTrackerData(userId: string): Promise<TrackerData> {
     ensureSettings(userId),
     db.query(
       `select * from foods
-       where is_system_seed = true or user_id = $1
+       where (is_system_seed = true and archived_at is null) or user_id = $1
        order by is_system_seed asc, name asc`,
       [userId],
     ),
@@ -220,6 +226,7 @@ export async function searchFoods(
     db.query(
     `select * from foods
      where ($1 = '' or name ilike '%' || $1 || '%' or serving_description ilike '%' || $1 || '%')
+       and archived_at is null
        and (
          ($2 = 'all' and (is_system_seed = true or user_id = $3))
          or ($2 = 'my' and is_system_seed = false and user_id = $3)
@@ -232,6 +239,7 @@ export async function searchFoods(
     db.query(
       `select count(*)::int as count from foods
        where ($1 = '' or name ilike '%' || $1 || '%' or serving_description ilike '%' || $1 || '%')
+         and archived_at is null
          and (
            ($2 = 'all' and (is_system_seed = true or user_id = $3))
            or ($2 = 'my' and is_system_seed = false and user_id = $3)
@@ -255,6 +263,7 @@ export async function getFoodQuickList(userId: string): Promise<{ favorites: Foo
       `select foods.* from food_favorites
        join foods on foods.id = food_favorites.food_id
        where food_favorites.user_id = $1
+         and foods.archived_at is null
        order by food_favorites.sort_order asc, foods.name asc`,
       [userId],
     ),
@@ -262,6 +271,7 @@ export async function getFoodQuickList(userId: string): Promise<{ favorites: Foo
       `select foods.* from food_recent
        join foods on foods.id = food_recent.food_id
        where food_recent.user_id = $1
+         and foods.archived_at is null
        order by food_recent.last_used_at desc
        limit 8`,
       [userId],
@@ -321,7 +331,10 @@ async function nextAvailableFoodName(userId: string, baseName: string): Promise<
 
 export async function copySystemFood(userId: string, id: number): Promise<Food> {
   const db = getPool();
-  const existing = await db.query("select * from foods where id = $1 and is_system_seed = true", [id]);
+  const existing = await db.query(
+    "select * from foods where id = $1 and is_system_seed = true and archived_at is null",
+    [id],
+  );
   if (!existing.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Catalog food not found." });
   }
@@ -339,10 +352,10 @@ export async function copySystemFood(userId: string, id: number): Promise<Food> 
 
 export async function updateFood(userId: string, id: number, food: Food): Promise<Food> {
   const db = getPool();
-  const existing = await db.query("select 1 from foods where id = $1 and user_id = $2 and is_system_seed = false", [
-    id,
-    userId,
-  ]);
+  const existing = await db.query(
+    "select 1 from foods where id = $1 and user_id = $2 and is_system_seed = false and archived_at is null",
+    [id, userId],
+  );
   if (!existing.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Food not found." });
   }
@@ -376,10 +389,10 @@ export async function updateFood(userId: string, id: number, food: Food): Promis
 
 export async function deleteFood(userId: string, id: number): Promise<void> {
   const db = getPool();
-  const existing = await db.query("select 1 from foods where id = $1 and user_id = $2 and is_system_seed = false", [
-    id,
-    userId,
-  ]);
+  const existing = await db.query(
+    "select 1 from foods where id = $1 and user_id = $2 and is_system_seed = false and archived_at is null",
+    [id, userId],
+  );
   if (!existing.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Food not found." });
   }
@@ -390,10 +403,17 @@ export async function deleteFood(userId: string, id: number): Promise<void> {
   );
   const count = mealCount.rows[0].count as number;
   if (count > 0) {
-    throw createError({
-      statusCode: 409,
-      statusMessage: `Used in ${count} meal${count === 1 ? "" : "s"}.`,
-    });
+    await db.query(
+      `update foods
+       set archived_at = now(), updated_at = now()
+       where id = $1 and user_id = $2`,
+      [id, userId],
+    );
+    await Promise.all([
+      db.query("delete from food_favorites where user_id = $1 and food_id = $2", [userId, id]),
+      db.query("delete from food_recent where user_id = $1 and food_id = $2", [userId, id]),
+    ]);
+    return;
   }
 
   await db.query("delete from foods where id = $1 and user_id = $2", [id, userId]);
@@ -401,10 +421,10 @@ export async function deleteFood(userId: string, id: number): Promise<void> {
 
 export async function toggleFavorite(userId: string, foodId: number): Promise<{ favorited: boolean }> {
   const db = getPool();
-  const food = await db.query("select 1 from foods where id = $1 and (is_system_seed = true or user_id = $2)", [
-    foodId,
-    userId,
-  ]);
+  const food = await db.query(
+    "select 1 from foods where id = $1 and archived_at is null and (is_system_seed = true or user_id = $2)",
+    [foodId, userId],
+  );
   if (!food.rowCount) {
     throw createError({ statusCode: 404, statusMessage: "Food not found." });
   }

@@ -22,6 +22,7 @@ export interface Food {
   notes: string | null;
   isSystemSeed?: boolean;
   source?: FoodSource | null;
+  archivedAt?: string | null;
 }
 
 export interface FoodQuickList {

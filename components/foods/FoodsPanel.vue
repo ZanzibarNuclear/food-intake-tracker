@@ -18,6 +18,8 @@ const pageSize = ref(25);
 const totalFoods = ref(0);
 const editingFoodId = ref<number | null>(null);
 const showFoodModal = ref(false);
+const selectedFood = ref<Food | null>(null);
+const foodModalMode = ref<"add" | "view" | "edit">("add");
 
 const foodForm = reactive<Food>({
   name: "",
@@ -72,11 +74,15 @@ async function goToPage(nextPage: number) {
 
 function openFoodModal() {
   resetFoodForm();
+  selectedFood.value = null;
+  foodModalMode.value = "add";
   showFoodModal.value = true;
 }
 
 function closeFoodModal() {
   showFoodModal.value = false;
+  selectedFood.value = null;
+  foodModalMode.value = "add";
   resetFoodForm();
 }
 
@@ -93,9 +99,23 @@ function resetFoodForm() {
 
 function editFood(food: Food) {
   if (food.isSystemSeed) return;
+  selectedFood.value = food;
+  foodModalMode.value = "edit";
   editingFoodId.value = food.id ?? null;
   Object.assign(foodForm, food);
   showFoodModal.value = true;
+}
+
+function viewFood(food: Food) {
+  selectedFood.value = food;
+  foodModalMode.value = "view";
+  editingFoodId.value = null;
+  showFoodModal.value = true;
+}
+
+function editSelectedFood() {
+  if (!selectedFood.value) return;
+  editFood(selectedFood.value);
 }
 
 async function submitFood() {
@@ -122,7 +142,12 @@ async function submitFood() {
 }
 
 async function removeFood(id: number) {
+  const confirmed = window.confirm(
+    "Delete this food? If it is used in meal history, it will be archived and hidden instead.",
+  );
+  if (!confirmed) return;
   await trackerApi.deleteFood(id);
+  closeFoodModal();
   await runSearch();
 }
 
@@ -144,6 +169,7 @@ async function copyFood(food: Food) {
 }
 
 function useFood(food: Food) {
+  closeFoodModal();
   emit("logFood", food);
 }
 
@@ -186,46 +212,30 @@ onMounted(runSearch);
         </div>
       </div>
       <div class="table-scroll">
-        <table>
+        <table class="foods-table">
           <thead>
             <tr>
               <th>Name</th>
               <th>Serving</th>
-              <th class="number">Cal</th>
-              <th class="number">Protein</th>
-              <th class="number">Nutrition</th>
-              <th class="number">Satiety</th>
-              <th />
+              <th class="favorite-col" aria-label="Favorite" />
             </tr>
           </thead>
           <tbody>
-            <tr v-for="food in searchResults" :key="food.id">
+            <tr
+              v-for="food in searchResults"
+              :key="food.id"
+              class="food-row"
+              tabindex="0"
+              @click="viewFood(food)"
+              @keydown.enter.prevent="viewFood(food)"
+              @keydown.space.prevent="viewFood(food)"
+            >
               <td>
                 {{ food.name }}
                 <span v-if="food.isSystemSeed" class="pill">Catalog</span>
               </td>
               <td>{{ food.servingDescription }}</td>
-              <td class="number">{{ formatNumber(food.calories) }}</td>
-              <td class="number">{{ formatNumber(food.proteinGrams, 1) }}g</td>
-              <td class="number">{{ formatNumber(food.nutritionScore, 1) }}</td>
-              <td class="number">{{ formatNumber(food.satietyScore, 1) }}</td>
-              <td class="row-actions">
-                <button
-                  v-if="food.id"
-                  class="secondary small"
-                  type="button"
-                  @click="useFood(food)"
-                >
-                  Use
-                </button>
-                <button
-                  v-if="food.isSystemSeed"
-                  class="secondary small"
-                  type="button"
-                  @click="copyFood(food)"
-                >
-                  Copy
-                </button>
+              <td class="favorite-col">
                 <button
                   v-if="food.id"
                   class="secondary small star-btn"
@@ -233,7 +243,7 @@ onMounted(runSearch);
                   :aria-label="isFavorite(food) ? 'Remove from favorites' : 'Add to favorites'"
                   :aria-pressed="isFavorite(food)"
                   type="button"
-                  @click="favoriteFood(food.id)"
+                  @click.stop="favoriteFood(food.id)"
                 >
                   <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
                     <path
@@ -247,22 +257,6 @@ onMounted(runSearch);
                       d="m12 6.94 1.68 3.4.46.94 1.04.15 3.75.54-2.71 2.65-.75.73.18 1.03.64 3.73-3.35-1.76-.94-.5-.94.5-3.35 1.76.64-3.73.18-1.03-.75-.73-2.71-2.65 3.75-.54 1.04-.15.46-.94L12 6.94Zm0-4.44L9.1 8.37l-6.48.94 4.69 4.57-1.1 6.45L12 17.28l5.79 3.05-1.1-6.45 4.69-4.57-6.48-.94L12 2.5Z"
                     />
                   </svg>
-                </button>
-                <button
-                  v-if="!food.isSystemSeed"
-                  class="secondary small"
-                  type="button"
-                  @click="editFood(food)"
-                >
-                  Edit
-                </button>
-                <button
-                  v-if="!food.isSystemSeed && food.id"
-                  class="secondary small danger"
-                  type="button"
-                  @click="removeFood(food.id)"
-                >
-                  Delete
                 </button>
               </td>
             </tr>
@@ -281,7 +275,9 @@ onMounted(runSearch);
     >
       <div class="food-modal">
         <div class="modal-header">
-          <h2 id="food-modal-title">{{ editingFoodId ? "Edit food" : "Add food" }}</h2>
+          <h2 id="food-modal-title">
+            {{ foodModalMode === "view" ? "Food details" : editingFoodId ? "Edit food" : "Add food" }}
+          </h2>
           <button aria-label="Close" class="modal-close" type="button" @click="closeFoodModal">
             <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
               <path
@@ -292,7 +288,67 @@ onMounted(runSearch);
           </button>
         </div>
 
-        <form class="form-panel food-form" @submit.prevent="submitFood">
+        <div v-if="foodModalMode === 'view' && selectedFood" class="food-detail">
+          <div>
+            <h3>{{ selectedFood.name }}</h3>
+            <p>{{ selectedFood.servingDescription }}</p>
+            <span v-if="selectedFood.isSystemSeed" class="pill">Catalog</span>
+          </div>
+
+          <dl class="detail-grid">
+            <div>
+              <dt>Calories</dt>
+              <dd>{{ formatNumber(selectedFood.calories) }}</dd>
+            </div>
+            <div>
+              <dt>Protein</dt>
+              <dd>{{ formatNumber(selectedFood.proteinGrams, 1) }}g</dd>
+            </div>
+            <div>
+              <dt>Nutrition</dt>
+              <dd>{{ formatNumber(selectedFood.nutritionScore, 1) }}</dd>
+            </div>
+            <div>
+              <dt>Satiety</dt>
+              <dd>{{ formatNumber(selectedFood.satietyScore, 1) }}</dd>
+            </div>
+          </dl>
+
+          <div v-if="selectedFood.notes" class="detail-notes">
+            <strong>Notes</strong>
+            <p>{{ selectedFood.notes }}</p>
+          </div>
+
+          <div class="actions">
+            <button type="button" @click="useFood(selectedFood)">Use</button>
+            <button
+              v-if="selectedFood.isSystemSeed"
+              class="secondary"
+              type="button"
+              @click="copyFood(selectedFood)"
+            >
+              Copy
+            </button>
+            <button
+              v-if="!selectedFood.isSystemSeed"
+              class="secondary"
+              type="button"
+              @click="editSelectedFood"
+            >
+              Edit
+            </button>
+            <button
+              v-if="!selectedFood.isSystemSeed && selectedFood.id"
+              class="secondary danger"
+              type="button"
+              @click="removeFood(selectedFood.id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+
+        <form v-else class="form-panel food-form" @submit.prevent="submitFood">
           <div class="form-grid">
             <label>
               Food name / nickname
@@ -361,10 +417,29 @@ onMounted(runSearch);
   gap: 0.5rem;
 }
 
-.row-actions {
-  display: flex;
-  gap: 0.35rem;
-  white-space: nowrap;
+.foods-table {
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.foods-table th:first-child,
+.foods-table td:first-child {
+  width: 42%;
+}
+
+.food-row {
+  cursor: pointer;
+}
+
+.food-row:hover,
+.food-row:focus-visible {
+  background: var(--accent-soft);
+  outline: none;
+}
+
+.favorite-col {
+  width: 3rem;
+  text-align: center;
 }
 
 .pagination-bar,
@@ -457,6 +532,61 @@ button.danger {
 .food-form {
   border: 0;
   border-radius: 0;
+}
+
+.food-detail {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.food-detail h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.food-detail p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.detail-grid div {
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.detail-grid dt {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.detail-grid dd {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.detail-notes {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+}
+
+.detail-notes p {
+  margin: 0;
 }
 
 .score-grid {

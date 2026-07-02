@@ -66,7 +66,7 @@ const showSearchResults = computed(() => {
   const query = foodQuery.value.trim();
   if (!query || !searchResults.value.length) return false;
   // Hide suggestions when the field is an exact catalog match (e.g. Recent → "Banana").
-  return !props.tracker.foods.some((food) => food.name === query);
+  return !props.tracker.foods.some((food) => !food.archivedAt && food.name === query);
 });
 
 const draftPreviews = computed(() =>
