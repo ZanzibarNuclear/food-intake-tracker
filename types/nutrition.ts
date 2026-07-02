@@ -1,5 +1,7 @@
 export type MealName = "Breakfast" | "Lunch" | "Dinner" | "Snack" | "Dessert" | string;
 
+export type FoodSource = "workbook" | "usda" | "user" | "ai";
+
 export interface TrackerSettings {
   dailyCalorieTarget: number;
   proteinTargetGrams: number;
@@ -16,6 +18,13 @@ export interface Food {
   nutritionScore: number;
   satietyScore: number | null;
   notes: string | null;
+  isSystemSeed?: boolean;
+  source?: FoodSource | null;
+}
+
+export interface FoodQuickList {
+  favorites: Food[];
+  recents: Food[];
 }
 
 export interface MealEntry {

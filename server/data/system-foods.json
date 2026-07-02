@@ -1,0 +1,2054 @@
+[
+  {
+    "name": "Large egg",
+    "servingDescription": "1 large",
+    "calories": 72,
+    "proteinGrams": 6.3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Egg white",
+    "servingDescription": "1 large",
+    "calories": 17,
+    "proteinGrams": 3.6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Scrambled eggs",
+    "servingDescription": "2 large",
+    "calories": 182,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Omelet plain",
+    "servingDescription": "2-egg",
+    "calories": 200,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken breast grilled",
+    "servingDescription": "4 oz",
+    "calories": 187,
+    "proteinGrams": 35,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken thigh",
+    "servingDescription": "4 oz",
+    "calories": 250,
+    "proteinGrams": 26,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Rotisserie chicken",
+    "servingDescription": "4 oz",
+    "calories": 190,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ground beef 90%",
+    "servingDescription": "4 oz cooked",
+    "calories": 200,
+    "proteinGrams": 23,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ground turkey",
+    "servingDescription": "4 oz",
+    "calories": 170,
+    "proteinGrams": 21,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Steak sirloin",
+    "servingDescription": "4 oz",
+    "calories": 240,
+    "proteinGrams": 26,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pork chop",
+    "servingDescription": "4 oz",
+    "calories": 210,
+    "proteinGrams": 26,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Bacon",
+    "servingDescription": "2 slices",
+    "calories": 90,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ham deli",
+    "servingDescription": "3 oz",
+    "calories": 90,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Salmon baked",
+    "servingDescription": "4 oz",
+    "calories": 233,
+    "proteinGrams": 25,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tuna canned in water",
+    "servingDescription": "3 oz",
+    "calories": 100,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Shrimp",
+    "servingDescription": "4 oz",
+    "calories": 112,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cod baked",
+    "servingDescription": "4 oz",
+    "calories": 120,
+    "proteinGrams": 25,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tilapia",
+    "servingDescription": "4 oz",
+    "calories": 145,
+    "proteinGrams": 30,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Brown rice cooked",
+    "servingDescription": "1 cup",
+    "calories": 216,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "White rice cooked",
+    "servingDescription": "1 cup",
+    "calories": 206,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Quinoa cooked",
+    "servingDescription": "1 cup",
+    "calories": 222,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Oatmeal cooked",
+    "servingDescription": "1 cup",
+    "calories": 166,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pasta cooked",
+    "servingDescription": "1 cup",
+    "calories": 220,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Whole wheat bread",
+    "servingDescription": "1 slice",
+    "calories": 81,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "White bread",
+    "servingDescription": "1 slice",
+    "calories": 75,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Bagel plain",
+    "servingDescription": "1 medium",
+    "calories": 277,
+    "proteinGrams": 11,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tortilla flour",
+    "servingDescription": "1 medium",
+    "calories": 140,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Greek yogurt plain",
+    "servingDescription": "1 cup",
+    "calories": 130,
+    "proteinGrams": 23,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Yogurt vanilla",
+    "servingDescription": "1 cup",
+    "calories": 208,
+    "proteinGrams": 11,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Milk whole",
+    "servingDescription": "1 cup",
+    "calories": 149,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Milk 2%",
+    "servingDescription": "1 cup",
+    "calories": 122,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cheddar cheese",
+    "servingDescription": "1 oz",
+    "calories": 113,
+    "proteinGrams": 7,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Mozzarella",
+    "servingDescription": "1 oz",
+    "calories": 85,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cottage cheese",
+    "servingDescription": "1 cup",
+    "calories": 206,
+    "proteinGrams": 28,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Butter",
+    "servingDescription": "1 tbsp",
+    "calories": 102,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Apple",
+    "servingDescription": "1 medium",
+    "calories": 95,
+    "proteinGrams": 0.5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Banana",
+    "servingDescription": "1 medium",
+    "calories": 105,
+    "proteinGrams": 1.3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Blueberries",
+    "servingDescription": "1 cup",
+    "calories": 84,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Strawberries",
+    "servingDescription": "1 cup",
+    "calories": 49,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Orange",
+    "servingDescription": "1 medium",
+    "calories": 62,
+    "proteinGrams": 1.2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Grapes",
+    "servingDescription": "1 cup",
+    "calories": 104,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Avocado",
+    "servingDescription": "1/2 medium",
+    "calories": 120,
+    "proteinGrams": 1.5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Broccoli steamed",
+    "servingDescription": "1 cup",
+    "calories": 55,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Spinach raw",
+    "servingDescription": "2 cups",
+    "calories": 14,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Carrots raw",
+    "servingDescription": "1 cup",
+    "calories": 52,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sweet potato baked",
+    "servingDescription": "1 medium",
+    "calories": 103,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Potato baked",
+    "servingDescription": "1 medium",
+    "calories": 161,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Salad greens",
+    "servingDescription": "2 cups",
+    "calories": 20,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tomato",
+    "servingDescription": "1 medium",
+    "calories": 22,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cucumber",
+    "servingDescription": "1 cup",
+    "calories": 16,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Black beans cooked",
+    "servingDescription": "1 cup",
+    "calories": 227,
+    "proteinGrams": 15,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chickpeas cooked",
+    "servingDescription": "1 cup",
+    "calories": 269,
+    "proteinGrams": 15,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Lentils cooked",
+    "servingDescription": "1 cup",
+    "calories": 230,
+    "proteinGrams": 18,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Almonds",
+    "servingDescription": "1 oz",
+    "calories": 164,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Peanut butter",
+    "servingDescription": "2 tbsp",
+    "calories": 188,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Walnuts",
+    "servingDescription": "1 oz",
+    "calories": 185,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Mixed nuts",
+    "servingDescription": "1 oz",
+    "calories": 172,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Protein powder whey",
+    "servingDescription": "1 scoop",
+    "calories": 120,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Protein bar",
+    "servingDescription": "1 bar",
+    "calories": 200,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pizza cheese slice",
+    "servingDescription": "1 slice",
+    "calories": 285,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cheeseburger",
+    "servingDescription": "1 sandwich",
+    "calories": 350,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Hot dog",
+    "servingDescription": "1 with bun",
+    "calories": 290,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "French fries",
+    "servingDescription": "medium",
+    "calories": 365,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken nuggets",
+    "servingDescription": "6 pc",
+    "calories": 270,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Caesar salad",
+    "servingDescription": "1 serving",
+    "calories": 470,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Turkey sandwich",
+    "servingDescription": "1 sandwich",
+    "calories": 320,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "PB&J sandwich",
+    "servingDescription": "1 sandwich",
+    "calories": 390,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tuna salad sandwich",
+    "servingDescription": "1 sandwich",
+    "calories": 420,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Burrito bean",
+    "servingDescription": "1 medium",
+    "calories": 420,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Quesadilla cheese",
+    "servingDescription": "1",
+    "calories": 470,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sushi roll california",
+    "servingDescription": "6 pc",
+    "calories": 255,
+    "proteinGrams": 9,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Stir fry chicken veggies",
+    "servingDescription": "1 cup",
+    "calories": 250,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chili with beans",
+    "servingDescription": "1 cup",
+    "calories": 280,
+    "proteinGrams": 18,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Soup chicken noodle",
+    "servingDescription": "1 cup",
+    "calories": 75,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Coffee black",
+    "servingDescription": "12 oz",
+    "calories": 5,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Latte whole milk",
+    "servingDescription": "12 oz",
+    "calories": 190,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Orange juice",
+    "servingDescription": "8 oz",
+    "calories": 110,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Coca cola",
+    "servingDescription": "12 oz",
+    "calories": 140,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Beer",
+    "servingDescription": "12 oz",
+    "calories": 150,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Wine red",
+    "servingDescription": "5 oz",
+    "calories": 125,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cereal cheerios",
+    "servingDescription": "1 cup",
+    "calories": 100,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Granola",
+    "servingDescription": "1/2 cup",
+    "calories": 210,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pancakes",
+    "servingDescription": "2 medium",
+    "calories": 180,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Waffle",
+    "servingDescription": "1",
+    "calories": 220,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ice cream vanilla",
+    "servingDescription": "1/2 cup",
+    "calories": 140,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chocolate chip cookie",
+    "servingDescription": "1 medium",
+    "calories": 150,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Potato chips",
+    "servingDescription": "1 oz",
+    "calories": 152,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Hummus",
+    "servingDescription": "2 tbsp",
+    "calories": 70,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Guacamole",
+    "servingDescription": "2 tbsp",
+    "calories": 50,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Salsa",
+    "servingDescription": "2 tbsp",
+    "calories": 10,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tofu firm",
+    "servingDescription": "4 oz",
+    "calories": 94,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tempeh",
+    "servingDescription": "3 oz",
+    "calories": 160,
+    "proteinGrams": 15,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Edamame",
+    "servingDescription": "1 cup",
+    "calories": 188,
+    "proteinGrams": 18,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Couscous cooked",
+    "servingDescription": "1 cup",
+    "calories": 176,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Barley cooked",
+    "servingDescription": "1 cup",
+    "calories": 193,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Corn on cob",
+    "servingDescription": "1 ear",
+    "calories": 90,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Peas cooked",
+    "servingDescription": "1 cup",
+    "calories": 134,
+    "proteinGrams": 9,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Green beans",
+    "servingDescription": "1 cup",
+    "calories": 44,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Bell pepper",
+    "servingDescription": "1 medium",
+    "calories": 24,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Mushrooms",
+    "servingDescription": "1 cup",
+    "calories": 15,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Zucchini",
+    "servingDescription": "1 cup",
+    "calories": 20,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cauliflower rice",
+    "servingDescription": "1 cup",
+    "calories": 25,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pork sausage",
+    "servingDescription": "1 link",
+    "calories": 170,
+    "proteinGrams": 7,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Meatballs",
+    "servingDescription": "3 medium",
+    "calories": 240,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Lasagna",
+    "servingDescription": "1 piece",
+    "calories": 350,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Mac and cheese",
+    "servingDescription": "1 cup",
+    "calories": 310,
+    "proteinGrams": 13,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Fried rice",
+    "servingDescription": "1 cup",
+    "calories": 330,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pad thai",
+    "servingDescription": "1 cup",
+    "calories": 380,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ramen",
+    "servingDescription": "1 bowl",
+    "calories": 450,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pho beef",
+    "servingDescription": "1 bowl",
+    "calories": 400,
+    "proteinGrams": 25,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Curry chicken",
+    "servingDescription": "1 cup",
+    "calories": 300,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Fish tacos",
+    "servingDescription": "2 tacos",
+    "calories": 360,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Grilled cheese",
+    "servingDescription": "1 sandwich",
+    "calories": 380,
+    "proteinGrams": 14,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "BLT sandwich",
+    "servingDescription": "1",
+    "calories": 420,
+    "proteinGrams": 16,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Club sandwich",
+    "servingDescription": "1",
+    "calories": 520,
+    "proteinGrams": 28,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sub turkey 6in",
+    "servingDescription": "1",
+    "calories": 280,
+    "proteinGrams": 18,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Bagel with cream cheese",
+    "servingDescription": "1",
+    "calories": 360,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Smoothie fruit",
+    "servingDescription": "12 oz",
+    "calories": 220,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Smoothie protein",
+    "servingDescription": "12 oz",
+    "calories": 320,
+    "proteinGrams": 28,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Acai bowl",
+    "servingDescription": "1 medium",
+    "calories": 400,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Trail mix",
+    "servingDescription": "1/4 cup",
+    "calories": 170,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Popcorn air",
+    "servingDescription": "3 cups",
+    "calories": 93,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pretzels",
+    "servingDescription": "1 oz",
+    "calories": 110,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ritz crackers",
+    "servingDescription": "5 crackers",
+    "calories": 80,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cheese crackers",
+    "servingDescription": "1 oz",
+    "calories": 150,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Rice cakes",
+    "servingDescription": "2 cakes",
+    "calories": 70,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Croissant",
+    "servingDescription": "1 medium",
+    "calories": 230,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Muffin blueberry",
+    "servingDescription": "1 medium",
+    "calories": 420,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Donut glazed",
+    "servingDescription": "1",
+    "calories": 260,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Brownie",
+    "servingDescription": "1 square",
+    "calories": 130,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cake chocolate slice",
+    "servingDescription": "1 slice",
+    "calories": 350,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pie apple slice",
+    "servingDescription": "1 slice",
+    "calories": 300,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Steak fajitas",
+    "servingDescription": "1 serving",
+    "calories": 400,
+    "proteinGrams": 30,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Fish and chips",
+    "servingDescription": "1 serving",
+    "calories": 600,
+    "proteinGrams": 28,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken wings",
+    "servingDescription": "6 wings",
+    "calories": 430,
+    "proteinGrams": 36,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "BBQ ribs",
+    "servingDescription": "4 oz",
+    "calories": 290,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pulled pork",
+    "servingDescription": "4 oz",
+    "calories": 210,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Lamb chop",
+    "servingDescription": "4 oz",
+    "calories": 250,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Crab cake",
+    "servingDescription": "1 cake",
+    "calories": 160,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Lobster tail",
+    "servingDescription": "4 oz",
+    "calories": 120,
+    "proteinGrams": 26,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Clam chowder",
+    "servingDescription": "1 cup",
+    "calories": 180,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Greek salad",
+    "servingDescription": "1 serving",
+    "calories": 250,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cobb salad",
+    "servingDescription": "1 serving",
+    "calories": 550,
+    "proteinGrams": 30,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Taco beef",
+    "servingDescription": "1 hard shell",
+    "calories": 170,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Nachos",
+    "servingDescription": "1 serving",
+    "calories": 450,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Spring roll",
+    "servingDescription": "2 rolls",
+    "calories": 160,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Dumplings pork",
+    "servingDescription": "4 pcs",
+    "calories": 200,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Falafel",
+    "servingDescription": "4 balls",
+    "calories": 200,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Kebab chicken",
+    "servingDescription": "1 skewer",
+    "calories": 180,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Gyros",
+    "servingDescription": "1 pita",
+    "calories": 520,
+    "proteinGrams": 28,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Baked beans",
+    "servingDescription": "1 cup",
+    "calories": 240,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Coleslaw",
+    "servingDescription": "1/2 cup",
+    "calories": 110,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Mashed potatoes",
+    "servingDescription": "1 cup",
+    "calories": 210,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Stuffing",
+    "servingDescription": "1/2 cup",
+    "calories": 180,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cornbread",
+    "servingDescription": "1 piece",
+    "calories": 180,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Biscuit",
+    "servingDescription": "1",
+    "calories": 200,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "English muffin",
+    "servingDescription": "1",
+    "calories": 130,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pita bread",
+    "servingDescription": "1",
+    "calories": 165,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Naan bread",
+    "servingDescription": "1 piece",
+    "calories": 260,
+    "proteinGrams": 9,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sourdough bread",
+    "servingDescription": "1 slice",
+    "calories": 90,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Rye bread",
+    "servingDescription": "1 slice",
+    "calories": 83,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Rice noodles cooked",
+    "servingDescription": "1 cup",
+    "calories": 192,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Udon noodles cooked",
+    "servingDescription": "1 cup",
+    "calories": 210,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Soba noodles cooked",
+    "servingDescription": "1 cup",
+    "calories": 113,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cottage cheese low fat",
+    "servingDescription": "1 cup",
+    "calories": 163,
+    "proteinGrams": 28,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "String cheese",
+    "servingDescription": "1 stick",
+    "calories": 80,
+    "proteinGrams": 7,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cream cheese",
+    "servingDescription": "2 tbsp",
+    "calories": 100,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sour cream",
+    "servingDescription": "2 tbsp",
+    "calories": 60,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Ranch dressing",
+    "servingDescription": "2 tbsp",
+    "calories": 130,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Olive oil",
+    "servingDescription": "1 tbsp",
+    "calories": 119,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Honey",
+    "servingDescription": "1 tbsp",
+    "calories": 64,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Maple syrup",
+    "servingDescription": "1 tbsp",
+    "calories": 52,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Jam",
+    "servingDescription": "1 tbsp",
+    "calories": 56,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Kiwi",
+    "servingDescription": "1 medium",
+    "calories": 42,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Mango",
+    "servingDescription": "1 cup",
+    "calories": 99,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pineapple",
+    "servingDescription": "1 cup",
+    "calories": 82,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Watermelon",
+    "servingDescription": "1 cup",
+    "calories": 46,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Peach",
+    "servingDescription": "1 medium",
+    "calories": 59,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pear",
+    "servingDescription": "1 medium",
+    "calories": 101,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cherries",
+    "servingDescription": "1 cup",
+    "calories": 97,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Raspberries",
+    "servingDescription": "1 cup",
+    "calories": 64,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cantaloupe",
+    "servingDescription": "1 cup",
+    "calories": 54,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Dried cranberries",
+    "servingDescription": "1/4 cup",
+    "calories": 123,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Raisins",
+    "servingDescription": "1/4 cup",
+    "calories": 120,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Dates",
+    "servingDescription": "2 medjool",
+    "calories": 133,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Prunes",
+    "servingDescription": "5",
+    "calories": 96,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Asparagus",
+    "servingDescription": "1 cup",
+    "calories": 27,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Brussels sprouts",
+    "servingDescription": "1 cup",
+    "calories": 56,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Kale raw",
+    "servingDescription": "1 cup",
+    "calories": 33,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Beets cooked",
+    "servingDescription": "1 cup",
+    "calories": 75,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Eggplant",
+    "servingDescription": "1 cup",
+    "calories": 20,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Artichoke",
+    "servingDescription": "1 medium",
+    "calories": 60,
+    "proteinGrams": 4,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pumpkin seeds",
+    "servingDescription": "1 oz",
+    "calories": 158,
+    "proteinGrams": 9,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sunflower seeds",
+    "servingDescription": "1 oz",
+    "calories": 165,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chia seeds",
+    "servingDescription": "1 oz",
+    "calories": 138,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Flax seeds",
+    "servingDescription": "1 tbsp",
+    "calories": 37,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Cashews",
+    "servingDescription": "1 oz",
+    "calories": 157,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pistachios",
+    "servingDescription": "1 oz",
+    "calories": 159,
+    "proteinGrams": 6,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Pecans",
+    "servingDescription": "1 oz",
+    "calories": 196,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Macadamia nuts",
+    "servingDescription": "1 oz",
+    "calories": 204,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Soy milk",
+    "servingDescription": "1 cup",
+    "calories": 105,
+    "proteinGrams": 7,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Almond milk",
+    "servingDescription": "1 cup",
+    "calories": 40,
+    "proteinGrams": 1,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Oat milk",
+    "servingDescription": "1 cup",
+    "calories": 120,
+    "proteinGrams": 3,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Coconut water",
+    "servingDescription": "1 cup",
+    "calories": 46,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Sports drink",
+    "servingDescription": "12 oz",
+    "calories": 80,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Energy drink",
+    "servingDescription": "8 oz",
+    "calories": 110,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Iced tea unsweetened",
+    "servingDescription": "12 oz",
+    "calories": 5,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Lemonade",
+    "servingDescription": "8 oz",
+    "calories": 100,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Vodka soda",
+    "servingDescription": "1 drink",
+    "calories": 100,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Whiskey",
+    "servingDescription": "1.5 oz",
+    "calories": 105,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Margarita",
+    "servingDescription": "1 drink",
+    "calories": 280,
+    "proteinGrams": 0,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken salad",
+    "servingDescription": "1 cup",
+    "calories": 320,
+    "proteinGrams": 24,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Egg salad",
+    "servingDescription": "1/2 cup",
+    "calories": 200,
+    "proteinGrams": 10,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tuna salad",
+    "servingDescription": "1/2 cup",
+    "calories": 190,
+    "proteinGrams": 16,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Beef stew",
+    "servingDescription": "1 cup",
+    "calories": 250,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Minestrone soup",
+    "servingDescription": "1 cup",
+    "calories": 120,
+    "proteinGrams": 5,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Tomato soup",
+    "servingDescription": "1 cup",
+    "calories": 90,
+    "proteinGrams": 2,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Grilled salmon salad",
+    "servingDescription": "1 bowl",
+    "calories": 450,
+    "proteinGrams": 35,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Quinoa bowl veggie",
+    "servingDescription": "1 bowl",
+    "calories": 380,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Overnight oats",
+    "servingDescription": "1 jar",
+    "calories": 300,
+    "proteinGrams": 12,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Avocado toast",
+    "servingDescription": "1 slice",
+    "calories": 250,
+    "proteinGrams": 8,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Breakfast burrito",
+    "servingDescription": "1",
+    "calories": 450,
+    "proteinGrams": 18,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken Caesar wrap",
+    "servingDescription": "1",
+    "calories": 520,
+    "proteinGrams": 32,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Veggie burger",
+    "servingDescription": "1 patty",
+    "calories": 180,
+    "proteinGrams": 15,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Beyond burger",
+    "servingDescription": "1 patty",
+    "calories": 250,
+    "proteinGrams": 20,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Impossible burger",
+    "servingDescription": "1 patty",
+    "calories": 240,
+    "proteinGrams": 19,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Fish sandwich",
+    "servingDescription": "1",
+    "calories": 400,
+    "proteinGrams": 18,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  },
+  {
+    "name": "Chicken sandwich fried",
+    "servingDescription": "1",
+    "calories": 480,
+    "proteinGrams": 22,
+    "nutritionScore": 5,
+    "satietyScore": null,
+    "notes": null
+  }
+]

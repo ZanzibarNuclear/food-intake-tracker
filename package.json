@@ -7,15 +7,18 @@
     "dev": "nuxt dev --host 127.0.0.1",
     "db:setup": "node scripts/setup-db.mjs",
     "generate:seed": "python3 tools/extract_seed.py \"docs/original/Daily Intake - 2026-06-28.xlsx\" server/data/seed.json",
+    "generate:catalog": "node tools/build_system_foods.mjs",
     "postinstall": "nuxt prepare",
     "test": "vitest run",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
+    "chart.js": "^4.5.1",
     "nuxt": "^4.2.2",
     "pg": "^8.16.3",
     "vue": "^3.5.24",
+    "vue-chartjs": "^5.3.3",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {

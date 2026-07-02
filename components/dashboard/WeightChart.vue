@@ -1,0 +1,74 @@
+<script setup lang="ts">
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { Line } from "vue-chartjs";
+import type { WeightEntry } from "~/types/nutrition";
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+const props = defineProps<{
+  weights: WeightEntry[];
+  goalWeight: number;
+}>();
+
+const chartData = computed(() => {
+  const sorted = [...props.weights].sort((a, b) => a.date.localeCompare(b.date));
+  return {
+    labels: sorted.map((row) => row.date.slice(5)),
+    datasets: [
+      {
+        label: "Weight",
+        data: sorted.map((row) => row.weight),
+        borderColor: "#446b9e",
+        backgroundColor: "rgba(68, 107, 158, 0.15)",
+        tension: 0.25,
+        fill: true,
+      },
+      {
+        label: "Goal",
+        data: sorted.map(() => props.goalWeight),
+        borderColor: "#e1b84f",
+        borderDash: [6, 4],
+        pointRadius: 0,
+        fill: false,
+      },
+    ],
+  };
+});
+
+const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+  scales: {
+    y: { grid: { color: "#dfe4d9" } },
+    x: { grid: { display: false } },
+  },
+};
+</script>
+
+<template>
+  <div class="chart-wrap">
+    <Line v-if="weights.length" :data="chartData" :options="options" />
+    <p v-else class="muted">Log weight to see trend.</p>
+  </div>
+</template>
+
+<style scoped>
+.chart-wrap {
+  height: 220px;
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0;
+}
+</style>

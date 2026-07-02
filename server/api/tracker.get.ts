@@ -1,3 +1,3 @@
-import { getTrackerData } from "~/server/utils/repository";
+import { getTrackerData } from "~/server/services/repository";
 
 export default defineEventHandler(async () => getTrackerData());

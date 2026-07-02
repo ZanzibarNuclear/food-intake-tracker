@@ -1,4 +1,4 @@
-import { createMeal } from "~/server/utils/repository";
+import { createMeal } from "~/server/services/repository";
 import type { MealEntry } from "~/types/nutrition";
 
 export default defineEventHandler(async (event) => {

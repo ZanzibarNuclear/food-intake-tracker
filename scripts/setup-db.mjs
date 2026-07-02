@@ -21,8 +21,30 @@ const schema = await fs.readFile(
 const seed = JSON.parse(
   await fs.readFile(new URL("../server/data/seed.json", import.meta.url), "utf8"),
 );
+let systemFoods = [];
+try {
+  systemFoods = JSON.parse(
+    await fs.readFile(new URL("../server/data/system-foods.json", import.meta.url), "utf8"),
+  );
+} catch {
+  console.warn("No system-foods.json found; skipping catalog seed.");
+}
 
 try {
+  await pool.query(`
+    alter table foods add column if not exists is_system_seed boolean not null default false;
+    alter table foods add column if not exists source text;
+    create table if not exists food_favorites (
+      food_id bigint primary key references foods(id) on delete cascade,
+      sort_order smallint not null default 0
+    );
+    create table if not exists food_recent (
+      food_id bigint primary key references foods(id) on delete cascade,
+      last_used_at timestamptz not null default now(),
+      use_count integer not null default 1
+    );
+    create index if not exists foods_system_seed_idx on foods (is_system_seed) where is_system_seed = true;
+  `);
   await pool.query(schema);
   await pool.query("begin");
   await pool.query(
@@ -81,6 +103,42 @@ try {
     );
   }
 
+  for (const food of systemFoods) {
+    await pool.query(
+      `insert into foods (
+        name,
+        serving_description,
+        calories,
+        protein_grams,
+        nutrition_score,
+        satiety_score,
+        notes,
+        is_system_seed,
+        source
+      ) values ($1, $2, $3, $4, $5, $6, $7, true, 'usda')
+      on conflict (name) do update set
+        serving_description = excluded.serving_description,
+        calories = excluded.calories,
+        protein_grams = excluded.protein_grams,
+        nutrition_score = excluded.nutrition_score,
+        satiety_score = excluded.satiety_score,
+        notes = excluded.notes,
+        is_system_seed = true,
+        source = 'usda',
+        updated_at = now()
+      where foods.is_system_seed = true`,
+      [
+        food.name,
+        food.servingDescription,
+        food.calories,
+        food.proteinGrams,
+        food.nutritionScore ?? 5,
+        food.satietyScore,
+        food.notes,
+      ],
+    );
+  }
+
   for (const meal of seed.meals) {
     await pool.query(
       `insert into meal_entries (entry_date, meal, food_id, quantity, notes)
@@ -110,9 +168,19 @@ try {
     );
   }
 
+  await pool.query(
+    `insert into food_recent (food_id, last_used_at, use_count)
+     select food_id, max(created_at), count(*)::int
+     from meal_entries
+     group by food_id
+     on conflict (food_id) do update set
+       last_used_at = excluded.last_used_at,
+       use_count = excluded.use_count`,
+  );
+
   await pool.query("commit");
   console.log(
-    `Database ready: ${seed.foods.length} foods, ${seed.meals.length} meals, ${seed.weights.length} weights.`,
+    `Database ready: ${seed.foods.length} personal foods, ${systemFoods.length} catalog foods, ${seed.meals.length} meals, ${seed.weights.length} weights.`,
   );
 } catch (error) {
   await pool.query("rollback").catch(() => {});
