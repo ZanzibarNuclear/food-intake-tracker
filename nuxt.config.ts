@@ -8,6 +8,13 @@ for (const envFile of [".env.local", ".env"]) {
 }
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      ],
+    },
+  },
   compatibilityDate: "2026-06-26",
   css: ["~/assets/css/main.css"],
   devtools: { enabled: false },

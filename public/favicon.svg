@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Daily Nutrition Tracker">
+  <rect width="64" height="64" rx="14" fill="#e2f0ea" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#bdd9ce" stroke-width="3" />
+  <path
+    d="M32 51V34M32 34c-9.5 0-17-5.9-17-13.2 0-1.8 1.4-3.2 3.2-3.2C27.7 17.6 32 24.4 32 34Zm0 0c9.5 0 17-5.9 17-13.2 0-1.8-1.4-3.2-3.2-3.2C36.3 17.6 32 24.4 32 34Zm-10 17h20"
+    fill="none"
+    stroke="#184d40"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
