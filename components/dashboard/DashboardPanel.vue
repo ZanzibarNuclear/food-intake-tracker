@@ -69,13 +69,13 @@ const metricCards = computed(() => [
 <template>
   <section class="section">
     <div class="dashboard-actions">
-      <UButton class="nuxt-ui-button" icon="i-lucide-plus" type="button" @click="emit('quickLog')">
+      <UButton class="nuxt-ui-button" icon="i-lucide-clipboard-pen-line" type="button" @click="emit('quickLog')">
         Meal
       </UButton>
       <UButton
         class="nuxt-ui-button"
         color="secondary"
-        icon="i-lucide-scale"
+        icon="i-lucide-clipboard-pen-line"
         type="button"
         variant="soft"
         @click="emit('quickWeight')"
