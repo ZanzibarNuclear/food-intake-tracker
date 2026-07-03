@@ -7,7 +7,7 @@ const icon = computed(() => {
   const normalized = props.meal.toLowerCase();
   if (normalized === "breakfast") return "i-lucide-coffee";
   if (normalized === "lunch") return "i-lucide-sandwich";
-  if (normalized === "dinner") return "i-lucide-concierge-bell";
+  if (normalized === "dinner") return "i-lucide-utensils";
   if (normalized === "snack") return "i-lucide-apple";
   if (normalized === "dessert") return "i-lucide-cake-slice";
   return "i-lucide-utensils";
