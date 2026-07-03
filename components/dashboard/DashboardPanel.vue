@@ -59,7 +59,7 @@ const metricCards = computed(() => [
   },
   {
     icon: "i-lucide-goal",
-    label: "To Goal",
+    label: "Δ to Goal",
     value: formatNumber(metrics.value.weightToGoal, 1),
     detail: "Goal minus current",
   },
