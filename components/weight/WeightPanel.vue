@@ -158,7 +158,9 @@ watch(weightTotalPages, (totalPages) => {
           :icon="editingWeightId ? 'i-lucide-save' : 'i-lucide-clipboard-pen-line'"
           :loading="trackerApi.isSaving.value"
           class="nuxt-ui-button"
+          color="secondary"
           type="submit"
+          variant="soft"
         >
           {{ editingWeightId ? "Update weight" : "Save weight" }}
         </UButton>
@@ -393,6 +395,11 @@ watch(weightTotalPages, (totalPages) => {
 .is-modal .form-panel {
   border: 0;
   border-radius: 0;
+}
+
+.is-modal .weight-form-grid,
+.is-modal .actions {
+  justify-content: center;
 }
 
 </style>
