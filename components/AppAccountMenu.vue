@@ -56,14 +56,28 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
     <div v-if="open" class="dropdown" role="menu">
       <p v-if="userAlias" class="menu-alias">{{ userAlias }}</p>
       <p v-if="userEmail" class="menu-email">{{ userEmail }}</p>
-      <button role="menuitem" type="button" @click="openSettings">
-        <UIcon aria-hidden="true" name="i-lucide-settings" />
+      <UButton
+        class="nuxt-ui-button menu-action"
+        color="neutral"
+        icon="i-lucide-settings"
+        role="menuitem"
+        type="button"
+        variant="ghost"
+        @click="openSettings"
+      >
         Settings
-      </button>
-      <button role="menuitem" type="button" @click="signOut">
-        <UIcon aria-hidden="true" name="i-lucide-log-out" />
+      </UButton>
+      <UButton
+        class="nuxt-ui-button menu-action"
+        color="neutral"
+        icon="i-lucide-log-out"
+        role="menuitem"
+        type="button"
+        variant="ghost"
+        @click="signOut"
+      >
         Sign out
-      </button>
+      </UButton>
     </div>
   </div>
 </template>
@@ -86,22 +100,10 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
   box-shadow: 0 10px 30px rgba(32, 36, 31, 0.12);
 }
 
-.dropdown button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.menu-action {
+  justify-content: flex-start;
   width: 100%;
   min-height: 40px;
-  padding: 0.55rem 0.75rem;
-  background: transparent;
-  color: var(--ink);
-  font-weight: 600;
-  text-align: left;
-}
-
-.dropdown button:hover {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
 .menu-alias,

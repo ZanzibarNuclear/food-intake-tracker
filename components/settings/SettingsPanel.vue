@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
       <div class="form-grid">
         <label>
           Alias
-          <input
+          <UInput
             v-model="form.alias"
             :disabled="tracker.isSaving.value"
             type="text"
@@ -101,16 +101,13 @@ onBeforeUnmount(() => {
 
         <label>
           Time zone
-          <select
+          <USelect
             v-model="form.timezone"
+            :items="zones"
             :disabled="tracker.isSaving.value"
             required
             @change="saveSettingsChange"
-          >
-            <option v-for="zone in zones" :key="zone.value" :value="zone.value">
-              {{ zone.label }}
-            </option>
-          </select>
+          />
         </label>
 
         <section class="target-card" aria-labelledby="targets-title">

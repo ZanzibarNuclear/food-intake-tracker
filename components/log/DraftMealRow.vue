@@ -47,7 +47,7 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
         variant="soft"
         @click="emit('bump', item.tempId, -0.25)"
       />
-      <input v-model.number="item.quantity" min="0.01" step="0.01" type="number" required />
+      <UInput v-model.number="item.quantity" class="quantity-input" min="0.01" step="0.01" type="number" required />
       <UButton
         aria-label="Increase quantity"
         class="nuxt-ui-button"
@@ -110,9 +110,11 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
   grid-template-columns: 34px minmax(52px, 1fr) 34px;
 }
 
-.draft-quantity input {
+.quantity-input {
   min-height: 34px;
-  padding: 0.35rem;
+}
+
+.quantity-input :deep(input) {
   text-align: center;
 }
 

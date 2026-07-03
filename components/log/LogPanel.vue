@@ -31,7 +31,6 @@ const mealForm = reactive<Pick<MealEntry, "date" | "meal">>({
 
 const editingMealId = ref<number | null>(null);
 const foodQuery = ref("");
-const foodInput = ref<HTMLInputElement | null>(null);
 const favoritesMenuOpen = ref(false);
 const recentsDialog = ref<HTMLDialogElement | null>(null);
 const favoritesDialog = ref<HTMLDialogElement | null>(null);
@@ -133,7 +132,7 @@ function selectFood(food: Food) {
 }
 
 function focusFoodInput() {
-  nextTick(() => foodInput.value?.focus());
+  nextTick(() => document.getElementById("meal-food-query")?.focus());
 }
 
 function handleQuickAdd() {
@@ -295,7 +294,7 @@ watch(
       <div class="meal-header-row">
         <label class="compact-field">
           Date
-          <input v-model="mealForm.date" type="date" required />
+          <UInput v-model="mealForm.date" class="compact-input" type="date" required />
         </label>
         <LogMealPicker v-model="mealForm.meal" />
       </div>
@@ -336,10 +335,11 @@ watch(
         </div>
         <label>
           Add food
-          <input
-            ref="foodInput"
+          <UInput
+            id="meal-food-query"
             v-model="foodQuery"
             autocomplete="off"
+            icon="i-lucide-search"
           />
         </label>
         <div v-if="showSearchResults" class="search-results">
@@ -730,6 +730,11 @@ watch(
 
 .compact-field input,
 .compact-field select {
+  width: auto;
+  min-width: 9.5rem;
+}
+
+.compact-input {
   width: auto;
   min-width: 9.5rem;
 }
