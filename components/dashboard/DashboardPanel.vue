@@ -46,7 +46,7 @@ const metricCards = computed(() => [
     detail: `Target ${formatNumber(props.tracker.settings.nutritionScoreTarget, 1)}+`,
   },
   {
-    icon: "i-lucide-list-checks",
+    icon: "i-lucide-utensils",
     label: "Meals",
     value: metrics.value.today.itemsLogged,
     detail: `Logged on ${props.selectedDate}`,
