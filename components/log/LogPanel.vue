@@ -377,10 +377,26 @@ watch(
       </div>
 
       <div class="actions">
-        <button :disabled="trackerApi.isSaving.value || !draftMeals.length" type="submit">
+        <UButton
+          :disabled="trackerApi.isSaving.value || !draftMeals.length"
+          :icon="editingMealId ? 'i-lucide-save' : 'i-lucide-plus'"
+          :loading="trackerApi.isSaving.value"
+          class="nuxt-ui-button"
+          type="submit"
+        >
           {{ editingMealId ? "Update meal" : "Save meal" }}
-        </button>
-        <button v-if="editingMealId" class="secondary" type="button" @click="resetMealForm()">Cancel</button>
+        </UButton>
+        <UButton
+          v-if="editingMealId"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-undo-2"
+          type="button"
+          variant="soft"
+          @click="resetMealForm()"
+        >
+          Cancel
+        </UButton>
       </div>
     </form>
 
@@ -409,23 +425,31 @@ watch(
       <div class="summary-pagination">
         <span>{{ summaryFirstResult }}-{{ summaryLastResult }} of {{ summaries.length }}</span>
         <div class="summary-pager-actions">
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage <= 1"
             @click="goToSummaryPage(summaryPage - 1)"
           >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ summaryPage }} of {{ summaryTotalPages }}</span>
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage >= summaryTotalPages"
             @click="goToSummaryPage(summaryPage + 1)"
           >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
       <div class="table-scroll">
@@ -459,23 +483,31 @@ watch(
       <div class="summary-pagination bottom">
         <span>{{ summaryFirstResult }}-{{ summaryLastResult }} of {{ summaries.length }}</span>
         <div class="summary-pager-actions">
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage <= 1"
             @click="goToSummaryPage(summaryPage - 1)"
           >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ summaryPage }} of {{ summaryTotalPages }}</span>
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage >= summaryTotalPages"
             @click="goToSummaryPage(summaryPage + 1)"
           >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
     </div>
@@ -483,14 +515,17 @@ watch(
     <dialog v-if="!isModal" ref="summaryDialog" class="summary-dialog" @close="closeSummaryPopup">
       <div class="popup-header">
         <h3>Meals on {{ selectedSummaryDate }}</h3>
-        <button aria-label="Close" class="icon-btn" type="button" @click="closeSummaryPopup">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-            <path
-              fill="currentColor"
-              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-            />
-          </svg>
-        </button>
+        <UButton
+          aria-label="Close"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          size="xs"
+          square
+          type="button"
+          variant="soft"
+          @click="closeSummaryPopup"
+        />
       </div>
       <div class="summary-detail">
         <div v-if="!selectedSummaryMeals.length" class="empty-draft">No meals logged for this day.</div>
@@ -517,14 +552,17 @@ watch(
     <dialog v-if="!isModal" ref="recentsDialog" class="recents-dialog" @close="closeRecentsPopup">
       <div class="popup-header">
         <h3>Recent foods</h3>
-        <button aria-label="Close" class="icon-btn" type="button" @click="closeRecentsPopup">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-            <path
-              fill="currentColor"
-              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-            />
-          </svg>
-        </button>
+        <UButton
+          aria-label="Close"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          size="xs"
+          square
+          type="button"
+          variant="soft"
+          @click="closeRecentsPopup"
+        />
       </div>
       <div class="popup-list">
         <button
@@ -543,14 +581,17 @@ watch(
     <dialog v-if="!isModal" ref="favoritesDialog" class="recents-dialog" @close="closeFavoritesPopup">
       <div class="popup-header">
         <h3>Favorite foods</h3>
-        <button aria-label="Close" class="icon-btn" type="button" @click="closeFavoritesPopup">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-            <path
-              fill="currentColor"
-              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-            />
-          </svg>
-        </button>
+        <UButton
+          aria-label="Close"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          size="xs"
+          square
+          type="button"
+          variant="soft"
+          @click="closeFavoritesPopup"
+        />
       </div>
       <div class="popup-list">
         <button
@@ -677,12 +718,6 @@ watch(
 
 .summary-pager-actions span {
   white-space: nowrap;
-}
-
-.summary-pagination button.small {
-  min-height: 30px;
-  padding: 0 0.45rem;
-  font-size: 0.76rem;
 }
 
 .compact-field {
@@ -920,21 +955,6 @@ watch(
   border-radius: 8px;
   color: var(--muted);
   font-size: 0.9rem;
-}
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  min-height: 34px;
-  padding: 0;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-}
-
-.icon-btn.danger {
-  color: var(--warn);
 }
 
 .table-scroll :deep(table) {
