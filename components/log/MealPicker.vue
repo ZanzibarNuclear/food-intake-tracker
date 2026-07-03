@@ -21,12 +21,12 @@ function selectMealType(meal: (typeof mealTypes)[number]) {
         class="meal-picker-trigger"
         color="neutral"
         type="button"
-        variant="soft"
+        variant="outline"
         @click="open = !open"
         @keydown.escape.prevent="open = false"
       >
         <DashboardMealIcon :meal="selectedMealType" aria-hidden="true" />
-        <span>{{ selectedMealType }}</span>
+        <span class="meal-picker-label">{{ selectedMealType }}</span>
         <UIcon class="meal-picker-chevron" name="i-lucide-chevron-down" aria-hidden="true" />
       </UButton>
       <div v-if="open" class="meal-picker-menu" role="listbox">
@@ -72,6 +72,8 @@ function selectMealType(meal: (typeof mealTypes)[number]) {
   width: 100%;
   min-height: 42px;
   padding: 0 0.55rem;
+  border: 1px solid var(--line);
+  background: #fff;
 }
 
 .meal-picker-chevron {
@@ -79,6 +81,11 @@ function selectMealType(meal: (typeof mealTypes)[number]) {
   color: var(--muted);
   font-size: 1rem;
   line-height: 1;
+}
+
+.meal-picker-label {
+  color: var(--ink);
+  font-weight: 800;
 }
 
 .meal-picker-menu {

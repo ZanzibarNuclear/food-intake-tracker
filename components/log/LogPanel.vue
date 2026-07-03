@@ -299,49 +299,53 @@ watch(
         <LogMealPicker v-model="mealForm.meal" />
       </div>
 
-      <div class="form-grid">
-        <div class="favorite-picker">
-          <span class="field-label">Favorites</span>
-          <UButton
-            class="favorite-picker-trigger"
-            color="neutral"
-            icon="i-lucide-star"
-            type="button"
-            :disabled="!favoriteFoods.length"
-            aria-haspopup="listbox"
-            :aria-expanded="favoritesMenuOpen"
-            variant="soft"
-            @click="favoritesMenuOpen = !favoritesMenuOpen"
-            @keydown.escape.prevent="favoritesMenuOpen = false"
-          >
-            <span>{{ favoriteFoods.length ? "Choose favorite" : "No favorites yet" }}</span>
-            <UIcon class="meal-picker-chevron" name="i-lucide-chevron-down" aria-hidden="true" />
-          </UButton>
-          <div v-if="favoritesMenuOpen && favoriteFoods.length" class="favorite-picker-menu" role="listbox">
+      <fieldset class="add-food-card">
+        <legend>Add food</legend>
+        <div class="add-food-fields">
+          <div class="favorite-picker">
+            <span class="field-label">Favorites</span>
             <UButton
-              v-for="food in favoriteFoods"
-              :key="food.id"
-              class="favorite-picker-option"
+              class="favorite-picker-trigger"
               color="neutral"
-              role="option"
+              icon="i-lucide-star"
               type="button"
-              variant="ghost"
-              @click="selectFood(food)"
+              :disabled="!favoriteFoods.length"
+              aria-haspopup="listbox"
+              :aria-expanded="favoritesMenuOpen"
+              variant="outline"
+              @click="favoritesMenuOpen = !favoritesMenuOpen"
+              @keydown.escape.prevent="favoritesMenuOpen = false"
             >
-              <span>{{ food.name }}</span>
-              <small>{{ food.servingDescription }} · {{ formatNumber(food.calories) }} cal</small>
+              <span>{{ favoriteFoods.length ? "Pick a favorite food" : "No favorites yet" }}</span>
+              <UIcon class="favorite-picker-chevron" name="i-lucide-chevron-down" aria-hidden="true" />
             </UButton>
+            <div v-if="favoritesMenuOpen && favoriteFoods.length" class="favorite-picker-menu" role="listbox">
+              <UButton
+                v-for="food in favoriteFoods"
+                :key="food.id"
+                class="favorite-picker-option"
+                color="neutral"
+                role="option"
+                type="button"
+                variant="ghost"
+                @click="selectFood(food)"
+              >
+                <span>{{ food.name }}</span>
+                <small>{{ food.servingDescription }} · {{ formatNumber(food.calories) }} cal</small>
+              </UButton>
+            </div>
           </div>
+          <label class="food-search-field">
+            Search
+            <UInput
+              id="meal-food-query"
+              v-model="foodQuery"
+              autocomplete="off"
+              icon="i-lucide-search"
+              placeholder="Search foods to add"
+            />
+          </label>
         </div>
-        <label>
-          Add food
-          <UInput
-            id="meal-food-query"
-            v-model="foodQuery"
-            autocomplete="off"
-            icon="i-lucide-search"
-          />
-        </label>
         <div v-if="showSearchResults" class="search-results">
           <UButton
             v-for="food in searchResults"
@@ -356,7 +360,7 @@ watch(
             <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
           </UButton>
         </div>
-      </div>
+      </fieldset>
 
       <div class="draft-list">
         <div v-if="!draftMeals.length" class="empty-draft">Select one or more foods to add to this meal.</div>
@@ -382,8 +386,9 @@ watch(
           :disabled="trackerApi.isSaving.value || !draftMeals.length"
           :icon="editingMealId ? 'i-lucide-save' : 'i-lucide-plus'"
           :loading="trackerApi.isSaving.value"
-          class="nuxt-ui-button"
+          class="nuxt-ui-button save-meal-button"
           type="submit"
+          variant="soft"
         >
           {{ editingMealId ? "Update meal" : "Save meal" }}
         </UButton>
@@ -739,6 +744,39 @@ watch(
   min-width: 9.5rem;
 }
 
+.add-food-card {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  margin: 0.25rem 0 0;
+  padding: 0.9rem 0.85rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfb;
+}
+
+.add-food-card legend {
+  padding: 0 0.4rem;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.add-food-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.food-search-field {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
 .favorite-picker {
   position: relative;
   display: grid;
@@ -755,11 +793,20 @@ watch(
   width: min(18rem, 100%);
   min-height: 42px;
   padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  background: #fff;
 }
 
 .favorite-picker-trigger:disabled {
   cursor: not-allowed;
   opacity: 0.65;
+}
+
+.favorite-picker-chevron {
+  margin-left: auto;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .favorite-picker-menu {
@@ -882,6 +929,7 @@ watch(
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 0.35rem;
+  background: #fff;
 }
 
 .search-item {
@@ -912,8 +960,24 @@ watch(
   font-size: 0.9rem;
 }
 
+.save-meal-button {
+  min-width: 9.25rem;
+  justify-content: center;
+  font-weight: 800;
+}
+
 .table-scroll :deep(table) {
   min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .add-food-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .favorite-picker-trigger {
+    width: 100%;
+  }
 }
 
 </style>
