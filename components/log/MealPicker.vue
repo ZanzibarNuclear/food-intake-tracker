@@ -15,32 +15,36 @@ function selectMealType(meal: (typeof mealTypes)[number]) {
   <div class="compact-field">
     <span class="field-label">Meal</span>
     <div class="meal-picker">
-      <button
+      <UButton
         aria-haspopup="listbox"
         :aria-expanded="open"
         class="meal-picker-trigger"
+        color="neutral"
         type="button"
+        variant="soft"
         @click="open = !open"
         @keydown.escape.prevent="open = false"
       >
         <DashboardMealIcon :meal="selectedMealType" aria-hidden="true" />
         <span>{{ selectedMealType }}</span>
         <UIcon class="meal-picker-chevron" name="i-lucide-chevron-down" aria-hidden="true" />
-      </button>
+      </UButton>
       <div v-if="open" class="meal-picker-menu" role="listbox">
-        <button
+        <UButton
           v-for="meal in mealTypes"
           :key="meal"
           class="meal-picker-option"
           :class="{ selected: meal === model }"
+          color="neutral"
           role="option"
           :aria-selected="meal === model"
           type="button"
+          variant="ghost"
           @click="selectMealType(meal)"
         >
           <DashboardMealIcon :meal="meal" aria-hidden="true" />
           <span>{{ meal }}</span>
-        </button>
+        </UButton>
       </div>
     </div>
   </div>
@@ -68,9 +72,6 @@ function selectMealType(meal: (typeof mealTypes)[number]) {
   width: 100%;
   min-height: 42px;
   padding: 0 0.55rem;
-  color: var(--ink);
-  background: var(--panel);
-  border: 1px solid var(--line);
 }
 
 .meal-picker-chevron {
@@ -103,9 +104,6 @@ function selectMealType(meal: (typeof mealTypes)[number]) {
   justify-content: flex-start;
   min-height: 38px;
   padding: 0.25rem 0.5rem;
-  color: var(--ink);
-  background: transparent;
-  border: 0;
 }
 
 .meal-picker-option:hover,

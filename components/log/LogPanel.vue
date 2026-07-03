@@ -303,36 +303,35 @@ watch(
       <div class="form-grid">
         <div class="favorite-picker">
           <span class="field-label">Favorites</span>
-          <button
+          <UButton
             class="favorite-picker-trigger"
+            color="neutral"
+            icon="i-lucide-star"
             type="button"
             :disabled="!favoriteFoods.length"
             aria-haspopup="listbox"
             :aria-expanded="favoritesMenuOpen"
+            variant="soft"
             @click="favoritesMenuOpen = !favoritesMenuOpen"
             @keydown.escape.prevent="favoritesMenuOpen = false"
           >
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.9 5.87 6.48.94-4.69 4.57 1.1 6.45L12 17.28l-5.79 3.05 1.1-6.45-4.69-4.57 6.48-.94L12 2.5Z"
-              />
-            </svg>
             <span>{{ favoriteFoods.length ? "Choose favorite" : "No favorites yet" }}</span>
-            <span class="meal-picker-chevron" aria-hidden="true">⌄</span>
-          </button>
+            <UIcon class="meal-picker-chevron" name="i-lucide-chevron-down" aria-hidden="true" />
+          </UButton>
           <div v-if="favoritesMenuOpen && favoriteFoods.length" class="favorite-picker-menu" role="listbox">
-            <button
+            <UButton
               v-for="food in favoriteFoods"
               :key="food.id"
               class="favorite-picker-option"
+              color="neutral"
               role="option"
               type="button"
+              variant="ghost"
               @click="selectFood(food)"
             >
               <span>{{ food.name }}</span>
               <small>{{ food.servingDescription }} · {{ formatNumber(food.calories) }} cal</small>
-            </button>
+            </UButton>
           </div>
         </div>
         <label>
@@ -344,16 +343,18 @@ watch(
           />
         </label>
         <div v-if="showSearchResults" class="search-results">
-          <button
+          <UButton
             v-for="food in searchResults"
             :key="food.id"
             class="search-item"
+            color="neutral"
             type="button"
+            variant="ghost"
             @click="selectFood(food)"
           >
             <span>{{ food.name }}</span>
             <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
-          </button>
+          </UButton>
         </div>
       </div>
 
@@ -565,16 +566,18 @@ watch(
         />
       </div>
       <div class="popup-list">
-        <button
+        <UButton
           v-for="food in trackerApi.quickList.value.recents"
           :key="food.id"
           class="search-item"
+          color="neutral"
           type="button"
+          variant="ghost"
           @click="selectFood(food)"
         >
           <span>{{ food.name }}</span>
           <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
-        </button>
+        </UButton>
       </div>
     </dialog>
 
@@ -594,28 +597,24 @@ watch(
         />
       </div>
       <div class="popup-list">
-        <button
+        <UButton
           v-for="food in trackerApi.quickList.value.favorites"
           :key="food.id"
           class="search-item"
+          color="neutral"
           type="button"
+          variant="ghost"
           @click="selectFood(food)"
         >
           <span>{{ food.name }}</span>
           <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
-        </button>
+        </UButton>
       </div>
     </dialog>
   </section>
 </template>
 
 <style scoped>
-.quick-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
 .is-modal {
   display: block;
 }
@@ -751,13 +750,6 @@ watch(
   width: min(18rem, 100%);
   min-height: 42px;
   padding: 0 0.65rem;
-  color: var(--ink);
-  background: var(--panel);
-  border: 1px solid var(--line);
-}
-
-.favorite-picker-trigger svg {
-  color: #a87600;
 }
 
 .favorite-picker-trigger:disabled {
@@ -789,53 +781,12 @@ watch(
   justify-content: stretch;
   min-height: auto;
   padding: 0.55rem 0.65rem;
-  color: var(--ink);
-  background: transparent;
-  border: 0;
   text-align: left;
-}
-
-.favorite-picker-option:hover {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
 .favorite-picker-option small {
   color: var(--muted);
   font-weight: 400;
-}
-
-.recent-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 36px;
-  padding: 0 0.75rem;
-}
-
-.quick-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  min-width: 44px;
-  min-height: 36px;
-  padding: 0 0.55rem;
-  color: var(--accent-strong);
-}
-
-.recent-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  padding: 0 0.3rem;
-  border-radius: 999px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
 }
 
 .recents-dialog,
@@ -930,11 +881,10 @@ watch(
 
 .search-item {
   display: grid;
+  justify-content: stretch;
   gap: 0.15rem;
   min-height: auto;
   padding: 0.55rem 0.65rem;
-  background: #fff;
-  color: var(--ink);
   text-align: left;
   border: 1px solid var(--line);
 }
