@@ -53,13 +53,13 @@ const metricCards = computed(() => [
   },
   {
     icon: "i-lucide-scale",
-    label: "Current Weight",
+    label: "Weight",
     value: formatNumber(metrics.value.currentWeight, 1),
     detail: `Goal ${formatNumber(props.tracker.settings.goalWeight, 1)}`,
   },
   {
     icon: "i-lucide-goal",
-    label: "Weight to Goal",
+    label: "To Goal",
     value: formatNumber(metrics.value.weightToGoal, 1),
     detail: "Goal minus current",
   },
