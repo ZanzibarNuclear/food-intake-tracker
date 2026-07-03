@@ -137,30 +137,41 @@ watch(weightTotalPages, (totalPages) => {
       <div class="weight-form-grid">
         <label class="compact-field">
           Date
-          <input v-model="weightForm.date" type="date" required />
+          <UInput v-model="weightForm.date" class="compact-input" size="md" type="date" variant="outline" required />
         </label>
         <label class="compact-field">
           Weight
-          <input
+          <UInput
             v-model.number="weightForm.weight"
+            class="compact-input"
             inputmode="decimal"
             min="1"
+            size="md"
             step="0.1"
             type="number"
+            variant="outline"
             required
           />
         </label>
       </div>
       <div class="actions">
-        <button :disabled="trackerApi.isSaving.value" type="submit">
+        <UButton
+          :disabled="trackerApi.isSaving.value"
+          :icon="editingWeightId ? 'i-lucide-save' : 'i-lucide-clipboard-pen-line'"
+          :loading="trackerApi.isSaving.value"
+          class="nuxt-ui-button"
+          color="secondary"
+          type="submit"
+          variant="soft"
+        >
           {{ editingWeightId ? "Update weight" : "Save weight" }}
-        </button>
+        </UButton>
       </div>
     </form>
 
     <div v-if="!isModal" class="table-panel weight-chart-panel">
       <h2>Weight trend</h2>
-      <DashboardWeightChart
+      <LazyDashboardWeightChart
         :weights="props.tracker.weights"
         :goal-weight="props.tracker.settings.goalWeight"
         :selected-date="todayIso(timezone)"
@@ -172,23 +183,31 @@ watch(weightTotalPages, (totalPages) => {
       <div class="weight-pagination">
         <span>{{ weightFirstResult }}-{{ weightLastResult }} of {{ props.tracker.weights.length }}</span>
         <div class="weight-pager-actions">
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="weightPage <= 1"
             @click="goToWeightPage(weightPage - 1)"
           >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ weightPage }} of {{ weightTotalPages }}</span>
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="weightPage >= weightTotalPages"
             @click="goToWeightPage(weightPage + 1)"
           >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
       <div class="table-scroll">
@@ -207,34 +226,30 @@ watch(weightTotalPages, (totalPages) => {
               <td class="number">{{ formatNumber(weight.weight, 1) }}</td>
               <td class="spacer-col" aria-hidden="true" />
               <td class="row-actions">
-                <button
+                <UButton
                   v-if="weight.id"
                   aria-label="Update weight"
-                  class="icon-btn"
+                  class="nuxt-ui-button"
+                  color="neutral"
+                  icon="i-lucide-pencil"
+                  size="xs"
+                  square
                   type="button"
+                  variant="soft"
                   @click="emit('editWeight', weight)"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      fill="currentColor"
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92-9.06 9.06zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                    />
-                  </svg>
-                </button>
-                <button
+                />
+                <UButton
                   v-if="weight.id"
                   aria-label="Delete weight"
-                  class="icon-btn danger"
+                  class="nuxt-ui-button"
+                  color="error"
+                  icon="i-lucide-trash-2"
+                  size="xs"
+                  square
                   type="button"
+                  variant="soft"
                   @click="removeWeight(weight.id)"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      fill="currentColor"
-                      d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-                    />
-                  </svg>
-                </button>
+                />
               </td>
             </tr>
           </tbody>
@@ -243,23 +258,31 @@ watch(weightTotalPages, (totalPages) => {
       <div class="weight-pagination bottom">
         <span>{{ weightFirstResult }}-{{ weightLastResult }} of {{ props.tracker.weights.length }}</span>
         <div class="weight-pager-actions">
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="weightPage <= 1"
             @click="goToWeightPage(weightPage - 1)"
           >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ weightPage }} of {{ weightTotalPages }}</span>
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="weightPage >= weightTotalPages"
             @click="goToWeightPage(weightPage + 1)"
           >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
     </div>
@@ -342,12 +365,6 @@ watch(weightTotalPages, (totalPages) => {
   white-space: nowrap;
 }
 
-.weight-pagination button.small {
-  min-height: 30px;
-  padding: 0 0.45rem;
-  font-size: 0.76rem;
-}
-
 .weight-form-grid {
   display: flex;
   flex-wrap: wrap;
@@ -363,7 +380,7 @@ watch(weightTotalPages, (totalPages) => {
   width: auto;
 }
 
-.compact-field input {
+.compact-input {
   width: auto;
   min-width: 9.5rem;
 }
@@ -377,18 +394,9 @@ watch(weightTotalPages, (totalPages) => {
   border-radius: 0;
 }
 
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
+.is-modal .weight-form-grid,
+.is-modal .actions {
   justify-content: center;
-  width: 34px;
-  min-height: 34px;
-  padding: 0;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
-.icon-btn.danger {
-  color: var(--warn);
-}
 </style>

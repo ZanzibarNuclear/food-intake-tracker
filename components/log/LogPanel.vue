@@ -18,7 +18,6 @@ const emit = defineEmits<{
 
 const trackerApi = useTracker();
 const { timezone } = useUserTimezone();
-const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"] as const;
 const isModal = computed(() => props.mode === "modal");
 
 type DraftMealItem = Pick<MealEntry, "foodId" | "foodName" | "quantity"> & {
@@ -32,8 +31,6 @@ const mealForm = reactive<Pick<MealEntry, "date" | "meal">>({
 
 const editingMealId = ref<number | null>(null);
 const foodQuery = ref("");
-const foodInput = ref<HTMLInputElement | null>(null);
-const mealMenuOpen = ref(false);
 const favoritesMenuOpen = ref(false);
 const recentsDialog = ref<HTMLDialogElement | null>(null);
 const favoritesDialog = ref<HTMLDialogElement | null>(null);
@@ -114,23 +111,7 @@ const selectedSummaryTotals = computed(() => ({
   calories: selectedSummaryMeals.value.reduce((sum, meal) => sum + (meal.calories ?? 0), 0),
   proteinGrams: selectedSummaryMeals.value.reduce((sum, meal) => sum + (meal.proteinGrams ?? 0), 0),
 }));
-const selectedMealType = computed(() => mealTypes.find((meal) => meal === mealForm.meal) ?? "Breakfast");
 const favoriteFoods = computed(() => trackerApi.quickList.value.favorites);
-
-function mealIcon(meal: string) {
-  const normalized = meal.toLowerCase();
-  if (normalized === "breakfast") return "coffee";
-  if (normalized === "lunch") return "sandwich";
-  if (normalized === "dinner") return "cloche";
-  if (normalized === "snack") return "apple";
-  if (normalized === "dessert") return "cake";
-  return "coffee";
-}
-
-function selectMealType(meal: (typeof mealTypes)[number]) {
-  mealForm.meal = meal;
-  mealMenuOpen.value = false;
-}
 
 function selectFood(food: Food) {
   if (searchTimer) clearTimeout(searchTimer);
@@ -151,7 +132,7 @@ function selectFood(food: Food) {
 }
 
 function focusFoodInput() {
-  nextTick(() => foodInput.value?.focus());
+  nextTick(() => document.getElementById("meal-food-query")?.focus());
 }
 
 function handleQuickAdd() {
@@ -287,7 +268,6 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  mealMenuOpen.value = false;
   favoritesMenuOpen.value = false;
 });
 
@@ -314,240 +294,89 @@ watch(
       <div class="meal-header-row">
         <label class="compact-field">
           Date
-          <input v-model="mealForm.date" type="date" required />
+          <UInput v-model="mealForm.date" class="compact-input" size="md" type="date" variant="outline" required />
         </label>
-        <div class="compact-field">
-          <span class="field-label">Meal</span>
-          <div class="meal-picker">
-            <button
-              aria-haspopup="listbox"
-              :aria-expanded="mealMenuOpen"
-              class="meal-picker-trigger"
-              type="button"
-              @click="mealMenuOpen = !mealMenuOpen"
-              @keydown.escape.prevent="mealMenuOpen = false"
-            >
-              <span class="meal-type-icon" aria-hidden="true">
-                <svg
-                  v-if="mealIcon(selectedMealType) === 'coffee'"
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M4 7h11v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V7Zm13 2h1a2 2 0 0 1 0 4h-1V9ZM6 9v4a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3V9H6Zm11 2h1v-1h-1v1ZM7 3h2v3H7V3Zm5 0h2v3h-2V3Z"
-                  />
-                </svg>
-                <svg
-                  v-else-if="mealIcon(selectedMealType) === 'sandwich'"
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M4 10 12 5l8 5v3H4v-3Zm2 5h12v4H6v-4Zm1-4h10.9L12 7.3 6.1 11H7Z"
-                  />
-                </svg>
-                <svg
-                  v-else-if="mealIcon(selectedMealType) === 'cloche'"
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M11 4V2h2v2a8 8 0 0 1 7.75 7H3.25A8 8 0 0 1 11 4Zm-8 9h18v2H3v-2Zm2 4h14v2H5v-2Z"
-                  />
-                </svg>
-                <svg
-                  v-else-if="mealIcon(selectedMealType) === 'apple'"
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M13 4c.7-1.4 1.8-2.2 3.5-2 .1 1.7-.8 2.9-2.5 3.6A5.8 5.8 0 0 1 18 4c2.6 0 4 2.2 4 5.2 0 4.7-3 10.8-6.1 10.8-1.3 0-2-.7-3.4-.7s-2.1.7-3.4.7C6 20 3 13.9 3 9.2 3 6.2 4.4 4 7 4c1.2 0 2.1.4 3 1 .3-.9 1-1.5 2-1.8V2h2v2h-1Z"
-                  />
-                </svg>
-                <svg
-                  v-else-if="mealIcon(selectedMealType) === 'cake'"
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M11 2h2v3h-2V2Zm-5 9h12a3 3 0 0 1 3 3v7H3v-7a3 3 0 0 1 3-3Zm0 2a1 1 0 0 0-1 1v1c1.1 0 1.6-.3 2.3-.7.8-.5 1.7-1 3.2-1s2.4.5 3.2 1c.7.4 1.2.7 2.3.7s1.6-.3 2.3-.7l.7-.4A1 1 0 0 0 18 13H6Zm-1 4v2h14v-2c-1.1 0-1.9-.4-2.6-.8-.7-.4-1.2-.7-2.4-.7s-1.7.3-2.4.7c-.8.5-1.7 1-3.2 1-1.1 0-1.8-.2-2.4-.4Z"
-                  />
-                </svg>
-              </span>
-              <span>{{ selectedMealType }}</span>
-              <span class="meal-picker-chevron" aria-hidden="true">⌄</span>
-            </button>
-            <div v-if="mealMenuOpen" class="meal-picker-menu" role="listbox">
-              <button
-                v-for="meal in mealTypes"
-                :key="meal"
-                class="meal-picker-option"
-                :class="{ selected: meal === mealForm.meal }"
-                role="option"
-                :aria-selected="meal === mealForm.meal"
-                type="button"
-                @click="selectMealType(meal)"
-              >
-                <span class="meal-type-icon" aria-hidden="true">
-                  <svg
-                    v-if="mealIcon(meal) === 'coffee'"
-                    viewBox="0 0 24 24"
-                    width="17"
-                    height="17"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M4 7h11v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V7Zm13 2h1a2 2 0 0 1 0 4h-1V9ZM6 9v4a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3V9H6Zm11 2h1v-1h-1v1ZM7 3h2v3H7V3Zm5 0h2v3h-2V3Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else-if="mealIcon(meal) === 'sandwich'"
-                    viewBox="0 0 24 24"
-                    width="17"
-                    height="17"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M4 10 12 5l8 5v3H4v-3Zm2 5h12v4H6v-4Zm1-4h10.9L12 7.3 6.1 11H7Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else-if="mealIcon(meal) === 'cloche'"
-                    viewBox="0 0 24 24"
-                    width="17"
-                    height="17"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M11 4V2h2v2a8 8 0 0 1 7.75 7H3.25A8 8 0 0 1 11 4Zm-8 9h18v2H3v-2Zm2 4h14v2H5v-2Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else-if="mealIcon(meal) === 'apple'"
-                    viewBox="0 0 24 24"
-                    width="17"
-                    height="17"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M13 4c.7-1.4 1.8-2.2 3.5-2 .1 1.7-.8 2.9-2.5 3.6A5.8 5.8 0 0 1 18 4c2.6 0 4 2.2 4 5.2 0 4.7-3 10.8-6.1 10.8-1.3 0-2-.7-3.4-.7s-2.1.7-3.4.7C6 20 3 13.9 3 9.2 3 6.2 4.4 4 7 4c1.2 0 2.1.4 3 1 .3-.9 1-1.5 2-1.8V2h2v2h-1Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else-if="mealIcon(meal) === 'cake'"
-                    viewBox="0 0 24 24"
-                    width="17"
-                    height="17"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M11 2h2v3h-2V2Zm-5 9h12a3 3 0 0 1 3 3v7H3v-7a3 3 0 0 1 3-3Zm0 2a1 1 0 0 0-1 1v1c1.1 0 1.6-.3 2.3-.7.8-.5 1.7-1 3.2-1s2.4.5 3.2 1c.7.4 1.2.7 2.3.7s1.6-.3 2.3-.7l.7-.4A1 1 0 0 0 18 13H6Zm-1 4v2h14v-2c-1.1 0-1.9-.4-2.6-.8-.7-.4-1.2-.7-2.4-.7s-1.7.3-2.4.7c-.8.5-1.7 1-3.2 1-1.1 0-1.8-.2-2.4-.4Z"
-                    />
-                  </svg>
-                </span>
-                <span>{{ meal }}</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <LogMealPicker v-model="mealForm.meal" />
       </div>
 
-      <div class="form-grid">
-        <div class="favorite-picker">
-          <span class="field-label">Favorites</span>
-          <button
-            class="favorite-picker-trigger"
-            type="button"
-            :disabled="!favoriteFoods.length"
-            aria-haspopup="listbox"
-            :aria-expanded="favoritesMenuOpen"
-            @click="favoritesMenuOpen = !favoritesMenuOpen"
-            @keydown.escape.prevent="favoritesMenuOpen = false"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.9 5.87 6.48.94-4.69 4.57 1.1 6.45L12 17.28l-5.79 3.05 1.1-6.45-4.69-4.57 6.48-.94L12 2.5Z"
-              />
-            </svg>
-            <span>{{ favoriteFoods.length ? "Choose favorite" : "No favorites yet" }}</span>
-            <span class="meal-picker-chevron" aria-hidden="true">⌄</span>
-          </button>
-          <div v-if="favoritesMenuOpen && favoriteFoods.length" class="favorite-picker-menu" role="listbox">
-            <button
-              v-for="food in favoriteFoods"
-              :key="food.id"
-              class="favorite-picker-option"
-              role="option"
+      <fieldset class="add-food-card">
+        <legend>Add food</legend>
+        <div class="add-food-fields">
+          <div class="favorite-picker">
+            <span class="favorite-helper">
+              <UIcon name="i-lucide-star" aria-hidden="true" />
+              Choose from your favorites
+            </span>
+            <UButton
+              class="favorite-picker-trigger"
+              color="neutral"
               type="button"
-              @click="selectFood(food)"
+              :disabled="!favoriteFoods.length"
+              aria-haspopup="listbox"
+              :aria-expanded="favoritesMenuOpen"
+              variant="outline"
+              @click="favoritesMenuOpen = !favoritesMenuOpen"
+              @keydown.escape.prevent="favoritesMenuOpen = false"
             >
-              <span>{{ food.name }}</span>
-              <small>{{ food.servingDescription }} · {{ formatNumber(food.calories) }} cal</small>
-            </button>
+              <span>{{ favoriteFoods.length ? "Pick a favorite food" : "No favorites yet" }}</span>
+              <UIcon class="favorite-picker-chevron" name="i-lucide-chevron-down" aria-hidden="true" />
+            </UButton>
+            <div v-if="favoritesMenuOpen && favoriteFoods.length" class="favorite-picker-menu" role="listbox">
+              <UButton
+                v-for="food in favoriteFoods"
+                :key="food.id"
+                class="favorite-picker-option"
+                color="neutral"
+                role="option"
+                type="button"
+                variant="ghost"
+                @click="selectFood(food)"
+              >
+                <span>{{ food.name }}</span>
+                <small>{{ food.servingDescription }} · {{ formatNumber(food.calories) }} cal</small>
+              </UButton>
+            </div>
           </div>
+          <label class="food-search-field">
+            Search
+            <UInput
+              id="meal-food-query"
+              v-model="foodQuery"
+              autocomplete="off"
+              icon="i-lucide-search"
+              placeholder="Search foods to add"
+              size="md"
+              variant="outline"
+            />
+          </label>
         </div>
-        <label>
-          Add food
-          <input
-            ref="foodInput"
-            v-model="foodQuery"
-            autocomplete="off"
-          />
-        </label>
         <div v-if="showSearchResults" class="search-results">
-          <button
+          <UButton
             v-for="food in searchResults"
             :key="food.id"
             class="search-item"
+            color="neutral"
             type="button"
+            variant="ghost"
             @click="selectFood(food)"
           >
             <span>{{ food.name }}</span>
             <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
-          </button>
+          </UButton>
         </div>
-      </div>
+      </fieldset>
 
       <div class="draft-list">
         <div v-if="!draftMeals.length" class="empty-draft">Select one or more foods to add to this meal.</div>
-        <div v-for="(item, index) in draftMeals" :key="item.tempId" class="draft-item">
-          <div class="draft-main">
-            <strong>{{ item.foodName }}</strong>
-            <small>
-              {{ formatNumber(draftPreviews[index]?.calories) }} cal ·
-              {{ formatNumber(draftPreviews[index]?.proteinGrams, 1) }}g protein
-            </small>
-          </div>
-          <div class="quantity-row draft-quantity">
-            <button class="secondary qty-btn" type="button" @click="bumpDraftQuantity(item.tempId, -0.25)">−</button>
-            <input v-model.number="item.quantity" min="0.01" step="0.01" type="number" required />
-            <button class="secondary qty-btn" type="button" @click="bumpDraftQuantity(item.tempId, 0.25)">+</button>
-          </div>
-          <button
-            aria-label="Remove food"
-            class="icon-btn danger"
-            type="button"
-            @click="removeDraftItem(item.tempId)"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-              <path
-                fill="currentColor"
-                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-              />
-            </svg>
-          </button>
-        </div>
+        <LogDraftMealRow
+          v-for="(item, index) in draftMeals"
+          :key="item.tempId"
+          :calories="draftPreviews[index]?.calories"
+          :item="item"
+          :protein-grams="draftPreviews[index]?.proteinGrams"
+          @bump="bumpDraftQuantity"
+          @remove="removeDraftItem"
+        />
       </div>
 
       <div v-if="draftMeals.length" class="status">
@@ -557,16 +386,33 @@ watch(
       </div>
 
       <div class="actions">
-        <button :disabled="trackerApi.isSaving.value || !draftMeals.length" type="submit">
+        <UButton
+          :disabled="trackerApi.isSaving.value || !draftMeals.length"
+          :icon="editingMealId ? 'i-lucide-save' : 'i-lucide-clipboard-pen-line'"
+          :loading="trackerApi.isSaving.value"
+          class="nuxt-ui-button"
+          type="submit"
+          variant="soft"
+        >
           {{ editingMealId ? "Update meal" : "Save meal" }}
-        </button>
-        <button v-if="editingMealId" class="secondary" type="button" @click="resetMealForm()">Cancel</button>
+        </UButton>
+        <UButton
+          v-if="editingMealId"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-undo-2"
+          type="button"
+          variant="soft"
+          @click="resetMealForm()"
+        >
+          Cancel
+        </UButton>
       </div>
     </form>
 
     <div v-if="!isModal" class="table-panel meal-chart-panel">
       <h2>Calorie trend (7 days)</h2>
-      <DashboardCalorieChart
+      <LazyDashboardCalorieChart
         :summaries="summaries"
         :selected-date="mealForm.date"
         :calorie-target="props.tracker.settings.dailyCalorieTarget"
@@ -575,7 +421,7 @@ watch(
 
     <div v-if="!isModal" class="table-panel meal-chart-panel">
       <h2>Protein trend (7 days)</h2>
-      <DashboardProteinChart
+      <LazyDashboardProteinChart
         :summaries="summaries"
         :selected-date="mealForm.date"
         :protein-target="props.tracker.settings.proteinTargetGrams"
@@ -589,23 +435,31 @@ watch(
       <div class="summary-pagination">
         <span>{{ summaryFirstResult }}-{{ summaryLastResult }} of {{ summaries.length }}</span>
         <div class="summary-pager-actions">
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage <= 1"
             @click="goToSummaryPage(summaryPage - 1)"
           >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ summaryPage }} of {{ summaryTotalPages }}</span>
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage >= summaryTotalPages"
             @click="goToSummaryPage(summaryPage + 1)"
           >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
       <div class="table-scroll">
@@ -639,23 +493,31 @@ watch(
       <div class="summary-pagination bottom">
         <span>{{ summaryFirstResult }}-{{ summaryLastResult }} of {{ summaries.length }}</span>
         <div class="summary-pager-actions">
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage <= 1"
             @click="goToSummaryPage(summaryPage - 1)"
           >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ summaryPage }} of {{ summaryTotalPages }}</span>
-          <button
-            class="secondary small"
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
             type="button"
+            variant="soft"
             :disabled="summaryPage >= summaryTotalPages"
             @click="goToSummaryPage(summaryPage + 1)"
           >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
     </div>
@@ -663,14 +525,17 @@ watch(
     <dialog v-if="!isModal" ref="summaryDialog" class="summary-dialog" @close="closeSummaryPopup">
       <div class="popup-header">
         <h3>Meals on {{ selectedSummaryDate }}</h3>
-        <button aria-label="Close" class="icon-btn" type="button" @click="closeSummaryPopup">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-            <path
-              fill="currentColor"
-              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-            />
-          </svg>
-        </button>
+        <UButton
+          aria-label="Close"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          size="xs"
+          square
+          type="button"
+          variant="soft"
+          @click="closeSummaryPopup"
+        />
       </div>
       <div class="summary-detail">
         <div v-if="!selectedSummaryMeals.length" class="empty-draft">No meals logged for this day.</div>
@@ -697,64 +562,68 @@ watch(
     <dialog v-if="!isModal" ref="recentsDialog" class="recents-dialog" @close="closeRecentsPopup">
       <div class="popup-header">
         <h3>Recent foods</h3>
-        <button aria-label="Close" class="icon-btn" type="button" @click="closeRecentsPopup">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-            <path
-              fill="currentColor"
-              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-            />
-          </svg>
-        </button>
+        <UButton
+          aria-label="Close"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          size="xs"
+          square
+          type="button"
+          variant="soft"
+          @click="closeRecentsPopup"
+        />
       </div>
       <div class="popup-list">
-        <button
+        <UButton
           v-for="food in trackerApi.quickList.value.recents"
           :key="food.id"
           class="search-item"
+          color="neutral"
           type="button"
+          variant="ghost"
           @click="selectFood(food)"
         >
           <span>{{ food.name }}</span>
           <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
-        </button>
+        </UButton>
       </div>
     </dialog>
 
     <dialog v-if="!isModal" ref="favoritesDialog" class="recents-dialog" @close="closeFavoritesPopup">
       <div class="popup-header">
         <h3>Favorite foods</h3>
-        <button aria-label="Close" class="icon-btn" type="button" @click="closeFavoritesPopup">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-            <path
-              fill="currentColor"
-              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-            />
-          </svg>
-        </button>
+        <UButton
+          aria-label="Close"
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          size="xs"
+          square
+          type="button"
+          variant="soft"
+          @click="closeFavoritesPopup"
+        />
       </div>
       <div class="popup-list">
-        <button
+        <UButton
           v-for="food in trackerApi.quickList.value.favorites"
           :key="food.id"
           class="search-item"
+          color="neutral"
           type="button"
+          variant="ghost"
           @click="selectFood(food)"
         >
           <span>{{ food.name }}</span>
           <small>{{ food.servingDescription }} · {{ food.calories }} cal</small>
-        </button>
+        </UButton>
       </div>
     </dialog>
   </section>
 </template>
 
 <style scoped>
-.quick-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
 .is-modal {
   display: block;
 }
@@ -800,17 +669,6 @@ watch(
 
 .history-summary .panel-header h2 {
   font-size: 1rem;
-}
-
-.panel-header input {
-  width: auto;
-  min-width: 9.5rem;
-}
-
-.history-summary .panel-header input {
-  min-height: 36px;
-  padding: 0.45rem 0.6rem;
-  font-size: 0.82rem;
 }
 
 .summary-table {
@@ -859,12 +717,6 @@ watch(
   white-space: nowrap;
 }
 
-.summary-pagination button.small {
-  min-height: 30px;
-  padding: 0 0.45rem;
-  font-size: 0.76rem;
-}
-
 .compact-field {
   display: grid;
   gap: 0.35rem;
@@ -874,85 +726,42 @@ watch(
   font-weight: 700;
 }
 
-.compact-field input,
-.compact-field select {
+.compact-input {
   width: auto;
   min-width: 9.5rem;
 }
 
-.meal-picker {
-  position: relative;
-  min-width: 9.5rem;
-}
-
-.meal-picker-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: 100%;
-  min-height: 42px;
-  padding: 0 0.55rem;
-  color: var(--ink);
-  background: var(--panel);
-  border: 1px solid var(--line);
-}
-
-.meal-picker-chevron {
-  margin-left: auto;
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.meal-picker-menu {
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + 0.35rem);
-  left: 0;
+.add-food-card {
   display: grid;
-  gap: 0.2rem;
-  width: max-content;
-  min-width: 100%;
-  padding: 0.35rem;
+  gap: 0.75rem;
+  min-width: 0;
+  margin: 0.25rem 0 0;
+  padding: 0.9rem 0.85rem 0.8rem;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--panel);
-  box-shadow: 0 14px 30px rgba(32, 36, 31, 0.16);
+  background: #fbfdfb;
 }
 
-.meal-picker-option {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-start;
-  min-height: 38px;
-  padding: 0.25rem 0.5rem;
+.add-food-card legend {
+  padding: 0 0.4rem;
   color: var(--ink);
-  background: transparent;
-  border: 0;
+  font-size: 0.92rem;
+  font-weight: 800;
 }
 
-.meal-picker-option:hover,
-.meal-picker-option.selected {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
+.add-food-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 0.75rem;
+  align-items: end;
 }
 
-.meal-type-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-}
-
-.meal-picker-option.selected .meal-type-icon,
-.meal-picker-option:hover .meal-type-icon {
-  background: var(--panel);
+.food-search-field {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .favorite-picker {
@@ -964,6 +773,18 @@ watch(
   font-weight: 700;
 }
 
+.favorite-helper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+}
+
+.favorite-helper :deep(svg) {
+  color: var(--accent-strong);
+  font-size: 0.95rem;
+}
+
 .favorite-picker-trigger {
   display: inline-flex;
   align-items: center;
@@ -971,18 +792,20 @@ watch(
   width: min(18rem, 100%);
   min-height: 42px;
   padding: 0 0.65rem;
-  color: var(--ink);
-  background: var(--panel);
   border: 1px solid var(--line);
-}
-
-.favorite-picker-trigger svg {
-  color: #a87600;
+  background: #fff;
 }
 
 .favorite-picker-trigger:disabled {
   cursor: not-allowed;
   opacity: 0.65;
+}
+
+.favorite-picker-chevron {
+  margin-left: auto;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .favorite-picker-menu {
@@ -1009,53 +832,12 @@ watch(
   justify-content: stretch;
   min-height: auto;
   padding: 0.55rem 0.65rem;
-  color: var(--ink);
-  background: transparent;
-  border: 0;
   text-align: left;
-}
-
-.favorite-picker-option:hover {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
 .favorite-picker-option small {
   color: var(--muted);
   font-weight: 400;
-}
-
-.recent-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 36px;
-  padding: 0 0.75rem;
-}
-
-.quick-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  min-width: 44px;
-  min-height: 36px;
-  padding: 0 0.55rem;
-  color: var(--accent-strong);
-}
-
-.recent-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  padding: 0 0.3rem;
-  border-radius: 999px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
 }
 
 .recents-dialog,
@@ -1146,15 +928,15 @@ watch(
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 0.35rem;
+  background: #fff;
 }
 
 .search-item {
   display: grid;
+  justify-content: stretch;
   gap: 0.15rem;
   min-height: auto;
   padding: 0.55rem 0.65rem;
-  background: #fff;
-  color: var(--ink);
   text-align: left;
   border: 1px solid var(--line);
 }
@@ -1162,12 +944,6 @@ watch(
 .search-item small {
   color: var(--muted);
   font-weight: 400;
-}
-
-.quantity-row {
-  display: grid;
-  grid-template-columns: 44px 1fr 44px;
-  gap: 0.35rem;
 }
 
 .draft-list {
@@ -1183,77 +959,22 @@ watch(
   font-size: 0.9rem;
 }
 
-.draft-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px 34px;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-}
-
-.draft-main {
-  display: grid;
-  gap: 0.15rem;
-  min-width: 0;
-}
-
-.draft-main strong {
-  overflow-wrap: anywhere;
-}
-
-.draft-main small {
-  color: var(--muted);
-}
-
-.draft-quantity {
-  grid-template-columns: 34px minmax(52px, 1fr) 34px;
-}
-
-.draft-quantity .qty-btn {
-  min-height: 34px;
-}
-
-.draft-quantity input {
-  min-height: 34px;
-  padding: 0.35rem;
-  text-align: center;
-}
-
-.qty-btn {
-  min-height: 44px;
-  padding: 0;
-}
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
+.is-modal .actions {
   justify-content: center;
-  width: 34px;
-  min-height: 34px;
-  padding: 0;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-}
-
-.icon-btn.danger {
-  color: var(--warn);
 }
 
 .table-scroll :deep(table) {
   min-width: 0;
 }
 
-@media (max-width: 520px) {
-  .draft-item {
-    grid-template-columns: minmax(0, 1fr) 34px;
+@media (max-width: 560px) {
+  .add-food-fields {
+    grid-template-columns: 1fr;
   }
 
-  .draft-quantity {
-    grid-column: 1 / -1;
-    grid-row: 2;
+  .favorite-picker-trigger {
+    width: 100%;
   }
 }
+
 </style>

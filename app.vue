@@ -5,6 +5,12 @@ import { authClient } from "~~/lib/auth-client";
 
 const tabs = ["Dashboard", "Meals", "Weight", "Foods"] as const;
 type Tab = (typeof tabs)[number];
+const tabIcons: Record<Tab, string> = {
+  Dashboard: "i-lucide-layout-dashboard",
+  Meals: "i-lucide-utensils",
+  Weight: "i-lucide-scale",
+  Foods: "i-lucide-apple",
+};
 
 const activeTab = ref<Tab>("Dashboard");
 const showSettings = ref(false);
@@ -105,131 +111,148 @@ watch(isSignedIn, async (signedIn) => {
 </script>
 
 <template>
-  <main v-if="!hasMounted" class="app-shell">
-    <div class="auth-shell">
-      <p class="status">Loading...</p>
-    </div>
-  </main>
-
-  <AuthLoginPanel v-else-if="!isSessionPending && !isSignedIn" />
-  <main v-else class="app-shell">
-    <header class="topbar">
-      <div class="brand-row">
-        <div>
-          <h1>Daily Nutrition Tracker</h1>
-          <p>{{ hasMounted ? headerClock : "Loading..." }}</p>
-        </div>
-        <AppAccountMenu
-          :user-alias="tracker.data.value?.settings.alias"
-          :user-email="session?.user.email"
-          @settings="openSettings"
-          @sign-out="signOut"
-        />
+  <UApp>
+    <main v-if="!hasMounted" class="app-shell">
+      <div class="auth-shell">
+        <p class="status">Loading...</p>
       </div>
-      <nav v-if="!showSettings" class="tabbar" aria-label="Tracker sections">
-        <button
-          v-for="tab in tabs"
-          :key="tab"
-          type="button"
-          :class="{ active: activeTab === tab }"
-          @click="activeTab = tab"
-        >
-          {{ tab }}
-        </button>
-      </nav>
-    </header>
+    </main>
 
-    <div class="content">
-      <p v-if="tracker.isLoading.value" class="status">Loading…</p>
-      <p v-else-if="tracker.errorMessage.value" class="error">{{ tracker.errorMessage.value }}</p>
-
-      <template v-else-if="tracker.data.value">
-        <SettingsPanel
-          v-if="showSettings"
-          :settings="tracker.data.value.settings"
-          @close="closeSettings"
-        />
-        <DashboardPanel
-          v-else-if="activeTab === 'Dashboard'"
-          :tracker="tracker.data.value"
-          :selected-date="selectedDate"
-          @quick-log="openQuickLog"
-          @quick-weight="openQuickWeight"
-        />
-        <LogPanel v-else-if="activeTab === 'Meals'" :tracker="tracker.data.value" />
-        <FoodsPanel
-          v-else-if="activeTab === 'Foods'"
-          :tracker="tracker.data.value"
-          @log-food="openQuickLog"
-        />
-        <WeightPanel
-          v-else-if="activeTab === 'Weight'"
-          :tracker="tracker.data.value"
-          @edit-weight="openQuickWeight"
-        />
-      </template>
-    </div>
-
-    <div
-      v-if="showQuickLog && tracker.data.value"
-      aria-labelledby="quick-log-title"
-      aria-modal="true"
-      class="modal-backdrop"
-      role="dialog"
-      @click.self="closeQuickLog"
-    >
-      <div class="quick-log-modal">
-        <div class="modal-header">
-          <h2 id="quick-log-title">Log meal</h2>
-          <button aria-label="Close" class="modal-close" type="button" @click="closeQuickLog">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
-              <path
-                fill="currentColor"
-                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-              />
-            </svg>
-          </button>
+    <AuthLoginPanel v-else-if="!isSessionPending && !isSignedIn" />
+    <main v-else class="app-shell">
+      <header class="topbar">
+        <div class="brand-row">
+          <div class="brand-title">
+            <span class="brand-mark" aria-hidden="true">
+              <UIcon name="i-lucide-sprout" class="brand-icon" />
+            </span>
+            <div>
+              <h1>Daily Nutrition Tracker</h1>
+              <p>{{ hasMounted ? headerClock : "Loading..." }}</p>
+            </div>
+          </div>
+          <AppAccountMenu
+            :user-alias="tracker.data.value?.settings.alias"
+            :user-email="session?.user.email"
+            @settings="openSettings"
+            @sign-out="signOut"
+          />
         </div>
-        <LogPanel
-          mode="modal"
-          :tracker="tracker.data.value"
-          :quick-add-signal="quickAddSignal"
-          :pending-food="pendingLogFood"
-          @consume-pending-food="pendingLogFood = null"
-          @meal-saved="closeQuickLog"
-        />
-      </div>
-    </div>
+        <nav v-if="!showSettings" class="tabbar" aria-label="Tracker sections">
+          <UButton
+            v-for="tab in tabs"
+            :key="tab"
+            class="nuxt-ui-button tab-button"
+            :class="{ active: activeTab === tab }"
+            :color="activeTab === tab ? 'primary' : 'neutral'"
+            :icon="tabIcons[tab]"
+            :variant="activeTab === tab ? 'soft' : 'ghost'"
+            type="button"
+            @click="activeTab = tab"
+          >
+            {{ tab }}
+          </UButton>
+        </nav>
+      </header>
 
-    <div
-      v-if="showQuickWeight && tracker.data.value"
-      aria-labelledby="quick-weight-title"
-      aria-modal="true"
-      class="modal-backdrop"
-      role="dialog"
-      @click.self="closeQuickWeight"
-    >
-      <div class="quick-log-modal">
-        <div class="modal-header">
-          <h2 id="quick-weight-title">Log weight</h2>
-          <button aria-label="Close" class="modal-close" type="button" @click="closeQuickWeight">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
-              <path
-                fill="currentColor"
-                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-              />
-            </svg>
-          </button>
-        </div>
-        <WeightPanel
-          mode="modal"
-          :tracker="tracker.data.value"
-          :pending-weight="pendingWeight"
-          @weight-saved="closeQuickWeight"
-        />
+      <div class="content">
+        <p v-if="tracker.isLoading.value" class="status">Loading…</p>
+        <p v-else-if="tracker.errorMessage.value" class="error">{{ tracker.errorMessage.value }}</p>
+
+        <template v-else-if="tracker.data.value">
+          <LazySettingsPanel
+            v-if="showSettings"
+            :settings="tracker.data.value.settings"
+            @close="closeSettings"
+          />
+          <LazyDashboardPanel
+            v-else-if="activeTab === 'Dashboard'"
+            :tracker="tracker.data.value"
+            :selected-date="selectedDate"
+            @quick-log="openQuickLog"
+            @quick-weight="openQuickWeight"
+          />
+          <LazyLogPanel v-else-if="activeTab === 'Meals'" :tracker="tracker.data.value" />
+          <LazyFoodsPanel
+            v-else-if="activeTab === 'Foods'"
+            :tracker="tracker.data.value"
+            @log-food="openQuickLog"
+          />
+          <LazyWeightPanel
+            v-else-if="activeTab === 'Weight'"
+            :tracker="tracker.data.value"
+            @edit-weight="openQuickWeight"
+          />
+        </template>
       </div>
-    </div>
-  </main>
+
+      <div
+        v-if="showQuickLog && tracker.data.value"
+        aria-labelledby="quick-log-title"
+        aria-modal="true"
+        class="modal-backdrop"
+        role="dialog"
+        @click.self="closeQuickLog"
+      >
+        <div class="quick-log-modal">
+          <div class="modal-header">
+            <h2 id="quick-log-title">Log meal</h2>
+            <UButton
+              aria-label="Close"
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-x"
+              size="sm"
+              square
+              type="button"
+              variant="soft"
+              @click="closeQuickLog"
+            />
+          </div>
+          <LazyLogPanel
+            mode="modal"
+            :tracker="tracker.data.value"
+            :quick-add-signal="quickAddSignal"
+            :pending-food="pendingLogFood"
+            @consume-pending-food="pendingLogFood = null"
+            @meal-saved="closeQuickLog"
+          />
+        </div>
+      </div>
+
+      <div
+        v-if="showQuickWeight && tracker.data.value"
+        aria-labelledby="quick-weight-title"
+        aria-modal="true"
+        class="modal-backdrop"
+        role="dialog"
+        @click.self="closeQuickWeight"
+      >
+        <div class="quick-log-modal">
+          <div class="modal-header">
+            <h2 id="quick-weight-title">Log weight</h2>
+            <UButton
+              aria-label="Close"
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-x"
+              size="sm"
+              square
+              type="button"
+              variant="soft"
+              @click="closeQuickWeight"
+            />
+          </div>
+          <LazyWeightPanel
+            mode="modal"
+            :tracker="tracker.data.value"
+            :pending-weight="pendingWeight"
+            @weight-saved="closeQuickWeight"
+          />
+        </div>
+      </div>
+    </main>
+  </UApp>
 </template>
 
 <style scoped>
@@ -242,6 +265,37 @@ watch(isSignedIn, async (signedIn) => {
   padding: 1rem;
   overflow-y: auto;
   background: rgba(32, 36, 31, 0.5);
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.75rem;
+}
+
+.brand-mark {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #bdd9ce;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.brand-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.tab-button {
+  justify-content: center;
+  min-height: 40px;
+  white-space: nowrap;
 }
 
 .quick-log-modal {
@@ -269,14 +323,4 @@ watch(isSignedIn, async (signedIn) => {
   font-size: 1rem;
 }
 
-.modal-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  min-height: 36px;
-  padding: 0;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-}
 </style>

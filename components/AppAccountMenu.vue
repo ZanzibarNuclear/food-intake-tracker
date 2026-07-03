@@ -41,26 +41,43 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
 
 <template>
   <div ref="menuRef" class="account-menu">
-    <button
+    <UButton
       :aria-expanded="open"
       aria-haspopup="menu"
       aria-label="Account menu"
-      class="account-button"
+      class="nuxt-ui-button account-button"
+      color="primary"
+      icon="i-lucide-user"
+      square
       type="button"
+      variant="soft"
       @click.stop="toggle"
-    >
-      <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22">
-        <path
-          fill="currentColor"
-          d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 2.13-7 4.75V20h14v-1.25C19 16.13 15.87 14 12 14z"
-        />
-      </svg>
-    </button>
+    />
     <div v-if="open" class="dropdown" role="menu">
       <p v-if="userAlias" class="menu-alias">{{ userAlias }}</p>
       <p v-if="userEmail" class="menu-email">{{ userEmail }}</p>
-      <button role="menuitem" type="button" @click="openSettings">Settings</button>
-      <button role="menuitem" type="button" @click="signOut">Sign out</button>
+      <UButton
+        class="nuxt-ui-button menu-action"
+        color="neutral"
+        icon="i-lucide-settings"
+        role="menuitem"
+        type="button"
+        variant="ghost"
+        @click="openSettings"
+      >
+        Settings
+      </UButton>
+      <UButton
+        class="nuxt-ui-button menu-action"
+        color="neutral"
+        icon="i-lucide-log-out"
+        role="menuitem"
+        type="button"
+        variant="ghost"
+        @click="signOut"
+      >
+        Sign out
+      </UButton>
     </div>
   </div>
 </template>
@@ -68,18 +85,6 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
 <style scoped>
 .account-menu {
   position: relative;
-}
-
-.account-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  min-height: 44px;
-  padding: 0;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
 .dropdown {
@@ -95,19 +100,10 @@ onBeforeUnmount(() => document.removeEventListener("click", onDocumentClick));
   box-shadow: 0 10px 30px rgba(32, 36, 31, 0.12);
 }
 
-.dropdown button {
+.menu-action {
+  justify-content: flex-start;
   width: 100%;
   min-height: 40px;
-  padding: 0.55rem 0.75rem;
-  background: transparent;
-  color: var(--ink);
-  font-weight: 600;
-  text-align: left;
-}
-
-.dropdown button:hover {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
 .menu-alias,

@@ -17,6 +17,8 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "@iconify-json/lucide": "^1.2.115",
+    "@nuxt/ui": "^4.9.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "better-auth": "^1.6.23",
     "chart.js": "^4.5.1",
@@ -24,6 +26,7 @@
     "nuxt": "^4.2.2",
     "pg": "^8.16.3",
     "resend": "^6.16.0",
+    "tailwindcss": "^4.3.2",
     "vue": "^3.5.24",
     "vue-chartjs": "^5.3.3",
     "vue-router": "^4.6.3"

@@ -75,13 +75,22 @@ onBeforeUnmount(() => {
     <div class="table-panel">
       <div class="panel-header">
         <h2>Settings</h2>
-        <button class="secondary" type="button" @click="emit('close')">Close</button>
+        <UButton
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          type="button"
+          variant="soft"
+          @click="emit('close')"
+        >
+          Close
+        </UButton>
       </div>
 
       <div class="form-grid">
         <label>
           Alias
-          <input
+          <UInput
             v-model="form.alias"
             :disabled="tracker.isSaving.value"
             type="text"
@@ -92,16 +101,14 @@ onBeforeUnmount(() => {
 
         <label>
           Time zone
-          <select
+          <USelect
             v-model="form.timezone"
+            :items="zones"
             :disabled="tracker.isSaving.value"
+            variant="outline"
             required
             @change="saveSettingsChange"
-          >
-            <option v-for="zone in zones" :key="zone.value" :value="zone.value">
-              {{ zone.label }}
-            </option>
-          </select>
+          />
         </label>
 
         <section class="target-card" aria-labelledby="targets-title">
@@ -109,7 +116,7 @@ onBeforeUnmount(() => {
           <div class="target-grid">
             <label>
               Calories
-              <input
+              <UInput
                 v-model.number="form.dailyCalorieTarget"
                 :disabled="tracker.isSaving.value"
                 min="1"
@@ -120,7 +127,7 @@ onBeforeUnmount(() => {
             </label>
             <label>
               Protein (g)
-              <input
+              <UInput
                 v-model.number="form.proteinTargetGrams"
                 :disabled="tracker.isSaving.value"
                 min="0"
@@ -131,7 +138,7 @@ onBeforeUnmount(() => {
             </label>
             <label>
               Nutrition
-              <input
+              <UInput
                 v-model.number="form.nutritionScoreTarget"
                 :disabled="tracker.isSaving.value"
                 max="10"
@@ -143,7 +150,7 @@ onBeforeUnmount(() => {
             </label>
             <label>
               Goal weight
-              <input
+              <UInput
                 v-model.number="form.goalWeight"
                 :disabled="tracker.isSaving.value"
                 min="1"
@@ -209,7 +216,4 @@ onBeforeUnmount(() => {
   flex: 0 0 8rem;
 }
 
-.target-grid input {
-  width: 100%;
-}
 </style>
