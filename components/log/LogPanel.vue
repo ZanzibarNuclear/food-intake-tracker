@@ -403,7 +403,7 @@ watch(
 
     <div v-if="!isModal" class="table-panel meal-chart-panel">
       <h2>Calorie trend (7 days)</h2>
-      <DashboardCalorieChart
+      <LazyDashboardCalorieChart
         :summaries="summaries"
         :selected-date="mealForm.date"
         :calorie-target="props.tracker.settings.dailyCalorieTarget"
@@ -412,7 +412,7 @@ watch(
 
     <div v-if="!isModal" class="table-panel meal-chart-panel">
       <h2>Protein trend (7 days)</h2>
-      <DashboardProteinChart
+      <LazyDashboardProteinChart
         :summaries="summaries"
         :selected-date="mealForm.date"
         :protein-target="props.tracker.settings.proteinTargetGrams"

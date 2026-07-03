@@ -167,7 +167,7 @@ watch(weightTotalPages, (totalPages) => {
 
     <div v-if="!isModal" class="table-panel weight-chart-panel">
       <h2>Weight trend</h2>
-      <DashboardWeightChart
+      <LazyDashboardWeightChart
         :weights="props.tracker.weights"
         :goal-weight="props.tracker.settings.goalWeight"
         :selected-date="todayIso(timezone)"

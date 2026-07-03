@@ -160,25 +160,25 @@ watch(isSignedIn, async (signedIn) => {
         <p v-else-if="tracker.errorMessage.value" class="error">{{ tracker.errorMessage.value }}</p>
 
         <template v-else-if="tracker.data.value">
-          <SettingsPanel
+          <LazySettingsPanel
             v-if="showSettings"
             :settings="tracker.data.value.settings"
             @close="closeSettings"
           />
-          <DashboardPanel
+          <LazyDashboardPanel
             v-else-if="activeTab === 'Dashboard'"
             :tracker="tracker.data.value"
             :selected-date="selectedDate"
             @quick-log="openQuickLog"
             @quick-weight="openQuickWeight"
           />
-          <LogPanel v-else-if="activeTab === 'Meals'" :tracker="tracker.data.value" />
-          <FoodsPanel
+          <LazyLogPanel v-else-if="activeTab === 'Meals'" :tracker="tracker.data.value" />
+          <LazyFoodsPanel
             v-else-if="activeTab === 'Foods'"
             :tracker="tracker.data.value"
             @log-food="openQuickLog"
           />
-          <WeightPanel
+          <LazyWeightPanel
             v-else-if="activeTab === 'Weight'"
             :tracker="tracker.data.value"
             @edit-weight="openQuickWeight"
@@ -209,7 +209,7 @@ watch(isSignedIn, async (signedIn) => {
               @click="closeQuickLog"
             />
           </div>
-          <LogPanel
+          <LazyLogPanel
             mode="modal"
             :tracker="tracker.data.value"
             :quick-add-signal="quickAddSignal"
@@ -243,7 +243,7 @@ watch(isSignedIn, async (signedIn) => {
               @click="closeQuickWeight"
             />
           </div>
-          <WeightPanel
+          <LazyWeightPanel
             mode="modal"
             :tracker="tracker.data.value"
             :pending-weight="pendingWeight"
