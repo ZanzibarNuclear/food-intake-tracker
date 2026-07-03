@@ -34,10 +34,36 @@ const foodForm = reactive<Food>({
   notes: null,
 });
 
+const foodNotes = computed({
+  get: () => foodForm.notes ?? "",
+  set: (value: string) => {
+    foodForm.notes = value || null;
+  },
+});
+
 const searchResults = ref<Food[]>([]);
 let searchTimer: ReturnType<typeof setTimeout> | null = null;
 let mergeSearchTimer: ReturnType<typeof setTimeout> | null = null;
 let skipNextMergeSearch = false;
+
+const filterOptions = [
+  { label: "All", value: "all" },
+  { label: "My foods", value: "my" },
+  { label: "Catalog", value: "catalog" },
+] satisfies Array<{ label: string; value: "all" | "my" | "catalog" }>;
+
+const pageSizeOptions = [
+  { label: "10 / page", value: 10 },
+  { label: "25 / page", value: 25 },
+  { label: "50 / page", value: 50 },
+  { label: "100 / page", value: 100 },
+];
+
+const foodModalTitle = computed(() => {
+  if (foodModalMode.value === "view") return "Food details";
+  if (foodModalMode.value === "merge") return "Merge food";
+  return editingFoodId.value ? "Edit food" : "Add food";
+});
 
 async function runSearch() {
   const result = await $fetch<FoodSearchResult>("/api/foods", {
@@ -240,38 +266,55 @@ onMounted(runSearch);
 <template>
   <section class="section">
     <div class="foods-actions">
-      <button type="button" @click="openFoodModal">+ Food</button>
+      <UButton class="nuxt-ui-button" icon="i-lucide-plus" type="button" variant="soft" @click="openFoodModal">
+        Food
+      </UButton>
     </div>
     <div class="table-panel food-catalog-panel">
       <div class="panel-header">
         <h2>Food catalog</h2>
         <div class="filters">
-          <input v-model="foodQuery" aria-label="Search foods" placeholder="Search foods" />
+          <UInput
+            v-model="foodQuery"
+            aria-label="Search foods"
+            class="food-search"
+            icon="i-lucide-search"
+            placeholder="Search foods"
+          />
           <div class="filter-selects">
-            <select v-model="foodFilter">
-              <option value="all">All</option>
-              <option value="my">My foods</option>
-              <option value="catalog">Catalog</option>
-            </select>
-            <select v-model.number="pageSize" aria-label="Rows per page">
-              <option :value="10">10 / page</option>
-              <option :value="25">25 / page</option>
-              <option :value="50">50 / page</option>
-              <option :value="100">100 / page</option>
-            </select>
+            <USelect v-model="foodFilter" :items="filterOptions" class="filter-select" />
+            <USelect v-model="pageSize" :items="pageSizeOptions" aria-label="Rows per page" class="filter-select" />
           </div>
         </div>
       </div>
       <div class="pagination-bar">
         <span>{{ firstResult }}-{{ lastResult }} of {{ totalFoods }}</span>
         <div class="pager-actions">
-          <button class="secondary small" type="button" :disabled="page <= 1" @click="goToPage(page - 1)">
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
+            type="button"
+            variant="soft"
+            :disabled="page <= 1"
+            @click="goToPage(page - 1)"
+          >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ page }} of {{ totalPages }}</span>
-          <button class="secondary small" type="button" :disabled="page >= totalPages" @click="goToPage(page + 1)">
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
+            type="button"
+            variant="soft"
+            :disabled="page >= totalPages"
+            @click="goToPage(page + 1)"
+          >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
       <div class="table-scroll">
@@ -296,39 +339,24 @@ onMounted(runSearch);
             >
               <td>
                 {{ food.name }}
-                <span v-if="food.isSystemSeed" aria-label="Catalog food" class="source-icon" title="Catalog food">
-                  <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14">
-                    <path
-                      fill="currentColor"
-                      d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm2.5-.5a.5.5 0 0 0-.5.5v13.05c.17-.03.33-.05.5-.05H18V4H7.5ZM4 4h1v17.5H4V4Z"
-                    />
-                  </svg>
-                </span>
+                <FoodsSourceIcon v-if="food.isSystemSeed" />
               </td>
               <td>{{ food.servingDescription }}</td>
               <td class="favorite-col">
-                <button
+                <UButton
                   v-if="food.id"
-                  class="secondary small star-btn"
+                  class="nuxt-ui-button star-btn"
                   :class="{ active: isFavorite(food) }"
                   :aria-label="isFavorite(food) ? 'Remove from favorites' : 'Add to favorites'"
                   :aria-pressed="isFavorite(food)"
+                  :icon="isFavorite(food) ? 'i-lucide-star' : 'i-lucide-star'"
+                  :color="isFavorite(food) ? 'warning' : 'neutral'"
+                  size="xs"
+                  square
                   type="button"
+                  variant="soft"
                   @click.stop="favoriteFood(food.id)"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      v-if="isFavorite(food)"
-                      fill="currentColor"
-                      d="m12 2.5 2.9 5.87 6.48.94-4.69 4.57 1.1 6.45L12 17.28l-5.79 3.05 1.1-6.45-4.69-4.57 6.48-.94L12 2.5Z"
-                    />
-                    <path
-                      v-else
-                      fill="currentColor"
-                      d="m12 6.94 1.68 3.4.46.94 1.04.15 3.75.54-2.71 2.65-.75.73.18 1.03.64 3.73-3.35-1.76-.94-.5-.94.5-3.35 1.76.64-3.73.18-1.03-.75-.73-2.71-2.65 3.75-.54 1.04-.15.46-.94L12 6.94Zm0-4.44L9.1 8.37l-6.48.94 4.69 4.57-1.1 6.45L12 17.28l5.79 3.05-1.1-6.45 4.69-4.57-6.48-.94L12 2.5Z"
-                    />
-                  </svg>
-                </button>
+                />
               </td>
             </tr>
           </tbody>
@@ -337,13 +365,31 @@ onMounted(runSearch);
       <div class="pagination-bar bottom">
         <span>{{ firstResult }}-{{ lastResult }} of {{ totalFoods }}</span>
         <div class="pager-actions">
-          <button class="secondary small" type="button" :disabled="page <= 1" @click="goToPage(page - 1)">
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-left"
+            size="xs"
+            type="button"
+            variant="soft"
+            :disabled="page <= 1"
+            @click="goToPage(page - 1)"
+          >
             Previous
-          </button>
+          </UButton>
           <span>Page {{ page }} of {{ totalPages }}</span>
-          <button class="secondary small" type="button" :disabled="page >= totalPages" @click="goToPage(page + 1)">
+          <UButton
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-chevron-right"
+            size="xs"
+            type="button"
+            variant="soft"
+            :disabled="page >= totalPages"
+            @click="goToPage(page + 1)"
+          >
             Next
-          </button>
+          </UButton>
         </div>
       </div>
     </div>
@@ -358,44 +404,25 @@ onMounted(runSearch);
     >
       <div class="food-modal">
         <div class="modal-header">
-          <h2 id="food-modal-title">
-            {{
-              foodModalMode === "view"
-                ? "Food details"
-                : foodModalMode === "merge"
-                  ? "Merge food"
-                  : editingFoodId
-                    ? "Edit food"
-                    : "Add food"
-            }}
-          </h2>
-          <button aria-label="Close" class="modal-close" type="button" @click="closeFoodModal">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
-              <path
-                fill="currentColor"
-                d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
-              />
-            </svg>
-          </button>
+          <h2 id="food-modal-title">{{ foodModalTitle }}</h2>
+          <UButton
+            aria-label="Close"
+            class="nuxt-ui-button"
+            color="neutral"
+            icon="i-lucide-x"
+            size="sm"
+            square
+            type="button"
+            variant="soft"
+            @click="closeFoodModal"
+          />
         </div>
 
         <div v-if="foodModalMode === 'view' && selectedFood" class="food-detail">
           <div>
             <h3>{{ selectedFood.name }}</h3>
             <p>{{ selectedFood.servingDescription }}</p>
-            <span
-              v-if="selectedFood.isSystemSeed"
-              aria-label="Catalog food"
-              class="source-icon"
-              title="Catalog food"
-            >
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14">
-                <path
-                  fill="currentColor"
-                  d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm2.5-.5a.5.5 0 0 0-.5.5v13.05c.17-.03.33-.05.5-.05H18V4H7.5ZM4 4h1v17.5H4V4Z"
-                />
-              </svg>
-            </span>
+            <FoodsSourceIcon v-if="selectedFood.isSystemSeed" />
           </div>
 
           <dl class="detail-grid">
@@ -423,39 +450,58 @@ onMounted(runSearch);
           </div>
 
           <div class="actions">
-            <button type="button" @click="useFood(selectedFood)">Use</button>
-            <button
-              v-if="selectedFood.isSystemSeed"
-              class="secondary"
+            <UButton
+              class="nuxt-ui-button"
+              icon="i-lucide-clipboard-pen-line"
               type="button"
+              @click="useFood(selectedFood)"
+            >
+              Use
+            </UButton>
+            <UButton
+              v-if="selectedFood.isSystemSeed"
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-copy"
+              type="button"
+              variant="soft"
               @click="copyFood(selectedFood)"
             >
               Copy
-            </button>
-            <button
+            </UButton>
+            <UButton
               v-if="!selectedFood.isSystemSeed"
-              class="secondary"
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-pencil"
               type="button"
+              variant="soft"
               @click="editSelectedFood"
             >
               Edit
-            </button>
-            <button
+            </UButton>
+            <UButton
               v-if="!selectedFood.isSystemSeed"
-              class="secondary"
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-git-merge"
               type="button"
+              variant="soft"
               @click="startMergeFood"
             >
               Merge
-            </button>
-            <button
+            </UButton>
+            <UButton
               v-if="!selectedFood.isSystemSeed && selectedFood.id"
-              class="secondary danger"
+              class="nuxt-ui-button"
+              color="error"
+              icon="i-lucide-trash-2"
               type="button"
+              variant="soft"
               @click="removeFood(selectedFood.id)"
             >
               Delete
-            </button>
+            </UButton>
           </div>
         </div>
 
@@ -467,34 +513,29 @@ onMounted(runSearch);
 
           <label>
             Merge into
-            <input v-model="mergeQuery" autocomplete="off" />
+            <UInput v-model="mergeQuery" autocomplete="off" icon="i-lucide-search" />
           </label>
 
           <div v-if="mergeResults.length" class="merge-results">
-            <button
+            <UButton
               v-for="food in mergeResults"
               :key="food.id"
               class="merge-result"
+              color="neutral"
               type="button"
+              variant="ghost"
               @click="selectMergeTarget(food)"
             >
               <span>
                 {{ food.name }}
-                <span v-if="food.isSystemSeed" aria-label="Catalog food" class="source-icon" title="Catalog food">
-                  <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14">
-                    <path
-                      fill="currentColor"
-                      d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm2.5-.5a.5.5 0 0 0-.5.5v13.05c.17-.03.33-.05.5-.05H18V4H7.5ZM4 4h1v17.5H4V4Z"
-                    />
-                  </svg>
-                </span>
+                <FoodsSourceIcon v-if="food.isSystemSeed" />
               </span>
               <small>
                 {{ food.servingDescription }} ·
                 {{ formatNumber(food.calories) }} cal ·
                 {{ formatNumber(food.proteinGrams, 1) }}g protein
               </small>
-            </button>
+            </UButton>
           </div>
 
           <div v-if="mergeTarget" class="merge-target">
@@ -504,14 +545,26 @@ onMounted(runSearch);
           </div>
 
           <div class="actions">
-            <button
+            <UButton
+              class="nuxt-ui-button"
+              icon="i-lucide-git-merge"
               type="button"
               :disabled="trackerApi.isSaving.value || !mergeTarget"
+              :loading="trackerApi.isSaving.value"
               @click="submitMergeFood"
             >
               Merge
-            </button>
-            <button class="secondary" type="button" @click="foodModalMode = 'view'">Cancel</button>
+            </UButton>
+            <UButton
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-undo-2"
+              type="button"
+              variant="soft"
+              @click="foodModalMode = 'view'"
+            >
+              Cancel
+            </UButton>
           </div>
         </div>
 
@@ -519,40 +572,55 @@ onMounted(runSearch);
           <div class="form-grid">
             <label>
               Food name / nickname
-              <input v-model="foodForm.name" required />
+              <UInput v-model="foodForm.name" required />
             </label>
             <label>
               Serving description
-              <input v-model="foodForm.servingDescription" required />
+              <UInput v-model="foodForm.servingDescription" required />
             </label>
             <div class="score-grid">
               <label>
                 Calories
-                <input v-model.number="foodForm.calories" min="0" step="1" type="number" required />
+                <UInput v-model.number="foodForm.calories" min="0" step="1" type="number" required />
               </label>
               <label>
                 Protein (g)
-                <input v-model.number="foodForm.proteinGrams" min="0" step="1" type="number" required />
+                <UInput v-model.number="foodForm.proteinGrams" min="0" step="1" type="number" required />
               </label>
               <label>
                 Nutrition
-                <input v-model.number="foodForm.nutritionScore" max="10" min="1" step="1" type="number" required />
+                <UInput v-model.number="foodForm.nutritionScore" max="10" min="1" step="1" type="number" required />
               </label>
               <label>
                 Satiety
-                <input v-model.number="foodForm.satietyScore" max="10" min="0" step="1" type="number" />
+                <UInput v-model.number="foodForm.satietyScore" max="10" min="0" step="1" type="number" />
               </label>
             </div>
             <label>
               Notes
-              <textarea v-model="foodForm.notes" />
+              <UTextarea v-model="foodNotes" />
             </label>
           </div>
           <div class="actions">
-            <button :disabled="trackerApi.isSaving.value" type="submit">
+            <UButton
+              :disabled="trackerApi.isSaving.value"
+              :icon="editingFoodId ? 'i-lucide-save' : 'i-lucide-plus'"
+              :loading="trackerApi.isSaving.value"
+              class="nuxt-ui-button"
+              type="submit"
+            >
               {{ editingFoodId ? "Update food" : "Save food" }}
-            </button>
-            <button class="secondary" type="button" @click="closeFoodModal">Cancel</button>
+            </UButton>
+            <UButton
+              class="nuxt-ui-button"
+              color="neutral"
+              icon="i-lucide-x"
+              type="button"
+              variant="soft"
+              @click="closeFoodModal"
+            >
+              Cancel
+            </UButton>
           </div>
         </form>
       </div>
@@ -592,7 +660,12 @@ onMounted(runSearch);
   min-width: 0;
 }
 
-.filters select {
+.food-search {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.filter-select {
   flex: 0 0 auto;
   width: auto;
   min-width: 7.25rem;
@@ -646,19 +719,6 @@ onMounted(runSearch);
   outline: none;
 }
 
-.source-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  margin-left: 0.3rem;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  vertical-align: middle;
-}
-
 .favorite-col {
   width: 3rem;
   text-align: center;
@@ -684,16 +744,6 @@ onMounted(runSearch);
 
 .pager-actions span {
   white-space: nowrap;
-}
-
-button.small {
-  min-height: 30px;
-  padding: 0 0.45rem;
-  font-size: 0.76rem;
-}
-
-button.danger {
-  color: var(--warn);
 }
 
 .star-btn {
@@ -743,17 +793,6 @@ button.danger {
 .modal-header h2 {
   margin: 0;
   font-size: 1rem;
-}
-
-.modal-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  min-height: 36px;
-  padding: 0;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
 }
 
 .food-form {
