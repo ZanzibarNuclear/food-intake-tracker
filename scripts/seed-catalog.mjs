@@ -22,7 +22,7 @@ try {
         is_system_seed,
         source
       ) values (null, $1, $2, $3, $4, $5, $6, $7, true, 'usda')
-      on conflict ((lower(name))) where is_system_seed = true do update set
+      on conflict ((lower(name))) where is_system_seed = true and archived_at is null do update set
         serving_description = excluded.serving_description,
         calories = excluded.calories,
         protein_grams = excluded.protein_grams,
