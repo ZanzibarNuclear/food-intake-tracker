@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
 :root {
   color-scheme: light;
   --bg: #f7f8f3;
@@ -33,16 +36,19 @@ textarea {
 }
 
 button {
+  cursor: pointer;
+}
+
+button:not(.nuxt-ui-button) {
   min-height: 44px;
   border: 0;
   border-radius: 8px;
   background: var(--accent);
   color: white;
   font-weight: 700;
-  cursor: pointer;
 }
 
-button.secondary {
+button.secondary:not(.nuxt-ui-button) {
   background: var(--accent-soft);
   color: var(--accent-strong);
 }
@@ -118,7 +124,7 @@ label {
   gap: 0.35rem;
 }
 
-.tabbar button {
+.tabbar button:not(.nuxt-ui-button) {
   min-height: 40px;
   padding: 0.5rem 0.4rem;
   background: transparent;
@@ -126,7 +132,7 @@ label {
   border: 1px solid transparent;
 }
 
-.tabbar button.active {
+.tabbar button.active:not(.nuxt-ui-button) {
   background: var(--accent-soft);
   border-color: #bdd9ce;
   color: var(--accent-strong);

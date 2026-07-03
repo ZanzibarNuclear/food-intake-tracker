@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2026-06-26",
   css: ["~/assets/css/main.css"],
   devtools: { enabled: false },
-  modules: [],
+  modules: ["@nuxt/ui"],
   runtimeConfig: {
     databaseUrl: process.env.DATABASE_URL,
     betterAuthSecret: process.env.BETTER_AUTH_SECRET,
@@ -21,6 +21,16 @@ export default defineNuxtConfig({
     authEmailFrom: process.env.AUTH_EMAIL_FROM,
     public: {
       appName: "Daily Nutrition Tracker",
+    },
+  },
+  ui: {
+    colorMode: false,
+    theme: {
+      colors: ["primary", "secondary", "success", "info", "warning", "error"],
+      defaultVariants: {
+        color: "primary",
+        size: "md",
+      },
     },
   },
   typescript: {

@@ -75,7 +75,16 @@ onBeforeUnmount(() => {
     <div class="table-panel">
       <div class="panel-header">
         <h2>Settings</h2>
-        <button class="secondary" type="button" @click="emit('close')">Close</button>
+        <UButton
+          class="nuxt-ui-button"
+          color="neutral"
+          icon="i-lucide-x"
+          type="button"
+          variant="soft"
+          @click="emit('close')"
+        >
+          Close
+        </UButton>
       </div>
 
       <div class="form-grid">
@@ -109,7 +118,7 @@ onBeforeUnmount(() => {
           <div class="target-grid">
             <label>
               Calories
-              <input
+              <UInput
                 v-model.number="form.dailyCalorieTarget"
                 :disabled="tracker.isSaving.value"
                 min="1"
@@ -120,7 +129,7 @@ onBeforeUnmount(() => {
             </label>
             <label>
               Protein (g)
-              <input
+              <UInput
                 v-model.number="form.proteinTargetGrams"
                 :disabled="tracker.isSaving.value"
                 min="0"
@@ -131,7 +140,7 @@ onBeforeUnmount(() => {
             </label>
             <label>
               Nutrition
-              <input
+              <UInput
                 v-model.number="form.nutritionScoreTarget"
                 :disabled="tracker.isSaving.value"
                 max="10"
@@ -143,7 +152,7 @@ onBeforeUnmount(() => {
             </label>
             <label>
               Goal weight
-              <input
+              <UInput
                 v-model.number="form.goalWeight"
                 :disabled="tracker.isSaving.value"
                 min="1"
