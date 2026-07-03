@@ -105,6 +105,7 @@ onBeforeUnmount(() => {
             v-model="form.timezone"
             :items="zones"
             :disabled="tracker.isSaving.value"
+            variant="outline"
             required
             @change="saveSettingsChange"
           />
@@ -215,7 +216,4 @@ onBeforeUnmount(() => {
   flex: 0 0 8rem;
 }
 
-.target-grid input {
-  width: 100%;
-}
 </style>

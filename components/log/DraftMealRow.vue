@@ -28,13 +28,6 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 
 <template>
   <div class="draft-item">
-    <div class="draft-main">
-      <strong>{{ item.foodName }}</strong>
-      <small>
-        {{ formatNumber(calories) }} cal ·
-        {{ formatNumber(proteinGrams, 1) }}g protein
-      </small>
-    </div>
     <div class="quantity-row draft-quantity">
       <UButton
         aria-label="Decrease quantity"
@@ -68,6 +61,13 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
         @click="emit('bump', item.tempId, 0.25)"
       />
     </div>
+    <div class="draft-main">
+      <strong>{{ item.foodName }}</strong>
+      <small>
+        {{ formatNumber(calories) }} cal ·
+        {{ formatNumber(proteinGrams, 1) }}g protein
+      </small>
+    </div>
     <UButton
       aria-label="Remove food"
       class="nuxt-ui-button"
@@ -84,11 +84,10 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 
 <style scoped>
 .draft-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto 34px;
+  display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.48rem 0.55rem;
+  gap: 0.65rem;
+  padding: 0.42rem 0.5rem;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -97,6 +96,7 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 
 .draft-main {
   display: grid;
+  flex: 1 1 auto;
   gap: 0.15rem;
   min-width: 0;
 }
@@ -117,12 +117,13 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 }
 
 .draft-quantity {
-  grid-template-columns: 30px 2.9rem 30px;
-  gap: 0.25rem;
+  grid-template-columns: 28px 2.75rem 28px;
+  flex: 0 0 auto;
+  gap: 0.2rem;
 }
 
 .quantity-input {
-  width: 2.9rem;
+  width: 2.75rem;
 }
 
 .quantity-input :deep(input) {
@@ -130,14 +131,4 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
   text-align: center;
 }
 
-@media (max-width: 520px) {
-  .draft-item {
-    grid-template-columns: minmax(0, 1fr) 34px;
-  }
-
-  .draft-quantity {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-}
 </style>

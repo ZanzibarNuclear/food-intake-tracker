@@ -294,7 +294,7 @@ watch(
       <div class="meal-header-row">
         <label class="compact-field">
           Date
-          <UInput v-model="mealForm.date" class="compact-input" type="date" required />
+          <UInput v-model="mealForm.date" class="compact-input" size="md" type="date" variant="outline" required />
         </label>
         <LogMealPicker v-model="mealForm.meal" />
       </div>
@@ -671,17 +671,6 @@ watch(
   font-size: 1rem;
 }
 
-.panel-header input {
-  width: auto;
-  min-width: 9.5rem;
-}
-
-.history-summary .panel-header input {
-  min-height: 36px;
-  padding: 0.45rem 0.6rem;
-  font-size: 0.82rem;
-}
-
 .summary-table {
   min-width: 0;
   font-size: 0.82rem;
@@ -735,12 +724,6 @@ watch(
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 700;
-}
-
-.compact-field input,
-.compact-field select {
-  width: auto;
-  min-width: 9.5rem;
 }
 
 .compact-input {

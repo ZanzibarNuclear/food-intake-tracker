@@ -280,10 +280,26 @@ onMounted(runSearch);
             class="food-search"
             icon="i-lucide-search"
             placeholder="Search foods"
+            size="sm"
+            variant="outline"
           />
           <div class="filter-selects">
-            <USelect v-model="foodFilter" :items="filterOptions" class="filter-select" />
-            <USelect v-model="pageSize" :items="pageSizeOptions" aria-label="Rows per page" class="filter-select" />
+            <USelect
+              v-model="foodFilter"
+              :items="filterOptions"
+              aria-label="Food source filter"
+              class="filter-select"
+              size="sm"
+              variant="outline"
+            />
+            <USelect
+              v-model="pageSize"
+              :items="pageSizeOptions"
+              aria-label="Rows per page"
+              class="filter-select"
+              size="sm"
+              variant="outline"
+            />
           </div>
         </div>
       </div>
@@ -513,7 +529,14 @@ onMounted(runSearch);
 
           <label>
             Merge into
-            <UInput v-model="mergeQuery" autocomplete="off" icon="i-lucide-search" />
+            <UInput
+              v-model="mergeQuery"
+              autocomplete="off"
+              icon="i-lucide-search"
+              placeholder="Search foods"
+              size="md"
+              variant="outline"
+            />
           </label>
 
           <div v-if="mergeResults.length" class="merge-results">
@@ -634,7 +657,7 @@ onMounted(runSearch);
   justify-content: flex-start;
 }
 
-.foods-actions button {
+.foods-actions button:not(.nuxt-ui-button) {
   padding: 0 1rem;
 }
 
@@ -653,11 +676,6 @@ onMounted(runSearch);
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem;
-}
-
-.filters input {
-  flex: 1 1 12rem;
-  min-width: 0;
 }
 
 .food-search {
@@ -683,9 +701,9 @@ onMounted(runSearch);
   font-size: 0.86rem;
 }
 
-.food-catalog-panel :deep(input),
+.food-catalog-panel :deep(input:not([data-slot="base"])),
 .food-catalog-panel :deep(select),
-.food-catalog-panel button {
+.food-catalog-panel button:not(.nuxt-ui-button) {
   font-size: 0.82rem;
 }
 
@@ -911,10 +929,6 @@ onMounted(runSearch);
 
 .score-grid label {
   flex: 0 0 7.25rem;
-}
-
-.score-grid input {
-  width: 100%;
 }
 
 </style>

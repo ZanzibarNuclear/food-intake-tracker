@@ -137,7 +137,7 @@ watch(weightTotalPages, (totalPages) => {
       <div class="weight-form-grid">
         <label class="compact-field">
           Date
-          <UInput v-model="weightForm.date" class="compact-input" type="date" required />
+          <UInput v-model="weightForm.date" class="compact-input" size="md" type="date" variant="outline" required />
         </label>
         <label class="compact-field">
           Weight
@@ -146,8 +146,10 @@ watch(weightTotalPages, (totalPages) => {
             class="compact-input"
             inputmode="decimal"
             min="1"
+            size="md"
             step="0.1"
             type="number"
+            variant="outline"
             required
           />
         </label>
@@ -376,11 +378,6 @@ watch(weightTotalPages, (totalPages) => {
 
 .compact-field {
   width: auto;
-}
-
-.compact-field input {
-  width: auto;
-  min-width: 9.5rem;
 }
 
 .compact-input {
