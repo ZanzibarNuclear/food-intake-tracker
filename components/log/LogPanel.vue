@@ -303,11 +303,13 @@ watch(
         <legend>Add food</legend>
         <div class="add-food-fields">
           <div class="favorite-picker">
-            <span class="field-label">Favorites</span>
+            <span class="favorite-helper">
+              <UIcon name="i-lucide-star" aria-hidden="true" />
+              Choose from your favorites
+            </span>
             <UButton
               class="favorite-picker-trigger"
               color="neutral"
-              icon="i-lucide-star"
               type="button"
               :disabled="!favoriteFoods.length"
               aria-haspopup="listbox"
@@ -343,6 +345,8 @@ watch(
               autocomplete="off"
               icon="i-lucide-search"
               placeholder="Search foods to add"
+              size="md"
+              variant="outline"
             />
           </label>
         </div>
@@ -384,9 +388,9 @@ watch(
       <div class="actions">
         <UButton
           :disabled="trackerApi.isSaving.value || !draftMeals.length"
-          :icon="editingMealId ? 'i-lucide-save' : 'i-lucide-plus'"
+          :icon="editingMealId ? 'i-lucide-save' : 'i-lucide-clipboard-pen-line'"
           :loading="trackerApi.isSaving.value"
-          class="nuxt-ui-button save-meal-button"
+          class="nuxt-ui-button"
           type="submit"
           variant="soft"
         >
@@ -786,6 +790,18 @@ watch(
   font-weight: 700;
 }
 
+.favorite-helper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+}
+
+.favorite-helper :deep(svg) {
+  color: var(--accent-strong);
+  font-size: 0.95rem;
+}
+
 .favorite-picker-trigger {
   display: inline-flex;
   align-items: center;
@@ -960,10 +976,8 @@ watch(
   font-size: 0.9rem;
 }
 
-.save-meal-button {
-  min-width: 9.25rem;
+.is-modal .actions {
   justify-content: center;
-  font-weight: 800;
 }
 
 .table-scroll :deep(table) {

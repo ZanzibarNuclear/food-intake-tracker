@@ -29,7 +29,7 @@ body {
 }
 
 button,
-input,
+input:not([data-slot="base"]),
 select,
 textarea {
   font: inherit;
@@ -53,12 +53,12 @@ button.secondary:not(.nuxt-ui-button) {
   color: var(--accent-strong);
 }
 
-button:disabled {
+button:disabled:not(.nuxt-ui-button) {
   opacity: 0.55;
-  cursor: wait;
+  cursor: not-allowed;
 }
 
-input,
+input:not([data-slot="base"]),
 select,
 textarea {
   width: 100%;

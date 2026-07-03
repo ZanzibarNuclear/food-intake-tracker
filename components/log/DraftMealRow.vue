@@ -47,7 +47,15 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
         variant="soft"
         @click="emit('bump', item.tempId, -0.25)"
       />
-      <UInput v-model.number="item.quantity" class="quantity-input" min="0.01" step="0.01" type="number" required />
+      <UInput
+        v-model.number="item.quantity"
+        class="quantity-input"
+        min="0.01"
+        size="xs"
+        step="0.01"
+        type="number"
+        required
+      />
       <UButton
         aria-label="Increase quantity"
         class="nuxt-ui-button"
@@ -77,13 +85,14 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 <style scoped>
 .draft-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px 34px;
+  grid-template-columns: minmax(0, 1fr) auto 34px;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem;
+  gap: 0.45rem;
+  padding: 0.48rem 0.55rem;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
+  font-size: 0.84rem;
 }
 
 .draft-main {
@@ -98,6 +107,7 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 
 .draft-main small {
   color: var(--muted);
+  font-size: 0.76rem;
 }
 
 .quantity-row {
@@ -107,14 +117,16 @@ function formatNumber(value: number | null | undefined, decimals = 0) {
 }
 
 .draft-quantity {
-  grid-template-columns: 34px minmax(52px, 1fr) 34px;
+  grid-template-columns: 30px 2.9rem 30px;
+  gap: 0.25rem;
 }
 
 .quantity-input {
-  min-height: 34px;
+  width: 2.9rem;
 }
 
 .quantity-input :deep(input) {
+  padding-inline: 0.2rem;
   text-align: center;
 }
 
